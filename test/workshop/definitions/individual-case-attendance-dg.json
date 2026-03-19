@@ -1,0 +1,319 @@
+{
+  "dataspaceName": "default",
+  "description": "Workshop Data Graph: Unified Individual with CI, Cases (30d), and Attendance (30d)",
+  "label": "Individual Case and Attendance",
+  "name": "Individual_Case_and_Attendance",
+  "primaryObjectName": "UnifiedssotIndividualWksp__dlm",
+  "type": "NONE",
+  "sourceObject": {
+    "name": "UnifiedssotIndividualWksp__dlm",
+    "type": "derived",
+    "recencyCriteria": [],
+    "path": [],
+    "jsonPath": "$",
+    "fields": [
+      {
+        "isKeyColumn": true,
+        "sourceFieldName": "ssot__Id__c",
+        "dataType": "TEXT",
+        "isProjected": true,
+        "keyQualifierName": "",
+        "usageTag": "NONE"
+      },
+      {
+        "isKeyColumn": false,
+        "sourceFieldName": "ssot__FirstName__c",
+        "dataType": "TEXT",
+        "isProjected": true,
+        "keyQualifierName": "",
+        "usageTag": "NONE"
+      },
+      {
+        "isKeyColumn": false,
+        "sourceFieldName": "ssot__LastName__c",
+        "dataType": "TEXT",
+        "isProjected": true,
+        "keyQualifierName": "",
+        "usageTag": "NONE"
+      }
+    ],
+    "relatedObjects": [
+      {
+        "name": "Unified_Individual_Avg_Engagement_Score__cio",
+        "type": "calculated",
+        "recencyCriteria": [],
+        "fields": [
+          {
+            "isKeyColumn": false,
+            "sourceFieldName": "average_engagement_score__c",
+            "dataType": "NUMBER",
+            "ciFieldType": "MEASURE",
+            "isProjected": true,
+            "keyQualifierName": "",
+            "usageTag": "NONE"
+          },
+          {
+            "isKeyColumn": true,
+            "sourceFieldName": "unified_individual_id__c",
+            "dataType": "TEXT",
+            "ciFieldType": "DIMENSION",
+            "isProjected": true,
+            "keyQualifierName": "",
+            "usageTag": "NONE"
+          }
+        ],
+        "relatedObjects": [],
+        "path": [{ "fieldName": "unified_individual_id__c", "parentFieldName": "ssot__Id__c" }],
+        "jsonPath": "$.Unified_Individual_Avg_Engagement_Score__cio"
+      },
+      {
+        "name": "UnifiedLinkssotIndividualWksp__dlm",
+        "type": "bridge",
+        "recencyCriteria": [],
+        "fields": [
+          {
+            "isKeyColumn": true,
+            "sourceFieldName": "SourceRecordId__c",
+            "dataType": "TEXT",
+            "isProjected": true,
+            "keyQualifierName": "KQ_SourceRecordId__c",
+            "usageTag": "NONE"
+          },
+          {
+            "isKeyColumn": false,
+            "sourceFieldName": "KQ_SourceRecordId__c",
+            "dataType": "TEXT",
+            "isProjected": true,
+            "keyQualifierName": "",
+            "usageTag": "KEY_QUALIFIER"
+          },
+          {
+            "isKeyColumn": false,
+            "sourceFieldName": "UnifiedRecordId__c",
+            "dataType": "TEXT",
+            "isProjected": true,
+            "keyQualifierName": "",
+            "usageTag": "NONE"
+          },
+          {
+            "isKeyColumn": false,
+            "sourceFieldName": "ssot__DataSourceObjectId__c",
+            "dataType": "TEXT",
+            "isProjected": true,
+            "keyQualifierName": "",
+            "usageTag": "NONE"
+          },
+          {
+            "isKeyColumn": false,
+            "sourceFieldName": "ssot__DataSourceId__c",
+            "dataType": "TEXT",
+            "isProjected": true,
+            "keyQualifierName": "",
+            "usageTag": "NONE"
+          }
+        ],
+        "relatedObjects": [
+          {
+            "name": "ssot__Individual__dlm",
+            "type": "standard",
+            "recencyCriteria": [],
+            "fields": [
+              {
+                "isKeyColumn": true,
+                "sourceFieldName": "ssot__Id__c",
+                "dataType": "TEXT",
+                "isProjected": true,
+                "keyQualifierName": "",
+                "usageTag": "NONE"
+              },
+              {
+                "isKeyColumn": false,
+                "sourceFieldName": "KQ_Id__c",
+                "dataType": "TEXT",
+                "isProjected": true,
+                "keyQualifierName": "",
+                "usageTag": "KEY_QUALIFIER"
+              },
+              {
+                "isKeyColumn": false,
+                "sourceFieldName": "ssot__FirstName__c",
+                "dataType": "TEXT",
+                "isProjected": true,
+                "keyQualifierName": "",
+                "usageTag": "NONE"
+              },
+              {
+                "isKeyColumn": false,
+                "sourceFieldName": "ssot__LastName__c",
+                "dataType": "TEXT",
+                "isProjected": true,
+                "keyQualifierName": "",
+                "usageTag": "NONE"
+              }
+            ],
+            "relatedObjects": [
+              {
+                "name": "ssot__Case__dlm",
+                "type": "standard",
+                "recencyCriteria": [
+                  { "fieldName": "ssot__CreatedDate__c", "valueUnit": "DAY", "value": 30, "valueType": "time" },
+                  { "fieldName": "ssot__CreatedDate__c", "valueUnit": "RECORD", "value": 10, "valueType": "record" }
+                ],
+                "fields": [
+                  {
+                    "isKeyColumn": true,
+                    "sourceFieldName": "ssot__Id__c",
+                    "dataType": "TEXT",
+                    "isProjected": true,
+                    "keyQualifierName": "KQ_Id__c",
+                    "usageTag": "NONE"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "KQ_Id__c",
+                    "dataType": "TEXT",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "KEY_QUALIFIER"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "ssot__CreatedDate__c",
+                    "dataType": "TIMESTAMP",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "NONE"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "ssot__IndividualId__c",
+                    "dataType": "TEXT",
+                    "isProjected": true,
+                    "keyQualifierName": "KQ_IndividualId__c",
+                    "usageTag": "NONE"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "KQ_IndividualId__c",
+                    "dataType": "TEXT",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "KEY_QUALIFIER"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "ssot__CaseStatusId__c",
+                    "dataType": "TEXT",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "NONE"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "ssot__Description__c",
+                    "dataType": "TEXT",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "NONE"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "ssot__Subject__c",
+                    "dataType": "TEXT",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "NONE"
+                  }
+                ],
+                "relatedObjects": [],
+                "path": [{ "fieldName": "ssot__IndividualId__c", "parentFieldName": "ssot__Id__c" }],
+                "jsonPath": "$.UnifiedLinkssotIndividualWksp__dlm.ssot__Individual__dlm.ssot__Case__dlm"
+              },
+              {
+                "name": "Attendance__dlm",
+                "type": "custom",
+                "recencyCriteria": [
+                  { "fieldName": "registration_date__c", "valueUnit": "DAY", "value": 30, "valueType": "time" },
+                  { "fieldName": "registration_date__c", "valueUnit": "RECORD", "value": 10, "valueType": "record" }
+                ],
+                "fields": [
+                  {
+                    "isKeyColumn": true,
+                    "sourceFieldName": "pk_id__c",
+                    "dataType": "NUMBER",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "NONE"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "KQ_pk_id__c",
+                    "dataType": "TEXT",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "KEY_QUALIFIER"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "attendee_id__c",
+                    "dataType": "TEXT",
+                    "isProjected": true,
+                    "keyQualifierName": "KQ_attendee_id__c",
+                    "usageTag": "NONE"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "KQ_attendee_id__c",
+                    "dataType": "TEXT",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "KEY_QUALIFIER"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "registration_date__c",
+                    "dataType": "TIMESTAMP",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "NONE"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "event_name__c",
+                    "dataType": "TEXT",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "NONE"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "engagement_score__c",
+                    "dataType": "NUMBER",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "NONE"
+                  },
+                  {
+                    "isKeyColumn": false,
+                    "sourceFieldName": "feedback_rating__c",
+                    "dataType": "NUMBER",
+                    "isProjected": true,
+                    "keyQualifierName": "",
+                    "usageTag": "NONE"
+                  }
+                ],
+                "relatedObjects": [],
+                "path": [{ "fieldName": "attendee_id__c", "parentFieldName": "ssot__Id__c" }],
+                "jsonPath": "$.UnifiedLinkssotIndividualWksp__dlm.ssot__Individual__dlm.Attendance__dlm"
+              }
+            ],
+            "path": [{ "fieldName": "ssot__Id__c", "parentFieldName": "SourceRecordId__c" }],
+            "jsonPath": "$.UnifiedLinkssotIndividualWksp__dlm.ssot__Individual__dlm"
+          }
+        ],
+        "path": [{ "fieldName": "UnifiedRecordId__c", "parentFieldName": "ssot__Id__c" }],
+        "jsonPath": "$.UnifiedLinkssotIndividualWksp__dlm"
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "relationships": [
+    {
+      "sourceObjectName": "Attendance__dlm",
+      "targetObjectName": "ssot__Individual__dlm",
+      "cardinality": "ManyToOne",
+      "sourceFieldName": "attendee_id__c",
+      "targetFieldName": "ssot__Id__c",
+      "relationshipOwner": "DataCloud"
+    }
+  ]
+}

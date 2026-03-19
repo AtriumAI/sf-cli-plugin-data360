@@ -1,0 +1,9 @@
+{
+  "apiName": "Unified_Individual_Avg_Engagement_Score",
+  "displayName": "Unified Individual Avg Engagement Score",
+  "definitionType": "CALCULATED_METRIC",
+  "dataSpaceName": "default",
+  "description": "Average engagement score per unified individual, joining through Unified Link to Individual to Attendance",
+  "expression": "SELECT AVG(Attendance__dlm.engagement_score__c) AS average_engagement_score__c, UnifiedssotIndividualWksp__dlm.ssot__Id__c AS unified_individual_id__c FROM UnifiedssotIndividualWksp__dlm JOIN UnifiedLinkssotIndividualWksp__dlm ON (UnifiedssotIndividualWksp__dlm.ssot__Id__c = UnifiedLinkssotIndividualWksp__dlm.UnifiedRecordId__c) JOIN ssot__Individual__dlm ON (UnifiedLinkssotIndividualWksp__dlm.SourceRecordId__c = ssot__Individual__dlm.ssot__Id__c) JOIN Attendance__dlm ON (ssot__Individual__dlm.ssot__Id__c = Attendance__dlm.attendee_id__c) GROUP BY unified_individual_id__c",
+  "publishScheduleInterval": "NotScheduled"
+}

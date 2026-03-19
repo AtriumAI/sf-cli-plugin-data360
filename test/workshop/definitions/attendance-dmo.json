@@ -1,0 +1,74 @@
+{
+  "name": "Attendance",
+  "label": "Attendance",
+  "description": "Custom DMO for event attendance engagement data from Redshift zero-copy",
+  "dataSpaceName": "default",
+  "category": "ENGAGEMENT",
+  "fields": [
+    {
+      "name": "pk_id",
+      "label": "Primary Key ID",
+      "description": "Unique attendance record ID",
+      "isPrimaryKey": true,
+      "isDynamicLookup": false,
+      "dataType": "Number"
+    },
+    {
+      "name": "attendee_id",
+      "label": "Attendee ID",
+      "description": "Attendee identifier linking to Individual",
+      "isPrimaryKey": false,
+      "isDynamicLookup": false,
+      "dataType": "Text"
+    },
+    {
+      "name": "event_id",
+      "label": "Event ID",
+      "description": "Event identifier",
+      "isPrimaryKey": false,
+      "isDynamicLookup": false,
+      "dataType": "Text"
+    },
+    {
+      "name": "event_name",
+      "label": "Event Name",
+      "description": "Name of the event",
+      "isPrimaryKey": false,
+      "isDynamicLookup": false,
+      "dataType": "Text"
+    },
+    {
+      "name": "registration_date",
+      "label": "Registration Date",
+      "description": "Date/time of registration",
+      "isPrimaryKey": false,
+      "isDynamicLookup": false,
+      "dataType": "DateTime"
+    },
+    {
+      "name": "attendance_status",
+      "label": "Attendance Status",
+      "description": "Attended, No Show, etc.",
+      "isPrimaryKey": false,
+      "isDynamicLookup": false,
+      "isDistinct": true,
+      "dataType": "Text"
+    },
+    {
+      "name": "engagement_score",
+      "label": "Engagement Score",
+      "description": "Numeric engagement score",
+      "isPrimaryKey": false,
+      "isDynamicLookup": false,
+      "dataType": "Number"
+    },
+    {
+      "name": "feedback_rating",
+      "label": "Feedback Rating",
+      "description": "Numeric feedback rating",
+      "isPrimaryKey": false,
+      "isDynamicLookup": false,
+      "dataType": "Number"
+    }
+  ]
+}

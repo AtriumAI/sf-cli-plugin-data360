@@ -1,0 +1,50 @@
+{
+  "name": "Attendance_Stream",
+  "label": "Attendance Stream",
+  "datasource": "REDSHIFT_Redshift",
+  "datastreamType": "CONNECTORSFRAMEWORK",
+  "connectorInfo": {
+    "connectorType": "DataConnector",
+    "connectorDetails": {
+      "name": "Redshift"
+    }
+  },
+  "dataLakeObjectInfo": {
+    "label": "Attendance",
+    "name": "Attendance__dll",
+    "category": "Engagement",
+    "dataspaceInfo": [{ "name": "Default" }],
+    "eventDateTimeFieldName": "registration_date",
+    "dataLakeFieldInputRepresentations": [
+      { "name": "pk_id", "label": "Primary Key ID", "dataType": "Number", "isPrimaryKey": true },
+      { "name": "attendee_id", "label": "Attendee ID", "dataType": "Text", "isPrimaryKey": false },
+      { "name": "event_id", "label": "Event ID", "dataType": "Text", "isPrimaryKey": false },
+      { "name": "event_name", "label": "Event Name", "dataType": "Text", "isPrimaryKey": false },
+      { "name": "registration_date", "label": "Registration Date", "dataType": "DateTime", "isPrimaryKey": false },
+      { "name": "attendance_status", "label": "Attendance Status", "dataType": "Text", "isPrimaryKey": false },
+      { "name": "engagement_score", "label": "Engagement Score", "dataType": "Number", "isPrimaryKey": false },
+      { "name": "feedback_rating", "label": "Feedback Rating", "dataType": "Number", "isPrimaryKey": false }
+    ]
+  },
+  "sourceFields": [
+    { "name": "pk_id", "dataType": "Number" },
+    { "name": "attendee_id", "dataType": "Text" },
+    { "name": "event_id", "dataType": "Text" },
+    { "name": "event_name", "dataType": "Text" },
+    { "name": "registration_date", "dataType": "DateTime" },
+    { "name": "attendance_status", "dataType": "Text" },
+    { "name": "engagement_score", "dataType": "Number" },
+    { "name": "feedback_rating", "dataType": "Number" }
+  ],
+  "mappings": [],
+  "advancedAttributes": {
+    "database": "sfdcintegration",
+    "schema": "gps_dc_workshop",
+    "object": "attendance_view"
+  },
+  "refreshConfig": {
+    "isAccelerationEnabled": false,
+    "refreshMode": "UPSERT",
+    "frequency": { "frequencyType": "NONE" }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "sourceEntityDeveloperName": "Attendance__dll",
+  "targetEntityDeveloperName": "Attendance__dlm",
+  "fieldMapping": [
+    { "sourceFieldDeveloperName": "pk_id__c", "targetFieldDeveloperName": "pk_id__c" },
+    { "sourceFieldDeveloperName": "attendee_id__c", "targetFieldDeveloperName": "attendee_id__c" },
+    { "sourceFieldDeveloperName": "event_id__c", "targetFieldDeveloperName": "event_id__c" },
+    { "sourceFieldDeveloperName": "event_name__c", "targetFieldDeveloperName": "event_name__c" },
+    { "sourceFieldDeveloperName": "registration_date__c", "targetFieldDeveloperName": "registration_date__c" },
+    { "sourceFieldDeveloperName": "attendance_status__c", "targetFieldDeveloperName": "attendance_status__c" },
+    { "sourceFieldDeveloperName": "engagement_score__c", "targetFieldDeveloperName": "engagement_score__c" },
+    { "sourceFieldDeveloperName": "feedback_rating__c", "targetFieldDeveloperName": "feedback_rating__c" }
+  ]
+}

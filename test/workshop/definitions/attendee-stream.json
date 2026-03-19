@@ -1,0 +1,41 @@
+{
+  "name": "Attendee_Stream",
+  "label": "Attendee Stream",
+  "datasource": "AmazonRedshift_Redshift",
+  "datastreamType": "CONNECTORSFRAMEWORK",
+  "connectorInfo": {
+    "connectorType": "AmazonRedshift",
+    "connectorDetails": {
+      "name": "Redshift",
+      "sourceObject": "gps_dc_workshop.attendee_view"
+    }
+  },
+  "dataLakeObjectInfo": {
+    "label": "Attendee",
+    "name": "Attendee__dll",
+    "category": "Profile",
+    "dataspaceInfo": [{ "name": "Default" }],
+    "dataLakeFieldInputRepresentations": [
+      { "name": "attendee_id", "label": "Attendee ID", "dataType": "Text", "isPrimaryKey": true },
+      { "name": "first_name", "label": "First Name", "dataType": "Text", "isPrimaryKey": false },
+      { "name": "last_name", "label": "Last Name", "dataType": "Text", "isPrimaryKey": false },
+      { "name": "email_address", "label": "Email Address", "dataType": "Text", "isPrimaryKey": false }
+    ]
+  },
+  "sourceFields": [
+    { "name": "attendee_id", "dataType": "Text" },
+    { "name": "first_name", "dataType": "Text" },
+    { "name": "last_name", "dataType": "Text" },
+    { "name": "email_address", "dataType": "Text" }
+  ],
+  "mappings": [],
+  "refreshConfig": {
+    "isAccelerationEnabled": true,
+    "refreshMode": "UPSERT",
+    "frequency": {
+      "frequencyType": "WEEKLY",
+      "refreshDayOfWeek": "Sunday",
+      "hours": [7]
+    }
+  }
+}

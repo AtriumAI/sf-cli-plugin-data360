@@ -1,0 +1,9 @@
+{
+  "sourceEntityDeveloperName": "Attendee__dll",
+  "targetEntityDeveloperName": "ssot__Individual__dlm",
+  "fieldMapping": [
+    { "sourceFieldDeveloperName": "first_name__c", "targetFieldDeveloperName": "ssot__FirstName__c" },
+    { "sourceFieldDeveloperName": "last_name__c", "targetFieldDeveloperName": "ssot__LastName__c" },
+    { "sourceFieldDeveloperName": "attendee_id__c", "targetFieldDeveloperName": "ssot__Id__c" }
+  ]
+}

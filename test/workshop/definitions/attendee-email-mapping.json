@@ -1,0 +1,9 @@
+{
+  "sourceEntityDeveloperName": "Attendee__dll",
+  "targetEntityDeveloperName": "ssot__ContactPointEmail__dlm",
+  "fieldMapping": [
+    { "sourceFieldDeveloperName": "email_address__c", "targetFieldDeveloperName": "ssot__EmailAddress__c" },
+    { "sourceFieldDeveloperName": "attendee_id__c", "targetFieldDeveloperName": "ssot__Id__c" },
+    { "sourceFieldDeveloperName": "attendee_id__c", "targetFieldDeveloperName": "ssot__PartyId__c" }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "connectorType": "AmazonRedshift",
+  "label": "Redshift",
+  "name": "Redshift",
+  "connectionProperties": {
+    "username": "gps_workshop_user",
+    "password": "0copyAug2025",
+    "connectionUrl": "sfdc-integration-workgroup.149536483554.us-east-2.redshift-serverless.amazonaws.com:5439",
+    "database": "sfdcintegration"
+  }
+}

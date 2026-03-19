@@ -1,0 +1,2754 @@
+{
+  "version": "1.0.0",
+  "commandCount": 159,
+  "commands": [
+    {
+      "name": "data360 activation-target create",
+      "file": "src/commands/data360/activation-target/create.ts",
+      "summary": "Create Data 360 activation target.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/activation-targets",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 activation-target get",
+      "file": "src/commands/data360/activation-target/get.ts",
+      "summary": "Get Data 360 activation target.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/activation-targets/:activationTargetId",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 activation-target list",
+      "file": "src/commands/data360/activation-target/list.ts",
+      "summary": "List Data 360 activation target.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/activation-targets",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 activation-target update",
+      "file": "src/commands/data360/activation-target/update.ts",
+      "summary": "Update Data 360 activation target.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/activation-targets/:activationTargetId",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 activation create",
+      "file": "src/commands/data360/activation/create.ts",
+      "summary": "Create Data 360 activation.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/activations",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 activation data",
+      "file": "src/commands/data360/activation/data.ts",
+      "summary": "Data Data 360 activation.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/activations/:activationId/data",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 activation delete",
+      "file": "src/commands/data360/activation/delete.ts",
+      "summary": "Delete Data 360 activation.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/activations/:activationId",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 activation get",
+      "file": "src/commands/data360/activation/get.ts",
+      "summary": "Get Data 360 activation.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/activations/:activationId",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 activation list",
+      "file": "src/commands/data360/activation/list.ts",
+      "summary": "List Data 360 activation.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/activations",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 activation platforms",
+      "file": "src/commands/data360/activation/platforms.ts",
+      "summary": "Platforms Data 360 activation.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/activation-external-platforms",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 activation update",
+      "file": "src/commands/data360/activation/update.ts",
+      "summary": "Update Data 360 activation.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/activations/:activationId",
+      "httpMethod": "PUT",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 calculated-insight create",
+      "file": "src/commands/data360/calculated-insight/create.ts",
+      "summary": "Create Data 360 calculated insight.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/calculated-insights",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 calculated-insight delete",
+      "file": "src/commands/data360/calculated-insight/delete.ts",
+      "summary": "Delete Data 360 calculated insight.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/calculated-insights/:apiName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 calculated-insight get",
+      "file": "src/commands/data360/calculated-insight/get.ts",
+      "summary": "Get Data 360 calculated insight.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/calculated-insights/:apiName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 calculated-insight list",
+      "file": "src/commands/data360/calculated-insight/list.ts",
+      "summary": "List Data 360 calculated insight.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/calculated-insights",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "collection.items",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 calculated-insight run",
+      "file": "src/commands/data360/calculated-insight/run.ts",
+      "summary": "Run Data 360 calculated insight.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/calculated-insights/:apiName/actions/run",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 calculated-insight update",
+      "file": "src/commands/data360/calculated-insight/update.ts",
+      "summary": "Update Data 360 calculated insight.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/calculated-insights/:apiName",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection connector-get",
+      "file": "src/commands/data360/connection/connector-get.ts",
+      "summary": "Get details of a Data 360 connector type.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/connectors/:connectorType",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection connector-list",
+      "file": "src/commands/data360/connection/connector-list.ts",
+      "summary": "Connector list Data 360 connection.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/connectors",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection create",
+      "file": "src/commands/data360/connection/create.ts",
+      "summary": "Create Data 360 connection.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/connections",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection database-schemas",
+      "file": "src/commands/data360/connection/database-schemas.ts",
+      "summary": "Database schemas Data 360 connection.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/connections/:connectionId/database-schemas",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection databases",
+      "file": "src/commands/data360/connection/databases.ts",
+      "summary": "List databases for a Data 360 connection.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/connections/:connectionId/databases",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "connector-type",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": true
+    },
+    {
+      "name": "data360 connection delete",
+      "file": "src/commands/data360/connection/delete.ts",
+      "summary": "Delete Data 360 connection.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/connections/:connectionId",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection endpoints",
+      "file": "src/commands/data360/connection/endpoints.ts",
+      "summary": "Endpoints Data 360 connection.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/connections/:connectionId/endpoints",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection fields",
+      "file": "src/commands/data360/connection/fields.ts",
+      "summary": "Fields Data 360 connection.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/connections/:connectionId/objects/:resourceName/fields",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection get",
+      "file": "src/commands/data360/connection/get.ts",
+      "summary": "Get a Data 360 connection by name or ID.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "connector-type",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": true
+    },
+    {
+      "name": "data360 connection list",
+      "file": "src/commands/data360/connection/list.ts",
+      "summary": "List Data 360 connections by connector type.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/connections",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "connector-type",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection objects",
+      "file": "src/commands/data360/connection/objects.ts",
+      "summary": "List objects for a Data 360 connection.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/connections/:connectionId/objects",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "connector-type",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": true
+    },
+    {
+      "name": "data360 connection preview",
+      "file": "src/commands/data360/connection/preview.ts",
+      "summary": "Preview Data 360 connection.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/connections/:connectionId/objects/:resourceName/preview",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection replace",
+      "file": "src/commands/data360/connection/replace.ts",
+      "summary": "Replace Data 360 connection.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/connections/:connectionId",
+      "httpMethod": "PUT",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection run-existing",
+      "file": "src/commands/data360/connection/run-existing.ts",
+      "summary": "Run existing Data 360 connection.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/connections/:connectionId/actions/:command",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection run",
+      "file": "src/commands/data360/connection/run.ts",
+      "summary": "Run Data 360 connection.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/connections/actions/:command",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection schema-get",
+      "file": "src/commands/data360/connection/schema-get.ts",
+      "summary": "Schema get Data 360 connection.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/connections/:connectionId/schema",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection schema-upsert",
+      "file": "src/commands/data360/connection/schema-upsert.ts",
+      "summary": "Schema upsert Data 360 connection.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/connections/:connectionId/schema",
+      "httpMethod": "PUT",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection sitemap-get",
+      "file": "src/commands/data360/connection/sitemap-get.ts",
+      "summary": "Sitemap get Data 360 connection.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/connections/:connectionId/sitemap",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection sitemap-upsert",
+      "file": "src/commands/data360/connection/sitemap-upsert.ts",
+      "summary": "Sitemap upsert Data 360 connection.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/connections/:connectionId/sitemap",
+      "httpMethod": "PUT",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection test-existing",
+      "file": "src/commands/data360/connection/test-existing.ts",
+      "summary": "Test existing Data 360 connection.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/connections/:connectionId/actions/test",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection test-schema",
+      "file": "src/commands/data360/connection/test-schema.ts",
+      "summary": "Test schema Data 360 connection.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/connections/:connectionId/schema/actions/test",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection test",
+      "file": "src/commands/data360/connection/test.ts",
+      "summary": "Test Data 360 connection.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/connections/:connectionId/actions/test",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection update",
+      "file": "src/commands/data360/connection/update.ts",
+      "summary": "Update Data 360 connection.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/connections/:connectionId",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-action-target create",
+      "file": "src/commands/data360/data-action-target/create.ts",
+      "summary": "Create Data 360 data action target.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/data-action-targets",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-action-target delete",
+      "file": "src/commands/data360/data-action-target/delete.ts",
+      "summary": "Delete Data 360 data action target.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/data-action-targets/:apiName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-action-target generate-key",
+      "file": "src/commands/data360/data-action-target/generate-key.ts",
+      "summary": "Generate key Data 360 data action target.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/data-action-targets/:apiName/signing-key",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-action-target get",
+      "file": "src/commands/data360/data-action-target/get.ts",
+      "summary": "Get Data 360 data action target.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-action-targets/:apiName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-action-target list",
+      "file": "src/commands/data360/data-action-target/list.ts",
+      "summary": "List Data 360 data action target.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/data-action-targets",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-action create",
+      "file": "src/commands/data360/data-action/create.ts",
+      "summary": "Create Data 360 data action.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/data-actions",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-action list",
+      "file": "src/commands/data360/data-action/list.ts",
+      "summary": "List Data 360 data action.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/data-actions",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-graph create",
+      "file": "src/commands/data360/data-graph/create.ts",
+      "summary": "Create Data 360 data graph.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/data-graphs",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-graph data-by-id",
+      "file": "src/commands/data360/data-graph/data-by-id.ts",
+      "summary": "Data by id Data 360 data graph.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-graphs/data/:dataGraphEntityName/:id",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-graph data",
+      "file": "src/commands/data360/data-graph/data.ts",
+      "summary": "Data Data 360 data graph.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-graphs/data/:dataGraphEntityName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-graph delete",
+      "file": "src/commands/data360/data-graph/delete.ts",
+      "summary": "Delete Data 360 data graph.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/data-graphs/:dataGraphName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-graph get",
+      "file": "src/commands/data360/data-graph/get.ts",
+      "summary": "Get Data 360 data graph.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-graphs/:dataGraphName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-graph metadata",
+      "file": "src/commands/data360/data-graph/metadata.ts",
+      "summary": "Metadata Data 360 data graph.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-graphs/metadata",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-graph refresh",
+      "file": "src/commands/data360/data-graph/refresh.ts",
+      "summary": "Refresh Data 360 data graph.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/data-graphs/:dataGraphName/actions/refresh",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-kit dependencies",
+      "file": "src/commands/data360/data-kit/dependencies.ts",
+      "summary": "Dependencies Data 360 data kit.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-kits/:dataKitName/components/:componentName/dependencies",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-kit status",
+      "file": "src/commands/data360/data-kit/status.ts",
+      "summary": "Status Data 360 data kit.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-kits/:dataKitName/components/:componentName/deployment-status",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-kit undeploy",
+      "file": "src/commands/data360/data-kit/undeploy.ts",
+      "summary": "Undeploy Data 360 data kit.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/data-kits/:dataKitName/undeploy",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-space create",
+      "file": "src/commands/data360/data-space/create.ts",
+      "summary": "Create Data 360 data space.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/data-spaces",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-space get",
+      "file": "src/commands/data360/data-space/get.ts",
+      "summary": "Get a Data 360 data space.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-spaces/:idOrName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-space list",
+      "file": "src/commands/data360/data-space/list.ts",
+      "summary": "List Data 360 data spaces.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/data-spaces",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-space member-get",
+      "file": "src/commands/data360/data-space/member-get.ts",
+      "summary": "Get a member of a Data 360 data space.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-spaces/:idOrName/members/:dataSpaceMemberObjectName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "member",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-space members-upsert",
+      "file": "src/commands/data360/data-space/members-upsert.ts",
+      "summary": "Members upsert Data 360 data space.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/data-spaces/:idOrName/members",
+      "httpMethod": "PUT",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-space members",
+      "file": "src/commands/data360/data-space/members.ts",
+      "summary": "List members of a Data 360 data space.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/data-spaces/:idOrName/members",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-space update",
+      "file": "src/commands/data360/data-space/update.ts",
+      "summary": "Update Data 360 data space.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/data-spaces/:idOrName",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-stream create-from-object",
+      "file": "src/commands/data360/data-stream/create-from-object.ts",
+      "summary": "Create a CRM data stream from a Salesforce object.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "category",
+        "dataspace",
+        "event-date-field",
+        "name",
+        "object",
+        "refresh-mode",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-stream create",
+      "file": "src/commands/data360/data-stream/create.ts",
+      "summary": "Create Data 360 data stream.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/data-streams",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-stream delete",
+      "file": "src/commands/data360/data-stream/delete.ts",
+      "summary": "Delete Data 360 data stream.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/data-streams/:recordIdOrDeveloperName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "keep-dlo",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-stream get",
+      "file": "src/commands/data360/data-stream/get.ts",
+      "summary": "Get a Data 360 data stream.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-streams/:recordIdOrDeveloperName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-stream list",
+      "file": "src/commands/data360/data-stream/list.ts",
+      "summary": "List Data 360 data streams.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/data-streams",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-stream run",
+      "file": "src/commands/data360/data-stream/run.ts",
+      "summary": "Run Data 360 data stream.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/data-streams/:recordIdOrDeveloperName/actions/run",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 data-stream update",
+      "file": "src/commands/data360/data-stream/update.ts",
+      "summary": "Update Data 360 data stream.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/data-streams/:recordIdOrDeveloperName",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dlo create",
+      "file": "src/commands/data360/dlo/create.ts",
+      "summary": "Create Data 360 dlo.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/data-lake-objects",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dlo delete",
+      "file": "src/commands/data360/dlo/delete.ts",
+      "summary": "Delete Data 360 dlo.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/data-lake-objects/:recordIdOrDeveloperName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dlo get",
+      "file": "src/commands/data360/dlo/get.ts",
+      "summary": "Get a Data 360 Data Lake Object (DLO).",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-lake-objects/:recordIdOrDeveloperName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dlo list",
+      "file": "src/commands/data360/dlo/list.ts",
+      "summary": "List Data 360 Data Lake Objects (DLOs).",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/data-lake-objects",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dlo update",
+      "file": "src/commands/data360/dlo/update.ts",
+      "summary": "Update Data 360 dlo.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/data-lake-objects/:recordIdOrDeveloperName",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo create-from-dlo",
+      "file": "src/commands/data360/dmo/create-from-dlo.ts",
+      "summary": "Create a DMO from an existing DLO with auto-mapping.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "category",
+        "dataspace",
+        "dlo",
+        "dmo",
+        "exclude-fields",
+        "include-fields",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo create",
+      "file": "src/commands/data360/dmo/create.ts",
+      "summary": "Create Data 360 dmo.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/data-model-objects",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo delete",
+      "file": "src/commands/data360/dmo/delete.ts",
+      "summary": "Delete Data 360 dmo.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/data-model-objects/:dataModelObjectName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo get",
+      "file": "src/commands/data360/dmo/get.ts",
+      "summary": "Get Data 360 dmo.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-model-objects/:dataModelObjectName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo list",
+      "file": "src/commands/data360/dmo/list.ts",
+      "summary": "List Data 360 Data Model Objects (DMOs).",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/data-model-objects",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": 50,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo map-to-canonical",
+      "file": "src/commands/data360/dmo/map-to-canonical.ts",
+      "summary": "Map a DLO to a canonical (ssot__) DMO with auto-matching.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "dataspace",
+        "dlo",
+        "dmo",
+        "dry-run",
+        "exclude-fields",
+        "include-fields",
+        "map",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo mapping-create",
+      "file": "src/commands/data360/dmo/mapping-create.ts",
+      "summary": "Mapping create Data 360 dmo.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/data-model-object-mappings",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo mapping-delete-fields",
+      "file": "src/commands/data360/dmo/mapping-delete-fields.ts",
+      "summary": "Mapping delete fields Data 360 dmo.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo mapping-delete",
+      "file": "src/commands/data360/dmo/mapping-delete.ts",
+      "summary": "Mapping delete Data 360 dmo.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo mapping-get",
+      "file": "src/commands/data360/dmo/mapping-get.ts",
+      "summary": "Mapping get Data 360 dmo.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName",
+      "httpMethod": "GET",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo mapping-list",
+      "file": "src/commands/data360/dmo/mapping-list.ts",
+      "summary": "List field mappings between a DLO and DMO.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "source",
+        "target",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo mapping-update-field",
+      "file": "src/commands/data360/dmo/mapping-update-field.ts",
+      "summary": "Mapping update field Data 360 dmo.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings/:fieldSourceTargetMapDeveloperName",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo relationship-create",
+      "file": "src/commands/data360/dmo/relationship-create.ts",
+      "summary": "Relationship create Data 360 dmo.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/data-model-objects/:dataModelObjectName/relationships",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo relationship-delete",
+      "file": "src/commands/data360/dmo/relationship-delete.ts",
+      "summary": "Relationship delete Data 360 dmo.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/data-model-objects/relationships/:name",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo relationship-list",
+      "file": "src/commands/data360/dmo/relationship-list.ts",
+      "summary": "Relationship list Data 360 dmo.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/data-model-objects/:dataModelObjectName/relationships",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 dmo update",
+      "file": "src/commands/data360/dmo/update.ts",
+      "summary": "Update Data 360 dmo.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/data-model-objects/:dataModelObjectName",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 docai config-create",
+      "file": "src/commands/data360/docai/config-create.ts",
+      "summary": "Config create Data 360 docai.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/document-processing/configurations",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 docai config-delete",
+      "file": "src/commands/data360/docai/config-delete.ts",
+      "summary": "Config delete Data 360 docai.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/document-processing/configurations/:idOrApiName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 docai config-get",
+      "file": "src/commands/data360/docai/config-get.ts",
+      "summary": "Config get Data 360 docai.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/document-processing/configurations/:idOrApiName",
+      "httpMethod": "GET",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 docai config-list",
+      "file": "src/commands/data360/docai/config-list.ts",
+      "summary": "Config list Data 360 docai.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/document-processing/configurations",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 docai config-run",
+      "file": "src/commands/data360/docai/config-run.ts",
+      "summary": "Config run Data 360 docai.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/document-processing/configurations/:idOrApiName/actions/run",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 docai config-update",
+      "file": "src/commands/data360/docai/config-update.ts",
+      "summary": "Config update Data 360 docai.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/document-processing/configurations/:idOrApiName",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 docai extract",
+      "file": "src/commands/data360/docai/extract.ts",
+      "summary": "Extract Data 360 docai.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/document-processing/actions/extract-data",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 docai generate-schema",
+      "file": "src/commands/data360/docai/generate-schema.ts",
+      "summary": "Generate schema for a Document AI configuration.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/document-processing/configurations/:idOrApiName/actions/generate-schema",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 docai global-config",
+      "file": "src/commands/data360/docai/global-config.ts",
+      "summary": "Global config Data 360 docai.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/document-processing/global-config",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 doctor",
+      "file": "src/commands/data360/doctor.ts",
+      "summary": "Validate Data 360 connectivity for a target org.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 identity-resolution create",
+      "file": "src/commands/data360/identity-resolution/create.ts",
+      "summary": "Create Data 360 identity resolution.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/identity-resolutions",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 identity-resolution delete",
+      "file": "src/commands/data360/identity-resolution/delete.ts",
+      "summary": "Delete Data 360 identity resolution.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/identity-resolutions/:identityResolution",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 identity-resolution get",
+      "file": "src/commands/data360/identity-resolution/get.ts",
+      "summary": "Get Data 360 identity resolution.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/identity-resolutions/:identityResolution",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 identity-resolution list",
+      "file": "src/commands/data360/identity-resolution/list.ts",
+      "summary": "List Data 360 identity resolution.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/identity-resolutions",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 identity-resolution run",
+      "file": "src/commands/data360/identity-resolution/run.ts",
+      "summary": "Run a Data 360 identity resolution ruleset.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": true
+    },
+    {
+      "name": "data360 identity-resolution update",
+      "file": "src/commands/data360/identity-resolution/update.ts",
+      "summary": "Update Data 360 identity resolution.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/identity-resolutions/:identityResolution",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 insight metadata-get",
+      "file": "src/commands/data360/insight/metadata-get.ts",
+      "summary": "Metadata get Data 360 insight.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/insight/metadata/:ciName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 insight metadata",
+      "file": "src/commands/data360/insight/metadata.ts",
+      "summary": "Metadata Data 360 insight.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/insight/metadata",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 insight query",
+      "file": "src/commands/data360/insight/query.ts",
+      "summary": "Query Data 360 insight.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/insight/calculated-insights/:ciName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 metadata get",
+      "file": "src/commands/data360/metadata/get.ts",
+      "summary": "Get Data 360 metadata.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-graphs/metadata",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 metadata insight-detail",
+      "file": "src/commands/data360/metadata/insight-detail.ts",
+      "summary": "Insight detail Data 360 metadata.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/insight/metadata/:ciName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 metadata profile-detail",
+      "file": "src/commands/data360/metadata/profile-detail.ts",
+      "summary": "Profile detail Data 360 metadata.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/profile/metadata/:dataModelName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 profile calculated-insight",
+      "file": "src/commands/data360/profile/calculated-insight.ts",
+      "summary": "Calculated insight Data 360 profile.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/profile/:dataModelName/:id/calculated-insights/:ciName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 profile child",
+      "file": "src/commands/data360/profile/child.ts",
+      "summary": "Child Data 360 profile.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/profile/:dataModelName/:id",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 profile metadata-get",
+      "file": "src/commands/data360/profile/metadata-get.ts",
+      "summary": "Metadata get Data 360 profile.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/profile/metadata/:dataModelName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 profile metadata",
+      "file": "src/commands/data360/profile/metadata.ts",
+      "summary": "Metadata Data 360 profile.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/profile/metadata",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 profile query",
+      "file": "src/commands/data360/profile/query.ts",
+      "summary": "Query Data 360 profile.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/profile/:dataModelName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 query async-cancel",
+      "file": "src/commands/data360/query/async-cancel.ts",
+      "summary": "Cancel an async Data 360 query job.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "query-id",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 query async-create",
+      "file": "src/commands/data360/query/async-create.ts",
+      "summary": "Create an async Data 360 SQL query job.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "sql",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 query async-rows",
+      "file": "src/commands/data360/query/async-rows.ts",
+      "summary": "Fetch results from a completed async Data 360 query.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "query-id",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 query async-status",
+      "file": "src/commands/data360/query/async-status.ts",
+      "summary": "Check status of an async Data 360 query job.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "query-id",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 query describe",
+      "file": "src/commands/data360/query/describe.ts",
+      "summary": "Describe Data 360 table columns.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "table",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 query sql-v1",
+      "file": "src/commands/data360/query/sql-v1.ts",
+      "summary": "Execute Data 360 SQL via v1 query endpoint.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "sql",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 query sql",
+      "file": "src/commands/data360/query/sql.ts",
+      "summary": "Execute Data 360 SQL.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "sql",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 query sqlv2",
+      "file": "src/commands/data360/query/sqlv2.ts",
+      "summary": "Execute Data 360 SQL via v2 query endpoint with pagination.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "sql",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 query v2-batch",
+      "file": "src/commands/data360/query/v2-batch.ts",
+      "summary": "Fetch next batch from a v2 query.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "batch-id",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 query vector",
+      "file": "src/commands/data360/query/vector.ts",
+      "summary": "Run vector search on a Data 360 search index.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "index",
+        "limit",
+        "query",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 search-index config",
+      "file": "src/commands/data360/search-index/config.ts",
+      "summary": "Config Data 360 search index.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/search-index/config",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 search-index create",
+      "file": "src/commands/data360/search-index/create.ts",
+      "summary": "Create Data 360 search index.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/search-index",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 search-index delete",
+      "file": "src/commands/data360/search-index/delete.ts",
+      "summary": "Delete a Data 360 search index by name or ID.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": true
+    },
+    {
+      "name": "data360 search-index get",
+      "file": "src/commands/data360/search-index/get.ts",
+      "summary": "Get a Data 360 search index by name or ID.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": true
+    },
+    {
+      "name": "data360 search-index list",
+      "file": "src/commands/data360/search-index/list.ts",
+      "summary": "List Data 360 search indexes.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/search-index",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "semanticSearchDefinitionDetails",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 search-index update",
+      "file": "src/commands/data360/search-index/update.ts",
+      "summary": "Update Data 360 search index.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/search-index/:searchIndexApiNameOrId",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 segment count",
+      "file": "src/commands/data360/segment/count.ts",
+      "summary": "Count Data 360 segment.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/segments/:segmentApiName/actions/count",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 segment create",
+      "file": "src/commands/data360/segment/create.ts",
+      "summary": "Create Data 360 segment.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/segments",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 segment deactivate-by-id",
+      "file": "src/commands/data360/segment/deactivate-by-id.ts",
+      "summary": "Deactivate by id Data 360 segment.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/segments/:segmentId/actions/deactivate",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 segment deactivate",
+      "file": "src/commands/data360/segment/deactivate.ts",
+      "summary": "Deactivate Data 360 segment.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/segments/:segmentApiName/actions/deactivate",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 segment delete",
+      "file": "src/commands/data360/segment/delete.ts",
+      "summary": "Delete Data 360 segment.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/segments/:segmentApiName",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 segment get",
+      "file": "src/commands/data360/segment/get.ts",
+      "summary": "Get Data 360 segment.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/segments/:segmentApiNameOrId",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 segment list",
+      "file": "src/commands/data360/segment/list.ts",
+      "summary": "List Data 360 segment.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/segments",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "segments",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 segment members",
+      "file": "src/commands/data360/segment/members.ts",
+      "summary": "Members Data 360 segment.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/segments/:segmentApiName/members",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 segment publish",
+      "file": "src/commands/data360/segment/publish.ts",
+      "summary": "Publish a Data 360 segment.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": true
+    },
+    {
+      "name": "data360 segment update",
+      "file": "src/commands/data360/segment/update.ts",
+      "summary": "Update Data 360 segment.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/segments/:segmentApiName",
+      "httpMethod": "PATCH",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform cancel",
+      "file": "src/commands/data360/transform/cancel.ts",
+      "summary": "Cancel Data 360 transform.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/data-transforms/:dataTransformNameOrId/actions/cancel",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform create",
+      "file": "src/commands/data360/transform/create.ts",
+      "summary": "Create Data 360 transform.",
+      "baseClass": "CrudCreateCommand",
+      "endpoint": "/data-transforms",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform delete",
+      "file": "src/commands/data360/transform/delete.ts",
+      "summary": "Delete Data 360 transform.",
+      "baseClass": "CrudDeleteCommand",
+      "endpoint": "/data-transforms/:dataTransformNameOrId",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform get",
+      "file": "src/commands/data360/transform/get.ts",
+      "summary": "Get a Data 360 data transform.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-transforms/:dataTransformNameOrId",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform history",
+      "file": "src/commands/data360/transform/history.ts",
+      "summary": "Show run history for a Data 360 data transform.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform list",
+      "file": "src/commands/data360/transform/list.ts",
+      "summary": "List Data 360 data transforms.",
+      "baseClass": "CrudListCommand",
+      "endpoint": "/data-transforms",
+      "httpMethod": "",
+      "flags": [
+        "all",
+        "api-version",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform refresh-status",
+      "file": "src/commands/data360/transform/refresh-status.ts",
+      "summary": "Refresh status Data 360 transform.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/data-transforms/:dataTransformNameOrId/actions/refresh-status",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform retry",
+      "file": "src/commands/data360/transform/retry.ts",
+      "summary": "Retry Data 360 transform.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/data-transforms/:dataTransformNameOrId/actions/retry",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform run",
+      "file": "src/commands/data360/transform/run.ts",
+      "summary": "Run Data 360 transform.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/data-transforms/:dataTransformNameOrId/actions/run",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform schedule-get",
+      "file": "src/commands/data360/transform/schedule-get.ts",
+      "summary": "Schedule get Data 360 transform.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/data-transforms/:dataTransformNameOrId/schedule",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform schedule-set",
+      "file": "src/commands/data360/transform/schedule-set.ts",
+      "summary": "Schedule set Data 360 transform.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/data-transforms/:dataTransformNameOrId/schedule",
+      "httpMethod": "PUT",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform update",
+      "file": "src/commands/data360/transform/update.ts",
+      "summary": "Update Data 360 transform.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/data-transforms/:dataTransformNameOrId",
+      "httpMethod": "PUT",
+      "flags": [
+        "api-version",
+        "definition-file",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 transform validate",
+      "file": "src/commands/data360/transform/validate.ts",
+      "summary": "Validate a Data 360 data transform.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/data-transforms/:dataTransformNameOrId/actions/validate",
+      "httpMethod": "POST",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 universal-id lookup",
+      "file": "src/commands/data360/universal-id/lookup.ts",
+      "summary": "Lookup Data 360 universal id.",
+      "baseClass": "CrudGetCommand",
+      "endpoint": "/universalIdLookup/:entityName/:dataSourceId/:dataSourceObjectId/:sourceRecordId",
+      "httpMethod": "",
+      "flags": [
+        "api-version",
+        "name",
+        "target-org",
+        "timing"
+      ],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    }
+  ]
+}

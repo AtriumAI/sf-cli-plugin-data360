@@ -1,0 +1,16 @@
+{
+  "displayName": "Highly Engaged but Low Feedback",
+  "developerName": "Highly_Engaged_but_Low_Feedback",
+  "description": "Unified Individuals with avg engagement score >= 50, at least 1 attendance with feedback_rating < 3, and no open cases",
+  "segmentType": "Dbt",
+  "includeDbt": {
+    "models": {
+      "models": [
+        {
+          "name": "Individual",
+          "sql": "SELECT UnifiedssotIndividualWksp__dlm.ssot__Id__c FROM UnifiedssotIndividualWksp__dlm JOIN UnifiedLinkssotIndividualWksp__dlm ON UnifiedssotIndividualWksp__dlm.ssot__Id__c = UnifiedLinkssotIndividualWksp__dlm.UnifiedRecordId__c JOIN ssot__Individual__dlm ON UnifiedLinkssotIndividualWksp__dlm.SourceRecordId__c = ssot__Individual__dlm.ssot__Id__c JOIN Attendance__dlm ON ssot__Individual__dlm.ssot__Id__c = Attendance__dlm.attendee_id__c GROUP BY UnifiedssotIndividualWksp__dlm.ssot__Id__c HAVING AVG(Attendance__dlm.engagement_score__c) >= 50 AND MIN(Attendance__dlm.feedback_rating__c) < 3 AND UnifiedssotIndividualWksp__dlm.ssot__Id__c NOT IN (SELECT UnifiedLinkssotIndividualWksp__dlm.UnifiedRecordId__c FROM UnifiedLinkssotIndividualWksp__dlm JOIN ssot__Individual__dlm ON UnifiedLinkssotIndividualWksp__dlm.SourceRecordId__c = ssot__Individual__dlm.ssot__Id__c JOIN ssot__Case__dlm ON ssot__Individual__dlm.ssot__Id__c = ssot__Case__dlm.ssot__IndividualId__c WHERE ssot__Case__dlm.ssot__CaseStatusId__c <> 'Closed')"
+        }
+      ]
+    }
+  }
+}
