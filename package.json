@@ -1,5 +1,5 @@
 {
-  "name": "@gthoppae/plugin-data360",
+  "name": "@gthoppae/sf-cli-plugin-data360",
   "description": "Data 360 commands for Salesforce CLI",
   "version": "1.0.0",
   "dependencies": {

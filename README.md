@@ -1,165 +1,99 @@
-# @gthoppae/plugin-data360
+# plugin-data360
 
-[![NPM](https://img.shields.io/npm/v/%40gthoppae%2Fplugin-data360.svg?label=%40gthoppae%2Fplugin-data360)](https://www.npmjs.com/package/@gthoppae/plugin-data360) [![Downloads/week](https://img.shields.io/npm/dw/%40gthoppae%2Fplugin-data360.svg)](https://npmjs.org/package/@gthoppae/plugin-data360) [![License](https://img.shields.io/badge/License-BSD%203--Clause-brightgreen.svg)](https://raw.githubusercontent.com/salesforcecli/plugin-data360/main/LICENSE.txt)
+> **DISCLAIMER**: This is NOT an official Salesforce product. It is an unsupported, experimental CLI plugin created for internal exploration and demo purposes. No support, warranty, or maintenance is provided. Use at your own risk. This plugin is not endorsed by, affiliated with, or supported by Salesforce, Inc.
 
-## Using the template
+A Salesforce CLI plugin for managing Data Cloud (Data 360) resources via the Connect API. 159 commands across 23 topics covering the full Data Cloud lifecycle: Connect, Prepare, Harmonize, Segment, Act, and Retrieve.
 
-This repository provides a template for creating a plugin for the Salesforce CLI. To convert this template to a working plugin:
-
-1. Please get in touch with the Platform CLI team. We want to help you develop your plugin.
-2. Generate your plugin:
-
-   ```
-   sf plugins install dev
-   sf dev generate plugin
-
-   git init -b main
-   git add . && git commit -m "chore: initial commit"
-   ```
-
-3. Create your plugin's repo in the salesforcecli github org
-4. When you're ready, replace the contents of this README with the information you want.
-
-## Learn about `sf` plugins
-
-Salesforce CLI plugins are based on the [oclif plugin framework](<(https://oclif.io/docs/introduction.html)>). Read the [plugin developer guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_plugins.meta/sfdx_cli_plugins/cli_plugins_architecture_sf_cli.htm) to learn about Salesforce CLI plugin development.
-
-This repository contains a lot of additional scripts and tools to help with general Salesforce node development and enforce coding standards. You should familiarize yourself with some of the [node developer packages](#tooling) used by Salesforce.
-
-Additionally, there are some additional tests that the Salesforce CLI will enforce if this plugin is ever bundled with the CLI. These test are included by default under the `posttest` script and it is required to keep these tests active in your plugin if you plan to have it bundled.
-
-### Tooling
-
-- [@salesforce/core](https://github.com/forcedotcom/sfdx-core)
-- [@salesforce/kit](https://github.com/forcedotcom/kit)
-- [@salesforce/sf-plugins-core](https://github.com/salesforcecli/sf-plugins-core)
-- [@salesforce/ts-types](https://github.com/forcedotcom/ts-types)
-- [@salesforce/ts-sinon](https://github.com/forcedotcom/ts-sinon)
-- [@salesforce/dev-config](https://github.com/forcedotcom/dev-config)
-- [@salesforce/dev-scripts](https://github.com/forcedotcom/dev-scripts)
-
-### Hooks
-
-For cross clouds commands, e.g. `sf env list`, we utilize [oclif hooks](https://oclif.io/docs/hooks) to get the relevant information from installed plugins.
-
-This plugin includes sample hooks in the [src/hooks directory](src/hooks). You'll just need to add the appropriate logic. You can also delete any of the hooks if they aren't required for your plugin.
-
-# Everything past here is only a suggestion as to what should be in your specific plugin's description
-
-This plugin is bundled with the [Salesforce CLI](https://developer.salesforce.com/tools/sfdxcli). For more information on the CLI, read the [getting started guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm).
-
-We always recommend using the latest version of these commands bundled with the CLI, however, you can install a specific version or tag if needed.
-
-## Install
+## Quick Start
 
 ```bash
-sf plugins install @gthoppae/plugin-data360@x.y.z
-```
+# Clone and install
+git clone git@github.com:gthoppae/sf-cli-plugin-data360.git
+cd sf-cli-plugin-data360
+yarn install
 
-## Issues
-
-Please report any issues at https://github.com/forcedotcom/cli/issues
-
-## Contributing
-
-1. Please read our [Code of Conduct](CODE_OF_CONDUCT.md)
-2. Create a new issue before starting your project so that we can keep track of
-   what you are trying to add/fix. That way, we can also offer suggestions or
-   let you know if there is already an effort in progress.
-3. Fork this repository.
-4. [Build the plugin locally](#build)
-5. Create a _topic_ branch in your fork. Note, this step is recommended but technically not required if contributing using a fork.
-6. Edit the code in your fork.
-7. Write appropriate tests for your changes. Try to achieve at least 95% code coverage on any new code. No pull request will be accepted without unit tests.
-8. Sign CLA (see [CLA](#cla) below).
-9. Send us a pull request when you are done. We'll review your code, suggest any needed changes, and merge it in.
-
-### CLA
-
-External contributors will be required to sign a Contributor's License
-Agreement. You can do so by going to https://cla.salesforce.com/sign-cla.
-
-### Build
-
-To build the plugin locally, make sure to have yarn installed and run the following commands:
-
-```bash
-# Clone the repository
-git clone git@github.com:gthoppae/plugin-data360
-
-# Install the dependencies and compile
-yarn && yarn build
-```
-
-To use your plugin, run using the local `./bin/dev` or `./bin/dev.cmd` file.
-
-```bash
-# Run using local run file.
-./bin/dev data360 validate connection --target-org <alias>
-```
-
-There should be no differences when running via the Salesforce CLI or using the local run file. However, it can be useful to link the plugin to do some additional testing or run your commands from anywhere on your machine.
-
-```bash
-# Link your plugin to the sf cli
+# Link to Salesforce CLI
 sf plugins link .
-# To verify
-sf plugins
+
+# Verify
+sf data360 man
+
+# Authenticate to a Data Cloud org
+sf org login web -a myorg
+
+# Try it
+sf data360 dmo list --all -o myorg
+sf data360 query sql -o myorg --sql 'SELECT COUNT(*) FROM "ssot__Individual__dlm"'
 ```
 
-## Commands
+## Learn Data Cloud by Doing
 
-<!-- commands -->
+```bash
+# Understand a concept
+sf data360 man concepts dmo
 
-- [`sf data360 validate connection`](#sf-data360-validate-connection)
-- [`sf data360 list indexes`](#sf-data360-list-indexes)
-- [`sf data360 search vector`](#sf-data360-search-vector)
-- [`sf data360 query sql`](#sf-data360-query-sql)
-- [`sf data360 describe table`](#sf-data360-describe-table)
+# Command reference (man-page style)
+sf data360 man dmo list
+sf data360 man segment publish
+sf data360 man query sqlv2
 
-## `sf data360 validate connection`
-
-Validate Data 360 connectivity for a target org.
-
-```
-USAGE
-  $ sf data360 validate connection --target-org <alias> [--api-version <version>] [--json]
+# Browse all topics
+sf data360 man
 ```
 
-## `sf data360 list indexes`
+## Command Topics (159 commands)
 
-List Data 360 search indexes.
+| Topic                 | Commands | Description                                 |
+| --------------------- | -------- | ------------------------------------------- |
+| `connection`          | 23       | Manage connectors and connections           |
+| `data-stream`         | 7        | Create and manage data streams              |
+| `dlo`                 | 5        | Data Lake Objects                           |
+| `dmo`                 | 16       | Data Model Objects, mappings, relationships |
+| `transform`           | 13       | Data transforms                             |
+| `docai`               | 9        | Document AI                                 |
+| `identity-resolution` | 6        | Identity resolution rulesets                |
+| `data-graph`          | 7        | Data graphs                                 |
+| `profile`             | 5        | Unified profiles                            |
+| `segment`             | 10       | Market segments                             |
+| `calculated-insight`  | 6        | Calculated insights                         |
+| `activation`          | 7        | Activations                                 |
+| `activation-target`   | 4        | Activation targets                          |
+| `data-action`         | 2        | Data actions                                |
+| `data-action-target`  | 5        | Data action targets                         |
+| `query`               | 10       | SQL, vector search, async queries           |
+| `search-index`        | 6        | Semantic search indexes                     |
+| `data-space`          | 7        | Data spaces                                 |
+| `data-kit`            | 3        | Data kits (bundles)                         |
+| `insight`             | 3        | Insights                                    |
+| `metadata`            | 3        | Metadata introspection                      |
+| `universal-id`        | 1        | Universal ID lookup                         |
+| `doctor`              | 1        | Health check                                |
 
+## Claude Code / Cursor Skills
+
+7 skills aligned to the [Data Cloud Reference Architecture](https://architect.salesforce.com/diagrams/data-cloud-reference-architecture) are included in `skills/`. See [skills/README.md](skills/README.md) for installation.
+
+## Testing
+
+```bash
+# Run all tests (86 tests)
+npx mocha 'test/**/*.test.ts' --timeout 120000
+
+# Fast tests only (excludes smoke + inventory)
+npx mocha 'test/lib/**/*.test.ts' 'test/commands/crud/*.test.ts' 'test/commands/handtuned/*.test.ts'
 ```
-USAGE
-  $ sf data360 list indexes --target-org <alias> [--api-version <version>] [--json]
-```
 
-## `sf data360 search vector`
+## Prerequisites
 
-Run semantic vector search against a Data 360 search index.
+- Node.js >= 18
+- Salesforce CLI (`sf`) installed
+- A Salesforce org with Data Cloud provisioned
+- Org authenticated: `sf org login web -a <alias>`
 
-```
-USAGE
-  $ sf data360 search vector --target-org <alias> --index <index-name> --query "<text>" [--limit 5] [--api-version <version>] [--json]
-```
+## License
 
-## `sf data360 query sql`
+BSD-3-Clause
 
-Execute Data 360 SQL.
+## Disclaimer
 
-```
-USAGE
-  $ sf data360 query sql --target-org <alias> --sql 'SELECT COUNT(*) FROM "My_DMO__dlm"' [--api-version <version>] [--json]
-```
-
-## `sf data360 describe table`
-
-Describe Data 360 table columns.
-
-```
-USAGE
-  $ sf data360 describe table --target-org <alias> --table <dmo-or-dlo-table> [--api-version <version>] [--json]
-```
-
-<!-- commandsstop -->
+THIS SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. This is not an official Salesforce product. It is not supported by Salesforce and no SLA or support agreement applies. The authors are not responsible for any damage or data loss resulting from its use.
