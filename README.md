@@ -1,4 +1,4 @@
-# plugin-data360
+# sf-cli-plugin-data360
 
 > **DISCLAIMER**: This is NOT an official Salesforce product. It is an unsupported, experimental CLI plugin created for internal exploration and demo purposes. No support, warranty, or maintenance is provided. Use at your own risk. This plugin is not endorsed by, affiliated with, or supported by Salesforce, Inc.
 
@@ -26,22 +26,18 @@ sf data360 dmo list --all -o myorg
 sf data360 query sql -o myorg --sql 'SELECT COUNT(*) FROM "ssot__Individual__dlm"'
 ```
 
-## Learn Data Cloud by Doing
+## Man Pages
 
 ```bash
-# Understand a concept
-sf data360 man concepts dmo
-
-# Command reference (man-page style)
+# Command reference
 sf data360 man dmo list
 sf data360 man segment publish
-sf data360 man query sqlv2
 
 # Browse all topics
 sf data360 man
 ```
 
-## Command Topics (159 commands)
+## Command Topics (160 commands)
 
 | Topic                 | Commands | Description                                 |
 | --------------------- | -------- | ------------------------------------------- |
