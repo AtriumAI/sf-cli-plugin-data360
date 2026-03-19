@@ -88,7 +88,7 @@ npx mocha 'test/lib/**/*.test.ts' 'test/commands/crud/*.test.ts' 'test/commands/
 
 ## License
 
-BSD-3-Clause
+MIT
 
 ## Disclaimer
 
