@@ -74,6 +74,51 @@ These 132 commands pass smoke tests (import, flags, metadata) and are covered by
 - **CrudActionCommand** (12): calculated-insight run, data-graph refresh, etc.
 - **Data360Command** (4): doctor, query sql, query vector, query describe
 
+## Help Wanted — Testing on Your Org
+
+We need live testing on diverse orgs. If you have Data Cloud provisioned, try the commands below and report results (success, error message, org type).
+
+### Quick Wins (read-only, safe to run)
+
+```bash
+# Data spaces — does this work on your org?
+sf data360 data-space list -o <org> 2>/dev/null
+sf data360 data-space members -o <org> --name default 2>/dev/null
+
+# Activations — do you see configured activations?
+sf data360 activation list -o <org> 2>/dev/null
+sf data360 activation-target list -o <org> 2>/dev/null
+
+# Data kits — what bundles are installed?
+sf data360 data-kit status -o <org> --name Sales 2>/dev/null
+
+# Transforms — any data transforms configured?
+sf data360 transform list -o <org> 2>/dev/null
+
+# Doctor — health check
+sf data360 doctor -o <org> 2>/dev/null
+```
+
+### Needs Specific Setup
+
+| Command                   | What You Need                | How to Test                                                                                                                  |
+| ------------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `data-graph create`       | A data graph definition JSON | `sf data360 data-graph create -o <org> -f graph.json`                                                                        |
+| `search-index create`     | Unstructured data DMO        | `sf data360 search-index create -o <org> -f index.json`                                                                      |
+| `docai generate-schema`   | Document AI config           | `sf data360 docai generate-schema -o <org> --name <config>`                                                                  |
+| `query async-*` lifecycle | Any large DMO (1000+ rows)   | `sf data360 query async-create -o <org> --sql 'SELECT * FROM "ssot__Individual__dlm"'` then `async-status` then `async-rows` |
+
+### How to Report
+
+1. Run the command with `--json` flag for structured output
+2. Note your org type: sandbox, Developer Edition, production, scratch org
+3. Note the API version: `sf data360 man <topic> <command>` shows the default
+4. Share the result (success or error message) via the repo issues
+
+Even a "it worked" confirmation is valuable — it means we can mark that command as live-tested on another org type.
+
+---
+
 ## Known Issues
 
 See `sf data360 man <topic> <command>` for per-command NOTES sections.
