@@ -183,14 +183,3 @@ npx mocha 'test/lib/**/*.test.ts' 'test/commands/crud/*.test.ts' 'test/commands/
 # Verify command inventory
 npx mocha 'test/commands/inventory.test.ts' --timeout 120000
 ```
-
-## Man Pages
-
-Every command has a detailed man page:
-
-```bash
-sf data360 man                        # list all topics
-sf data360 man dmo list               # command reference
-sf data360 man segment publish        # with gotchas and testing status
-sf data360 man concepts dmo           # learn what a DMO is
-```
