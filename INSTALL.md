@@ -75,7 +75,8 @@ sf data360 query sql -o myorg --sql 'SELECT COUNT(*) FROM "ssot__Individual__dlm
 If you use Claude Code or Cursor Agent, install the 7 Data Cloud skills:
 
 ```bash
-cd sf-cli-plugin-data360/skills
+git clone git@github.com:gthoppae/sf-data360-skills.git
+cd sf-data360-skills
 for skill in sf-data360 sf-data360-connect sf-data360-prepare sf-data360-harmonize sf-data360-segment sf-data360-act sf-data360-retrieve; do
   ln -sf "$(pwd)/$skill" ~/.claude/skills/$skill
 done

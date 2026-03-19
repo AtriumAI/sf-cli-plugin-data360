@@ -67,7 +67,7 @@ sf data360 man
 
 ## Claude Code / Cursor Skills
 
-7 skills aligned to the [Data Cloud Reference Architecture](https://architect.salesforce.com/diagrams/data-cloud-reference-architecture) are included in `skills/`. See [skills/README.md](skills/README.md) for installation.
+7 skills aligned to the [Data Cloud Reference Architecture](https://architect.salesforce.com/diagrams/data-cloud-reference-architecture) are available in a separate repo: [sf-data360-skills](https://github.com/gthoppae/sf-data360-skills).
 
 ## Testing
 
