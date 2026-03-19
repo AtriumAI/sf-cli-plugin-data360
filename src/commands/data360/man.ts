@@ -19,7 +19,7 @@ export default class Data360Man extends SfCommand<void> {
     '$ sf data360 man connection list',
   ];
   public static readonly strict = false;
-  public static readonly enableJsonFlag = false;
+  public static readonly enableJsonFlag = true;
 
   public static readonly args = {
     command: Args.string({

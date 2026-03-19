@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "commandCount": 159,
+  "commandCount": 160,
   "commands": [
     {
       "name": "data360 activation-target create",
@@ -9,12 +9,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/activation-targets",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -26,12 +21,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/activation-targets/:activationTargetId",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -43,12 +33,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/activation-targets",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -60,13 +45,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/activation-targets/:activationTargetId",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -78,12 +57,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/activations",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -95,12 +69,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/activations/:activationId/data",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -112,12 +81,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/activations/:activationId",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -129,12 +93,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/activations/:activationId",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -146,12 +105,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/activations",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -163,11 +117,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/activation-external-platforms",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -179,13 +129,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/activations/:activationId",
       "httpMethod": "PUT",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -197,12 +141,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/calculated-insights",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -214,12 +153,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/calculated-insights/:apiName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -231,12 +165,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/calculated-insights/:apiName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -248,12 +177,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/calculated-insights",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "collection.items",
       "batchSize": null,
       "hasNameResolution": false
@@ -265,12 +189,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/calculated-insights/:apiName/actions/run",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -282,13 +201,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/calculated-insights/:apiName",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -300,12 +213,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/connectors/:connectorType",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -317,12 +225,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/connectors",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -334,12 +237,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/connections",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -351,13 +249,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/connections/:connectionId/database-schemas",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -369,14 +261,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/connections/:connectionId/databases",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "connector-type",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "connector-type", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": true
@@ -388,12 +273,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/connections/:connectionId",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -405,12 +285,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/connections/:connectionId/endpoints",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -422,13 +297,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/connections/:connectionId/objects/:resourceName/fields",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -440,13 +309,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "connector-type",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "connector-type", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": true
@@ -458,13 +321,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/connections",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "connector-type",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "connector-type", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -476,14 +333,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/connections/:connectionId/objects",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "connector-type",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "connector-type", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": true
@@ -495,13 +345,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/connections/:connectionId/objects/:resourceName/preview",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -513,13 +357,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/connections/:connectionId",
       "httpMethod": "PUT",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -531,12 +369,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/connections/:connectionId/actions/:command",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -548,12 +381,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/connections/actions/:command",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -565,12 +393,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/connections/:connectionId/schema",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -582,13 +405,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/connections/:connectionId/schema",
       "httpMethod": "PUT",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -600,12 +417,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/connections/:connectionId/sitemap",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -617,13 +429,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/connections/:connectionId/sitemap",
       "httpMethod": "PUT",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -635,12 +441,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/connections/:connectionId/actions/test",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -652,12 +453,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/connections/:connectionId/schema/actions/test",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -669,12 +465,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/connections/:connectionId/actions/test",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -686,13 +477,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/connections/:connectionId",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -704,12 +489,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-action-targets",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -721,12 +501,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/data-action-targets/:apiName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -738,13 +513,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-action-targets/:apiName/signing-key",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -756,12 +525,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-action-targets/:apiName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -773,12 +537,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/data-action-targets",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -790,12 +549,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-actions",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -807,12 +561,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/data-actions",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -824,12 +573,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-graphs",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -841,12 +585,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-graphs/data/:dataGraphEntityName/:id",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -858,12 +597,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-graphs/data/:dataGraphEntityName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -875,12 +609,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/data-graphs/:dataGraphName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -892,12 +621,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-graphs/:dataGraphName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -909,11 +633,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-graphs/metadata",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -925,12 +645,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/data-graphs/:dataGraphName/actions/refresh",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -942,12 +657,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-kits/:dataKitName/components/:componentName/dependencies",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -959,12 +669,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-kits/:dataKitName/components/:componentName/deployment-status",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -976,12 +681,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/data-kits/:dataKitName/undeploy",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -993,12 +693,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-spaces",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1010,12 +705,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-spaces/:idOrName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1027,12 +717,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/data-spaces",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1044,13 +729,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-spaces/:idOrName/members/:dataSpaceMemberObjectName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "member",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "member", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1062,13 +741,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/data-spaces/:idOrName/members",
       "httpMethod": "PUT",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1080,13 +753,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/data-spaces/:idOrName/members",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1098,13 +765,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/data-spaces/:idOrName",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1138,12 +799,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-streams",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1155,13 +811,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/data-streams/:recordIdOrDeveloperName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "keep-dlo",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "keep-dlo", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1173,12 +823,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-streams/:recordIdOrDeveloperName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1190,12 +835,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/data-streams",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1207,12 +847,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/data-streams/:recordIdOrDeveloperName/actions/run",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1224,13 +859,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/data-streams/:recordIdOrDeveloperName",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1242,12 +871,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-lake-objects",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1259,12 +883,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/data-lake-objects/:recordIdOrDeveloperName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1276,12 +895,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-lake-objects/:recordIdOrDeveloperName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1293,12 +907,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/data-lake-objects",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1310,13 +919,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/data-lake-objects/:recordIdOrDeveloperName",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1350,12 +953,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-model-objects",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1367,12 +965,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/data-model-objects/:dataModelObjectName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1384,12 +977,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-model-objects/:dataModelObjectName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1401,12 +989,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/data-model-objects",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": 50,
       "hasNameResolution": false
@@ -1441,12 +1024,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-model-object-mappings",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1458,12 +1036,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1475,12 +1048,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1492,12 +1060,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName",
       "httpMethod": "GET",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1509,13 +1072,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "source",
-        "target",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "source", "target", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1527,12 +1084,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings/:fieldSourceTargetMapDeveloperName",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1544,13 +1096,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-model-objects/:dataModelObjectName/relationships",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1562,12 +1108,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/data-model-objects/relationships/:name",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1579,13 +1120,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/data-model-objects/:dataModelObjectName/relationships",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1597,13 +1132,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/data-model-objects/:dataModelObjectName",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1615,12 +1144,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/document-processing/configurations",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1632,12 +1156,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/document-processing/configurations/:idOrApiName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1649,12 +1168,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/document-processing/configurations/:idOrApiName",
       "httpMethod": "GET",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1666,12 +1180,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/document-processing/configurations",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1683,12 +1192,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/document-processing/configurations/:idOrApiName/actions/run",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1700,13 +1204,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/document-processing/configurations/:idOrApiName",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1718,12 +1216,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/document-processing/actions/extract-data",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1735,12 +1228,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/document-processing/configurations/:idOrApiName/actions/generate-schema",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1752,11 +1240,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/document-processing/global-config",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1768,11 +1252,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1784,12 +1264,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/identity-resolutions",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1801,12 +1276,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/identity-resolutions/:identityResolution",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1818,12 +1288,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/identity-resolutions/:identityResolution",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1835,12 +1300,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/identity-resolutions",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1852,12 +1312,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": true
@@ -1869,13 +1324,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/identity-resolutions/:identityResolution",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1887,12 +1336,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/insight/metadata/:ciName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1904,11 +1348,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/insight/metadata",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1920,12 +1360,19 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/insight/calculated-insights/:ciName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 man",
+      "file": "src/commands/data360/man.ts",
+      "summary": "Show detailed man page for a Data 360 command.",
+      "baseClass": "SfCommand",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": [],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1937,11 +1384,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-graphs/metadata",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1953,12 +1396,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/insight/metadata/:ciName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1970,12 +1408,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/profile/metadata/:dataModelName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1987,12 +1420,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/profile/:dataModelName/:id/calculated-insights/:ciName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2004,12 +1432,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/profile/:dataModelName/:id",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2021,12 +1444,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/profile/metadata/:dataModelName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2038,11 +1456,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/profile/metadata",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2054,12 +1468,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/profile/:dataModelName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2071,12 +1480,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "query-id",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "query-id", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2088,13 +1492,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "sql",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "sql", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2106,12 +1504,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "query-id",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "query-id", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2123,12 +1516,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "query-id",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "query-id", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2140,12 +1528,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "table",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "table", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2157,12 +1540,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "sql",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "sql", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2174,12 +1552,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "sql",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "sql", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2191,12 +1564,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "sql",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "sql", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2208,12 +1576,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "batch-id",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "batch-id", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2225,14 +1588,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "index",
-        "limit",
-        "query",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "index", "limit", "query", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2244,11 +1600,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/search-index/config",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2260,12 +1612,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/search-index",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2277,12 +1624,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": true
@@ -2294,12 +1636,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": true
@@ -2311,12 +1648,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/search-index",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "semanticSearchDefinitionDetails",
       "batchSize": null,
       "hasNameResolution": false
@@ -2328,13 +1660,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/search-index/:searchIndexApiNameOrId",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2346,12 +1672,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/segments/:segmentApiName/actions/count",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2363,12 +1684,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/segments",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2380,12 +1696,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/segments/:segmentId/actions/deactivate",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2397,12 +1708,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/segments/:segmentApiName/actions/deactivate",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2414,12 +1720,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/segments/:segmentApiName",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2431,12 +1732,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/segments/:segmentApiNameOrId",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2448,12 +1744,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/segments",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "segments",
       "batchSize": null,
       "hasNameResolution": false
@@ -2465,12 +1756,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/segments/:segmentApiName/members",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2482,12 +1768,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": true
@@ -2499,13 +1780,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/segments/:segmentApiName",
       "httpMethod": "PATCH",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2517,12 +1792,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/data-transforms/:dataTransformNameOrId/actions/cancel",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2534,12 +1804,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-transforms",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2551,12 +1816,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/data-transforms/:dataTransformNameOrId",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2568,12 +1828,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-transforms/:dataTransformNameOrId",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2585,12 +1840,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2602,12 +1852,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/data-transforms",
       "httpMethod": "",
-      "flags": [
-        "all",
-        "api-version",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["all", "api-version", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2619,12 +1864,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/data-transforms/:dataTransformNameOrId/actions/refresh-status",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2636,12 +1876,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/data-transforms/:dataTransformNameOrId/actions/retry",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2653,12 +1888,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/data-transforms/:dataTransformNameOrId/actions/run",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2670,12 +1900,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-transforms/:dataTransformNameOrId/schedule",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2687,13 +1912,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/data-transforms/:dataTransformNameOrId/schedule",
       "httpMethod": "PUT",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2705,13 +1924,7 @@
       "baseClass": "CrudUpdateCommand",
       "endpoint": "/data-transforms/:dataTransformNameOrId",
       "httpMethod": "PUT",
-      "flags": [
-        "api-version",
-        "definition-file",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "definition-file", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2723,12 +1936,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/data-transforms/:dataTransformNameOrId/actions/validate",
       "httpMethod": "POST",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -2740,12 +1948,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/universalIdLookup/:entityName/:dataSourceId/:dataSourceObjectId/:sourceRecordId",
       "httpMethod": "",
-      "flags": [
-        "api-version",
-        "name",
-        "target-org",
-        "timing"
-      ],
+      "flags": ["api-version", "name", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
