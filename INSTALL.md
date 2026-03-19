@@ -88,11 +88,12 @@ Restart your Claude Code / Cursor session for skills to take effect.
 
 ```bash
 # In Claude Code or Cursor, invoke with slash command:
-/sf-data360 give me a full inventory of data cloud on myorg
+/sf-data360 query all segments and their member counts on myorg
+/sf-data360 how many unified profiles do I have on myorg
 
 # Or use phase-specific skills:
 /sf-data360-retrieve find all individuals named Chris on myorg
-/sf-data360-harmonize show me field mappings for Contact on myorg
+/sf-data360-harmonize show me field mappings between Contact_Home__dll and ssot__Individual__dlm on myorg
 ```
 
 ## Updating the Plugin
