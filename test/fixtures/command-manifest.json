@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "commandCount": 160,
+  "commandCount": 161,
   "commands": [
     {
       "name": "data360 activation-target create",
@@ -1529,6 +1529,18 @@
       "endpoint": "",
       "httpMethod": "",
       "flags": ["api-version", "table", "target-org", "timing"],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 query hybrid",
+      "file": "src/commands/data360/query/hybrid.ts",
+      "summary": "Run hybrid search (vector + keyword) on a Data Cloud search index.",
+      "baseClass": "Data360Command",
+      "endpoint": "",
+      "httpMethod": "",
+      "flags": ["api-version", "index", "limit", "prefilter", "query", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
