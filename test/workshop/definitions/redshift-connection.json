@@ -1,11 +1,34 @@
 {
-  "connectorType": "AmazonRedshift",
+  "connectorType": "REDSHIFT",
   "label": "Redshift",
   "name": "Redshift",
-  "connectionProperties": {
-    "username": "gps_workshop_user",
-    "password": "0copyAug2025",
-    "connectionUrl": "sfdc-integration-workgroup.149536483554.us-east-2.redshift-serverless.amazonaws.com:5439",
-    "database": "sfdcintegration"
-  }
+  "method": "Ingress",
+  "credentials": [
+    {
+      "paramName": "authenticationOption",
+      "value": "usernameAndPassword"
+    },
+    {
+      "paramName": "username",
+      "value": "gps_workshop_user"
+    },
+    {
+      "paramName": "password",
+      "value": "0copyAug2025"
+    }
+  ],
+  "parameters": [
+    {
+      "paramName": "url",
+      "value": "sfdc-integration-workgroup.149536483554.us-east-2.redshift-serverless.amazonaws.com:5439"
+    },
+    {
+      "paramName": "database",
+      "value": "sfdcintegration"
+    },
+    {
+      "paramName": "hasPrivateNetworkRoute",
+      "value": "false"
+    }
+  ]
 }

@@ -17,6 +17,7 @@ export type PaginatedResponse<T> = {
   data: T[];
   totalSize?: number;
   nextBatchId?: string;
+  nextPageUrl?: string;
 };
 
 export type PaginationOptions = {
@@ -61,7 +62,8 @@ const extractArray = <T>(response: unknown, arrayKey?: string): T[] => {
 };
 
 /**
- * Fetch a single page from an offset-based list endpoint.
+ * Fetch a single page from a list endpoint.
+ * Sends both `batchSize` and `limit` params to support all API styles.
  */
 export const fetchPage = async <T>(
   org: Org,
@@ -73,17 +75,64 @@ export const fetchPage = async <T>(
   arrayKey?: string
 ): Promise<PaginatedResponse<T>> => {
   const sep = endpoint.includes('?') ? '&' : '?';
-  const url = `${endpoint}${sep}batchSize=${batchSize}&offset=${offset}`;
+  // Some endpoints use `batchSize`, others use `limit` — send both
+  const url = `${endpoint}${sep}batchSize=${batchSize}&limit=${batchSize}&offset=${offset}`;
   const response = await ssotGet<Record<string, unknown>>(org, apiVersion, url, options);
   return {
     data: extractArray<T>(response, arrayKey),
     totalSize: typeof response.totalSize === 'number' ? response.totalSize : undefined,
     nextBatchId: typeof response.nextBatchId === 'string' ? response.nextBatchId : undefined,
+    nextPageUrl: typeof response.nextPageUrl === 'string' ? response.nextPageUrl : undefined,
   };
 };
 
+/** Parse raw API response into a PaginatedResponse. */
+const toPage = <T>(response: Record<string, unknown>, arrayKey?: string): PaginatedResponse<T> => ({
+  data: extractArray<T>(response, arrayKey),
+  totalSize: typeof response.totalSize === 'number' ? response.totalSize : undefined,
+  nextBatchId: typeof response.nextBatchId === 'string' ? response.nextBatchId : undefined,
+  nextPageUrl: typeof response.nextPageUrl === 'string' ? response.nextPageUrl : undefined,
+});
+
+/** Strip the /services/data/vNN.0/ssot prefix from a nextPageUrl (ssotGet adds it). */
+const stripSsotPrefix = (url: string, apiVersion: string): string => {
+  const prefix = `/services/data/v${apiVersion}/ssot`;
+  return url.startsWith(prefix) ? url.slice(prefix.length) : url;
+};
+
+/** Fetch next page via URL or cursor, returning null if no more pages. */
+const fetchNextPage = async <T>(
+  org: Org,
+  apiVersion: string,
+  page: PaginatedResponse<T>,
+  endpoint: string,
+  batchSize: number,
+  requestOptions: SsotRequestOptions | undefined,
+  arrayKey: string | undefined
+): Promise<PaginatedResponse<T> | null> => {
+  // Style 1: follow nextPageUrl
+  if (page.nextPageUrl) {
+    const next = stripSsotPrefix(page.nextPageUrl, apiVersion);
+    // eslint-disable-next-line no-await-in-loop
+    const response = await ssotGet<Record<string, unknown>>(org, apiVersion, next, requestOptions);
+    return toPage<T>(response, arrayKey);
+  }
+  // Style 2: follow nextBatchId
+  if (page.nextBatchId) {
+    const sep = endpoint.includes('?') ? '&' : '?';
+    const url = `${endpoint}${sep}batchSize=${batchSize}&nextBatchId=${encodeURIComponent(page.nextBatchId)}`;
+    // eslint-disable-next-line no-await-in-loop
+    const response = await ssotGet<Record<string, unknown>>(org, apiVersion, url, requestOptions);
+    return toPage<T>(response, arrayKey);
+  }
+  return null;
+};
+
 /**
- * Fetch all pages from an endpoint, handling both pagination styles.
+ * Fetch all pages from an endpoint, handling three pagination styles:
+ * 1. nextPageUrl (data-streams, etc.) — follow the URL directly
+ * 2. nextBatchId (cursor-based)
+ * 3. offset-based (batchSize/limit + offset)
  */
 export const fetchAllPages = async <T>(
   org: Org,
@@ -96,43 +145,31 @@ export const fetchAllPages = async <T>(
   const batchSize = paginationOptions?.batchSize ?? DEFAULT_BATCH_SIZE;
   const maxRecords = paginationOptions?.maxRecords ?? Infinity;
   const all: T[] = [];
-  let offset = 0;
 
-  let hasMore = true;
-  // eslint-disable-next-line no-await-in-loop
-  while (hasMore) {
+  // First page
+  let page = await fetchPage<T>(org, apiVersion, endpoint, 0, batchSize, requestOptions, arrayKey);
+  all.push(...page.data);
+
+  // Follow pages
+  while (all.length < maxRecords) {
+    // Try nextPageUrl or nextBatchId
     // eslint-disable-next-line no-await-in-loop
-    const page = await fetchPage<T>(org, apiVersion, endpoint, offset, batchSize, requestOptions, arrayKey);
-    all.push(...page.data);
-
-    if (all.length >= maxRecords) {
-      return all.slice(0, maxRecords);
-    }
-
-    // Cursor-based: follow nextBatchId
-    if (page.nextBatchId) {
-      const sep = endpoint.includes('?') ? '&' : '?';
-      const url = `${endpoint}${sep}batchSize=${batchSize}&nextBatchId=${encodeURIComponent(page.nextBatchId)}`;
-      // eslint-disable-next-line no-await-in-loop
-      const nextResponse = await ssotGet<Record<string, unknown>>(org, apiVersion, url, requestOptions);
-      const nextData = extractArray<T>(nextResponse, arrayKey);
-      all.push(...nextData);
-      if (nextData.length < batchSize) {
-        hasMore = false;
-      } else {
-        offset += batchSize + nextData.length;
-      }
+    const next = await fetchNextPage<T>(org, apiVersion, page, endpoint, batchSize, requestOptions, arrayKey);
+    if (next) {
+      if (next.data.length === 0) break;
+      all.push(...next.data);
+      page = next;
       continue;
     }
 
-    // Offset-based: check if we've gotten everything
-    if (page.data.length < batchSize) {
-      hasMore = false;
-    } else if (page.totalSize !== undefined && all.length >= page.totalSize) {
-      hasMore = false;
-    } else {
-      offset += batchSize;
-    }
+    // Style 3: offset-based — infer from totalSize or data length
+    if (page.totalSize !== undefined && all.length >= page.totalSize) break;
+    if (page.data.length < batchSize) break;
+
+    // eslint-disable-next-line no-await-in-loop
+    page = await fetchPage<T>(org, apiVersion, endpoint, all.length, batchSize, requestOptions, arrayKey);
+    if (page.data.length === 0) break;
+    all.push(...page.data);
   }
 
   return all.length > maxRecords ? all.slice(0, maxRecords) : all;

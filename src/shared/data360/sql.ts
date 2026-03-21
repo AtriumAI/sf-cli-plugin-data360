@@ -50,10 +50,10 @@ export const buildHybridSearchSql = (
   const escapedPrefilter = escapeSqlString(prefilter);
 
   const sql = [
-    'SELECT c."Chunk__c", v."score__c", v."SourceRecordId__c"',
+    'SELECT c."Chunk__c", v."hybrid_score__c", v."keyword_score__c", v."vector_score__c", v."SourceRecordId__c"',
     `FROM hybrid_search(TABLE("${indexTable}"), '${escapedQuery}', '${escapedPrefilter}', ${safeLimit}) AS v`,
     `JOIN "${chunkTable}" AS c ON v."SourceRecordId__c" = c."RecordId__c"`,
-    'ORDER BY v."score__c" DESC',
+    'ORDER BY v."hybrid_score__c" DESC',
     `LIMIT ${safeLimit}`,
   ].join(' ');
 

@@ -1,8 +1,16 @@
 import { Flags } from '@salesforce/sf-plugins-core';
 import { Data360Command, data360Flags } from '../../../shared/data360/Data360Command.js';
-import { extractVectorMatches, QueryResponse } from '../../../shared/data360/queryResult.js';
+import { QueryResponse } from '../../../shared/data360/queryResult.js';
 import { buildHybridSearchSql } from '../../../shared/data360/sql.js';
 import { ssotPost, SsotTiming } from '../../../shared/data360/ssotClient.js';
+
+export type HybridMatch = {
+  chunk: string;
+  hybridScore: number | null;
+  keywordScore: number | null;
+  vectorScore: number | null;
+  sourceRecordId: string;
+};
 
 export type Data360QueryHybridResult = {
   index: string;
@@ -10,11 +18,7 @@ export type Data360QueryHybridResult = {
   prefilter: string;
   limit: number;
   sql: string;
-  matches: Array<{
-    chunk: string;
-    score: number | null;
-    sourceRecordId: string;
-  }>;
+  matches: HybridMatch[];
 };
 
 const truncate = (value: string, maxLength: number): string =>
@@ -77,16 +81,31 @@ export default class Data360QueryHybrid extends Data360Command<Data360QueryHybri
     );
 
     const rows = Array.isArray(response.data) ? response.data : [];
-    const matches = extractVectorMatches(rows);
+    const toNum = (v: unknown): number | null => (typeof v === 'number' ? v : null);
+    const toStr = (v: unknown): string => (typeof v === 'string' ? v : String(v ?? ''));
+    const matches: HybridMatch[] = rows.map((row: unknown) => {
+      const r = row as Record<string, unknown>;
+      return {
+        chunk: toStr(r.Chunk__c),
+        hybridScore: toNum(r.hybrid_score__c),
+        keywordScore: toNum(r.keyword_score__c),
+        vectorScore: toNum(r.vector_score__c),
+        sourceRecordId: toStr(r.SourceRecordId__c),
+      };
+    });
 
     this.table({
       data: matches.map((m) => ({
-        score: m.score ?? '',
+        hybridScore: m.hybridScore ?? '',
+        keywordScore: m.keywordScore ?? '',
+        vectorScore: m.vectorScore ?? '',
         sourceRecordId: m.sourceRecordId,
         chunk: truncate(m.chunk, 180),
       })),
       columns: [
-        { key: 'score', name: 'Score' },
+        { key: 'hybridScore', name: 'Hybrid' },
+        { key: 'keywordScore', name: 'Keyword' },
+        { key: 'vectorScore', name: 'Vector' },
         { key: 'sourceRecordId', name: 'SourceRecordId' },
         { key: 'chunk', name: 'Chunk' },
       ],
