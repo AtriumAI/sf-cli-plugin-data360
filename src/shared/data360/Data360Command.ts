@@ -20,6 +20,10 @@ export const data360Flags = {
     summary: 'Print command timing breakdown to stderr.',
     default: false,
   }),
+  raw: Flags.boolean({
+    summary: 'Output the full raw API response as JSON.',
+    default: false,
+  }),
 };
 
 export type CommandTiming = {

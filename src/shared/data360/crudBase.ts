@@ -128,6 +128,13 @@ export abstract class CrudListCommand<T extends Record<string, unknown>> extends
     }
     const apiMs = performance.now() - tApi;
 
+    // --raw: output full response as JSON
+    if (allFlags.raw === true) {
+      this.log(JSON.stringify(rawData, null, 2));
+      this.emitTiming(apiMs, ssotTiming);
+      return { data: rawData as T[], totalSize: rawData.length };
+    }
+
     const data = rawData.map((r) => this.mapRecord(r));
 
     if (data.length === 0) {
@@ -173,6 +180,13 @@ export abstract class CrudGetCommand<T extends Record<string, unknown>> extends 
       },
     });
     const apiMs = performance.now() - tApi;
+
+    // --raw: output full response as JSON
+    if (allFlags.raw === true) {
+      this.log(JSON.stringify(response, null, 2));
+      this.emitTiming(apiMs, ssotTiming);
+      return { data: (isRecord(response) ? response : {}) as T };
+    }
 
     const data = this.mapRecord(isRecord(response) ? response : {});
 

@@ -1,7 +1,7 @@
 {
   "name": "@gthoppae/sf-cli-plugin-data360",
   "description": "Data 360 commands for Salesforce CLI",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "dependencies": {
     "@oclif/core": "^4",
     "@salesforce/core": "^8",
