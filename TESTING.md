@@ -56,6 +56,7 @@ Tests the shared CRUD base classes using real command subclasses with mocked API
 | CrudGetCommand    | `crudGet.test.ts`    | Path injection, response mapping                   |
 | CrudCreateCommand | `crudCreate.test.ts` | POST body, ID extraction                           |
 | CrudDeleteCommand | `crudDelete.test.ts` | DELETE + query params (shouldDeleteDataLakeObject) |
+| CrudUpdateCommand | `crudUpdate.test.ts` | PATCH path injection, definition-file body         |
 | CrudActionCommand | `crudAction.test.ts` | POST path injection, endpoint construction         |
 
 **What it catches:** Regression in shared request building, pagination, response parsing.
