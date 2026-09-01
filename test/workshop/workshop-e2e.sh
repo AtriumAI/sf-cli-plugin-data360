@@ -92,7 +92,8 @@ phase_a1() {
   banner "A1: Ingest Salesforce Data"
 
   echo "-- A1a: Verify Sales Data Bundle --"
-  run "$SF" data360 data-kit status -o "$ORG" --name Sales
+  echo "    NOTE: data-kit status is per-component and needs an org-specific component name."
+  echo "    Run manually: $SF data360 data-kit status -o $ORG --name Sales --component <component>"
 
   echo ""
   echo "-- A1b: Cleanup Phone Mappings (Contact HomePhone -> E164, Lead Phone -> E164) --"

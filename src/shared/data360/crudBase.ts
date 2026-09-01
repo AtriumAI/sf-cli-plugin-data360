@@ -84,6 +84,12 @@ export abstract class CrudListCommand<T extends Record<string, unknown>> extends
     return {};
   }
 
+  /** Override when the endpoint carries more than one :param. */
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  protected pathParams(_flags: Record<string, unknown>): Record<string, string> | undefined {
+    return undefined;
+  }
+
   // eslint-disable-next-line class-methods-use-this
   protected mapRecord(record: Record<string, unknown>): T {
     return record as T;
@@ -96,7 +102,12 @@ export abstract class CrudListCommand<T extends Record<string, unknown>> extends
 
     const query = this.queryParams(allFlags);
     const id = (allFlags.name ?? allFlags.id ?? '') as string;
-    const basePath = id ? injectResourceId(this.endpoint, id) : this.endpoint;
+    const params = this.pathParams(allFlags);
+    const basePath = params
+      ? buildPath(this.endpoint, params)
+      : id
+      ? injectResourceId(this.endpoint, id)
+      : this.endpoint;
     const path = buildPath(basePath, undefined, query);
 
     let ssotTiming: SsotTiming | undefined;
@@ -168,6 +179,12 @@ export abstract class CrudGetCommand<T extends Record<string, unknown>> extends 
     return record as T;
   }
 
+  /** Override when the endpoint carries more than one :param. */
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  protected pathParams(_flags: Record<string, unknown>): Record<string, string> | undefined {
+    return undefined;
+  }
+
   // eslint-disable-next-line class-methods-use-this
   protected getResourceId(flags: Record<string, unknown>): string {
     return (flags.name ?? flags.id ?? '') as string;
@@ -179,7 +196,8 @@ export abstract class CrudGetCommand<T extends Record<string, unknown>> extends 
     const id = this.getResourceId(allFlags);
     assertResourceId(id, this.endpoint);
 
-    const path = injectResourceId(this.endpoint, id);
+    const params = this.pathParams(allFlags);
+    const path = params ? buildPath(this.endpoint, params) : injectResourceId(this.endpoint, id);
 
     let ssotTiming: SsotTiming | undefined;
     const tApi = performance.now();
@@ -357,6 +375,12 @@ export abstract class CrudActionCommand extends Data360Command<MutationResult> {
     return (flags.name ?? flags.id ?? '') as string;
   }
 
+  /** Override when the endpoint carries more than one :param. */
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  protected pathParams(_flags: Record<string, unknown>): Record<string, string> | undefined {
+    return undefined;
+  }
+
   public async run(): Promise<MutationResult> {
     const flags = await this.parseData360Flags();
     const allFlags = flags as unknown as Record<string, unknown>;
@@ -364,7 +388,8 @@ export abstract class CrudActionCommand extends Data360Command<MutationResult> {
     assertResourceId(id, this.endpoint);
     const body = this.buildBody(allFlags);
 
-    const path = injectResourceId(this.endpoint, id);
+    const params = this.pathParams(allFlags);
+    const path = params ? buildPath(this.endpoint, params) : injectResourceId(this.endpoint, id);
 
     let ssotTiming: SsotTiming | undefined;
     const tApi = performance.now();
