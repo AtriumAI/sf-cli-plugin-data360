@@ -90,8 +90,8 @@ sf data360 data-space members -o <org> --name default 2>/dev/null
 sf data360 activation list -o <org> 2>/dev/null
 sf data360 activation-target list -o <org> 2>/dev/null
 
-# Data kits — what bundles are installed?
-sf data360 data-kit status -o <org> --name Sales 2>/dev/null
+# Data kits — deployment status of one component in a bundle
+sf data360 data-kit status -o <org> --name Sales --component <component> 2>/dev/null
 
 # Transforms — any data transforms configured?
 sf data360 transform list -o <org> 2>/dev/null
