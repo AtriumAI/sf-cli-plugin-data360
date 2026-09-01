@@ -8,16 +8,16 @@ DESCRIPTION
 List field mappings between a DLO and DMO.
 
 FLAGS
---api-version Override API version (default: 66.0)
+--api-version Override API version (default: 64.0)
 --source Source DLO developer name
 --target Target DMO developer name
 --target-org (required) Target org alias or username
 --timing Print timing breakdown to stderr
 
 API
-POST /ssot/<see source>
+GET /ssot/data-model-object-mappings
 
-NOTES - Uses API v64.0 by default (v66 returns errors) - Query params: dloDeveloperName + dmoDeveloperName - Response nests fields in objectSourceTargetMaps[0].fieldMappings
+NOTES - Uses API v64.0 by default (v66 returns errors) - Query params: dloDeveloperName + dmoDeveloperName - Response nests fields in objectSourceTargetMaps[0].fieldMappings - Returns the object-level developerName (objectSourceTargetMaps[0].developerName), the value mapping-update-field takes as --name
 
 SEE ALSO
 sf data360 dmo map-to-canonical

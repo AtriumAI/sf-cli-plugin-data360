@@ -1,4 +1,5 @@
 import { performance } from 'node:perf_hooks';
+import { SfError } from '@salesforce/core';
 import { Flags } from '@salesforce/sf-plugins-core';
 import { Data360Command, data360Flags } from './Data360Command.js';
 import { buildPath, injectResourceId } from './pathBuilder.js';
@@ -40,6 +41,13 @@ const extractId = (response: unknown): string | undefined => {
 
 const getDefinitionBody = (flags: Record<string, unknown>): Record<string, unknown> =>
   (flags.definitionBody as Record<string, unknown>) ?? {};
+
+/** oclif's `required: true` accepts an empty string; an empty id would emit a `//` path that 404s opaquely. */
+const assertResourceId = (id: string, endpoint: string): void => {
+  if (!id && /:[a-zA-Z]\w*/.test(endpoint)) {
+    throw new SfError(`A non-empty resource name is required for ${endpoint}.`, 'DATA360_MISSING_RESOURCE_ID');
+  }
+};
 
 // ─── Shared flag sets for subclasses to spread into their own static flags ───
 
@@ -169,6 +177,7 @@ export abstract class CrudGetCommand<T extends Record<string, unknown>> extends 
     const flags = await this.parseData360Flags();
     const allFlags = flags as unknown as Record<string, unknown>;
     const id = this.getResourceId(allFlags);
+    assertResourceId(id, this.endpoint);
 
     const path = injectResourceId(this.endpoint, id);
 
@@ -257,6 +266,7 @@ export abstract class CrudUpdateCommand extends Data360Command<MutationResult> {
     const flags = await this.parseData360Flags();
     const allFlags = flags as unknown as Record<string, unknown>;
     const id = this.getResourceId(allFlags);
+    assertResourceId(id, this.endpoint);
 
     const defFile = allFlags['definition-file'] as string | undefined;
     if (defFile) {
@@ -303,6 +313,7 @@ export abstract class CrudDeleteCommand extends Data360Command<MutationResult> {
     const flags = await this.parseData360Flags();
     const allFlags = flags as unknown as Record<string, unknown>;
     const id = this.getResourceId(allFlags);
+    assertResourceId(id, this.endpoint);
 
     let path = injectResourceId(this.endpoint, id);
     const query = this.deleteQueryParams(allFlags);
@@ -350,6 +361,7 @@ export abstract class CrudActionCommand extends Data360Command<MutationResult> {
     const flags = await this.parseData360Flags();
     const allFlags = flags as unknown as Record<string, unknown>;
     const id = this.getResourceId(allFlags);
+    assertResourceId(id, this.endpoint);
     const body = this.buildBody(allFlags);
 
     const path = injectResourceId(this.endpoint, id);

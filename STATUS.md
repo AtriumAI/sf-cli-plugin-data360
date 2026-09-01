@@ -1,6 +1,6 @@
 # Plugin Status
 
-> Last updated: 2026-03-19
+> Last updated: 2026-09-01
 
 ## Testing Summary
 
@@ -8,11 +8,11 @@
 | ---------------------------------- | --------- | -------------------------------------------- |
 | Smoke tested                       | 160 / 160 | Imports, flags, metadata valid               |
 | Inventory snapshot                 | 160 / 160 | No unintentional changes                     |
-| Unit tested (mocked API)           | 19        | Correct requests, responses, name resolution |
+| Unit tested (mocked API)           | 20        | Correct requests, responses, name resolution |
 | Live tested (real org)             | 17        | End-to-end verified, 2026-03-18              |
-| Smoke only (untested individually) | 132       | Covered by CRUD base class tests             |
+| Smoke only (untested individually) | 131       | Covered by CRUD base class tests             |
 
-## Unit Tested Commands (19)
+## Unit Tested Commands (20)
 
 These have dedicated test files with mocked API responses:
 
@@ -23,6 +23,7 @@ These have dedicated test files with mocked API responses:
 | `dmo get`                  | `crudGet.test.ts`                 | GET path injection, response mapping                      |
 | `dmo list`                 | `crudList.test.ts`                | Pagination, batchSize=50, mapRecord                       |
 | `dmo mapping-list`         | `dmo-mapping-list.test.ts`        | dloDeveloperName/dmoDeveloperName params, nested response |
+| `dmo mapping-update-field` | `crudUpdate.test.ts`              | PATCH to field-mappings collection, definition-file body  |
 | `identity-resolution list` | `crudList.test.ts`                | Column mappings (label, rulesetStatus)                    |
 | `identity-resolution run`  | `identity-resolution-run.test.ts` | Name→ID resolution, ID passthrough, error handling        |
 | `query async-create`       | `query-async.test.ts`             | POST /query-sql with SQL body                             |
@@ -62,16 +63,16 @@ Verified against a real Data Cloud org on 2026-03-18:
 | `segment list`             | 2 segments with member counts                |
 | `segment publish`          | Publish started (name→ID resolved)           |
 
-## Smoke-Only Commands (132)
+## Smoke-Only Commands (131)
 
-These 132 commands pass smoke tests (import, flags, metadata) and are covered by their CRUD base class tests, but have no individual unit or live tests. They extend standard base classes:
+These 131 commands pass smoke tests (import, flags, metadata) and are covered by their CRUD base class tests, but have no individual unit or live tests. They extend standard base classes:
 
 - **CrudListCommand** (23): activation list, activation-target list, calculated-insight list, etc.
 - **CrudGetCommand** (40): activation get, connection connector-get, data-graph get, etc.
 - **CrudCreateCommand** (20): activation create, connection create, data-graph create, etc.
 - **CrudUpdateCommand** (18): activation update, connection update, dmo update, etc.
 - **CrudDeleteCommand** (15): activation delete, connection delete, dmo delete, etc.
-- **CrudActionCommand** (12): calculated-insight run, data-graph refresh, etc.
+- **CrudActionCommand** (11): calculated-insight run, data-graph refresh, etc.
 - **Data360Command** (4): doctor, query sql, query vector, query describe
 
 ## Help Wanted — Testing on Your Org
@@ -132,22 +133,24 @@ Key issues:
 
 ## Bug Fixes Applied
 
-| Bug | Command                               | Fix                                           |
-| --- | ------------------------------------- | --------------------------------------------- |
-| B1  | `dmo map-to-canonical`                | --map supports duplicate source keys          |
-| B2  | `data-stream delete`                  | Added --keep-dlo + shouldDeleteDataLakeObject |
-| B4  | `calculated-insight list`             | Dotted arrayKey support (collection.items)    |
-| B5  | `search-index get/delete`             | Name→ID resolution                            |
-| B6  | `identity-resolution list`            | Fixed column mappings                         |
-| B7  | `identity-resolution run`             | Name→ID resolution                            |
-| B9  | `dmo list`                            | Pagination fix (batchSize=50)                 |
-| B11 | `segment publish`                     | Name→marketSegmentId resolution               |
-| B12 | `segment list`                        | Fixed columns + arrayKey                      |
-| B13 | `connection connector-get`            | Simplified (no resolution needed)             |
-| B15 | `connection get`                      | Name→ID resolution with connectorType         |
-| B16 | `connection objects/databases`        | GET→POST + name resolution                    |
-| B17 | `query sql-v1/sqlv2/v2-batch/async-*` | 7 stubs rewritten as functional commands      |
-| B21 | `transform validate`                  | Fixed endpoint + added --name                 |
-| B22 | `docai generate-schema`               | Fixed endpoint + added --name                 |
-| E5  | `connection list`                     | Added --connector-type flag                   |
-| E10 | Multiple                              | Shared nameResolver.ts utility                |
+| Bug | Command                               | Fix                                                       |
+| --- | ------------------------------------- | --------------------------------------------------------- |
+| B1  | `dmo map-to-canonical`                | --map supports duplicate source keys                      |
+| B2  | `data-stream delete`                  | Added --keep-dlo + shouldDeleteDataLakeObject             |
+| B4  | `calculated-insight list`             | Dotted arrayKey support (collection.items)                |
+| B5  | `search-index get/delete`             | Name→ID resolution                                        |
+| B6  | `identity-resolution list`            | Fixed column mappings                                     |
+| B7  | `identity-resolution run`             | Name→ID resolution                                        |
+| B9  | `dmo list`                            | Pagination fix (batchSize=50)                             |
+| B11 | `segment publish`                     | Name→marketSegmentId resolution                           |
+| B12 | `segment list`                        | Fixed columns + arrayKey                                  |
+| B13 | `connection connector-get`            | Simplified (no resolution needed)                         |
+| B15 | `connection get`                      | Name→ID resolution with connectorType                     |
+| B16 | `connection objects/databases`        | GET→POST + name resolution                                |
+| B17 | `query sql-v1/sqlv2/v2-batch/async-*` | 7 stubs rewritten as functional commands                  |
+| B21 | `transform validate`                  | Fixed endpoint + added --name                             |
+| B22 | `docai generate-schema`               | Fixed endpoint + added --name                             |
+| E5  | `connection list`                     | Added --connector-type flag                               |
+| E10 | Multiple                              | Shared nameResolver.ts utility                            |
+| B27 | `dmo mapping-update-field`            | CrudUpdateCommand + --definition-file, collapsed endpoint |
+| B28 | `dmo mapping-list`                    | Surface object-level developerName                        |

@@ -1083,11 +1083,11 @@
     {
       "name": "data360 dmo mapping-update-field",
       "file": "src/commands/data360/dmo/mapping-update-field.ts",
-      "summary": "Mapping update field Data 360 dmo.",
-      "baseClass": "CrudActionCommand",
-      "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings/:fieldSourceTargetMapDeveloperName",
+      "summary": "Add or update field mappings on an existing DLO→DMO mapping.",
+      "baseClass": "CrudUpdateCommand",
+      "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings",
       "httpMethod": "PATCH",
-      "flags": ["api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["api-version", "definition-file", "name", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
