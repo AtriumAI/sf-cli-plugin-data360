@@ -11,8 +11,8 @@ import { mutationFlags } from '../../../src/shared/data360/crudBase.js';
 
 import DmoMappingUpdateField from '../../../src/commands/data360/dmo/mapping-update-field.js';
 
-// Mirrors the command's pinned --api-version default, so the expected URL below stays exact.
-const API_VERSION = '64.0';
+// Mirrors the inherited DEFAULT_API_VERSION, so the expected URL below stays exact.
+const API_VERSION = '66.0';
 const EXPECTED_PATH = `/services/data/v${API_VERSION}/ssot/data-model-object-mappings/Contact_Home_Individual/field-mappings`;
 
 describe('CrudUpdateCommand', () => {
@@ -42,10 +42,6 @@ describe('CrudUpdateCommand', () => {
       assert.equal(requestLog[0].url, EXPECTED_PATH);
       assert.deepEqual(requestLog[0].body, definition);
       assert.equal(result.success, true);
-    });
-
-    it('pins --api-version to 64.0, matching mapping-list', () => {
-      assert.equal(DmoMappingUpdateField.flags['api-version'].default, API_VERSION);
     });
 
     it('declares the --definition-file flag every mutating caller appends, and requires it', () => {

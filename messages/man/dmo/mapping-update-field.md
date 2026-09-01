@@ -13,7 +13,7 @@ targetEntityDeveloperName, fieldMapping[]); fieldMapping lists only the pairs
 being added or changed — the API merges them into the existing set.
 
 FLAGS
---api-version Override API version (default: 64.0)
+--api-version Override API version (default: 66.0)
 --definition-file (required) Path to JSON definition file
 --name Object-level mapping developer name (ObjectSourceTargetMap)
 --target-org (required) Target org alias or username
@@ -22,7 +22,7 @@ FLAGS
 API
 PATCH /ssot/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings
 
-NOTES - Pinned to API v64.0 to match mapping-list, whose GET on /data-model-object-mappings was observed to error on v66; v66 was not retested on this endpoint - --name is the ObjectSourceTargetMap developerName, not a field-mapping name - The definition body is merged into the existing field mappings, not replaced
+NOTES - --name is the ObjectSourceTargetMap developerName, not a field-mapping name - The definition body is merged into the existing field mappings, not replaced
 
 TESTING
 Unit tested: yes

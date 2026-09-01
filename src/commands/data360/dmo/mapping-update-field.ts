@@ -22,11 +22,6 @@ export default class Data360DmoMappingUpdateField extends CrudUpdateCommand {
     }),
     // The PATCH body is the whole point of this command — an empty body is never intended.
     'definition-file': { ...mutationFlags['definition-file'], required: true as const },
-    'api-version': Flags.string({
-      summary: 'API version to use for Data 360 requests.',
-      // This endpoint errors on v66; v64 is stable per demo-builder (matches mapping-list)
-      default: '64.0',
-    }),
   };
 
   protected readonly endpoint = '/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings';
