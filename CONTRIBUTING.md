@@ -56,7 +56,12 @@ See [TESTING.md](TESTING.md) for the full testing methodology. Key commands:
 # Must pass before PR
 npx mocha 'test/**/*.test.ts' --timeout 120000
 
-# Quick check during development
+# Type-check exactly as the build does — `tsc -p .` emits declarations, and some
+# errors (e.g. TS2742 on an unnameable inferred type) fire ONLY during that emit,
+# so `--noEmit` will pass on code that fails a real build.
+npx tsc -p .
+
+# Quick check during development (faster, but see the caveat above)
 npx tsc --noEmit
 ```
 
