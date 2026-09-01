@@ -22,7 +22,7 @@ FLAGS
 API
 PATCH /ssot/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings
 
-NOTES - Uses API v64.0 by default (v66 returns errors on this resource family) - --name is the ObjectSourceTargetMap developerName, not a field-mapping name - The definition body is merged into the existing field mappings, not replaced
+NOTES - Pinned to API v64.0 to match mapping-list, whose GET on /data-model-object-mappings was observed to error on v66; v66 was not retested on this endpoint - --name is the ObjectSourceTargetMap developerName, not a field-mapping name - The definition body is merged into the existing field mappings, not replaced
 
 TESTING
 Unit tested: yes

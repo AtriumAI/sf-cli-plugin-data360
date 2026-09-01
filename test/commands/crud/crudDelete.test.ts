@@ -44,4 +44,20 @@ describe('CrudDeleteCommand', () => {
       assert.equal(result.success, true);
     });
   });
+
+  describe('empty resource id guard', () => {
+    it('throws instead of sending DELETE /segments//', async () => {
+      await assert.rejects(
+        runCommand(SegmentDelete, {
+          flags: { 'target-org': {}, 'api-version': '66.0', timing: false, name: '' },
+          defaultResponse: {},
+        }),
+        (err: Error) => {
+          assert.match(err.message, /non-empty resource name is required/);
+          assert.equal(err.name, 'DATA360_MISSING_RESOURCE_ID');
+          return true;
+        }
+      );
+    });
+  });
 });

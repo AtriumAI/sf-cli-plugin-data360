@@ -21,6 +21,22 @@ describe('CrudGetCommand', () => {
     });
   });
 
+  describe('empty resource id guard', () => {
+    it('throws instead of emitting a // path when --name is an empty string', async () => {
+      await assert.rejects(
+        runCommand(DmoGet, {
+          flags: { 'target-org': {}, 'api-version': '66.0', timing: false, name: '' },
+          defaultResponse: {},
+        }),
+        (err: Error) => {
+          assert.match(err.message, /non-empty resource name is required/);
+          assert.equal(err.name, 'DATA360_MISSING_RESOURCE_ID');
+          return true;
+        }
+      );
+    });
+  });
+
   describe('transform get', () => {
     it('maps response fields correctly', async () => {
       const { tableData } = await runCommand(TransformGet, {

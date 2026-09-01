@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { PassThrough } from 'node:stream';
 import { runCommand } from '../../helpers/runCommand.js';
 import { mutationFlags } from '../../../src/shared/data360/crudBase.js';
 
@@ -43,7 +44,7 @@ describe('CrudUpdateCommand', () => {
       assert.equal(result.success, true);
     });
 
-    it('pins --api-version to 64.0 (this resource family errors on v66)', () => {
+    it('pins --api-version to 64.0, matching mapping-list', () => {
       assert.equal(DmoMappingUpdateField.flags['api-version'].default, API_VERSION);
     });
 
@@ -88,6 +89,40 @@ describe('CrudUpdateCommand', () => {
         await rm(dir, { recursive: true, force: true });
       }
     });
+
+    it('loads the PATCH body from stdin when --definition-file is "-"', async () => {
+      const definition = {
+        sourceEntityDeveloperName: 'Contact_Home__dll',
+        targetEntityDeveloperName: 'ssot__Individual__dlm',
+        fieldMapping: [{ sourceFieldDeveloperName: 'Phone__c', targetFieldDeveloperName: 'ssot__PhoneNumber__c' }],
+      };
+      // readStdin used to setEncoding('utf-8'), so 'data' emitted strings and
+      // Buffer.concat threw ERR_INVALID_ARG_TYPE inside the 'end' listener —
+      // an uncaught crash, not a catchable SfError.
+      const fakeStdin = new PassThrough();
+      fakeStdin.end(JSON.stringify(definition));
+      const realStdin = Object.getOwnPropertyDescriptor(process, 'stdin');
+      Object.defineProperty(process, 'stdin', { configurable: true, value: fakeStdin });
+
+      try {
+        const { requestLog } = await runCommand(DmoMappingUpdateField, {
+          apiVersion: API_VERSION,
+          flags: {
+            'target-org': {},
+            'api-version': API_VERSION,
+            timing: false,
+            name: 'Contact_Home_Individual',
+            'definition-file': '-',
+          },
+          defaultResponse: { developerName: 'Contact_Home_Individual', status: 'UPDATING' },
+        });
+
+        assert.equal(requestLog[0].method, 'PATCH');
+        assert.deepEqual(requestLog[0].body, definition);
+      } finally {
+        if (realStdin) Object.defineProperty(process, 'stdin', realStdin);
+      }
+    });
   });
 
   describe('empty resource id guard', () => {
@@ -107,6 +142,7 @@ describe('CrudUpdateCommand', () => {
         }),
         (err: Error) => {
           assert.match(err.message, /non-empty resource name is required/);
+          assert.equal(err.name, 'DATA360_MISSING_RESOURCE_ID');
           return true;
         }
       );
@@ -126,8 +162,7 @@ describe('CrudUpdateCommand', () => {
       });
 
       assert.equal(requestLog.length, 1);
-      assert.ok(!requestLog[0].url.includes('//ssot'));
-      assert.ok(!requestLog[0].url.includes('field-mappings//'));
+      assert.equal(requestLog[0].url, EXPECTED_PATH);
     });
   });
 });

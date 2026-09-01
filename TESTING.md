@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **57 tests**, ~10 seconds.
+Total: **61 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -44,7 +44,7 @@ Dynamically discovers and imports all 160 command files, then validates:
 
 **What it catches:** Broken imports, missing flags, missing metadata after refactoring.
 
-## Tier 2: CRUD Base Class Tests (23 tests)
+## Tier 2: CRUD Base Class Tests (27 tests)
 
 **Files:** `test/commands/crud/*.test.ts`
 
