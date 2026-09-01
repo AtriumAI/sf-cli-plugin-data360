@@ -21,7 +21,14 @@ export default class Data360DmoMappingUpdateField extends CrudUpdateCommand {
       required: true,
     }),
     // The PATCH body is the whole point of this command — an empty body is never intended.
-    'definition-file': { ...mutationFlags['definition-file'], required: true as const },
+    // Re-declared rather than spread: spreading the inherited flag yields an unnameable
+    // inferred type that fails declaration emit (TS2742) even though --noEmit passes.
+    'definition-file': Flags.file({
+      char: 'f',
+      summary: 'Path to a JSON definition file. Use "-" for stdin.',
+      exists: false,
+      required: true,
+    }),
   };
 
   protected readonly endpoint = '/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings';
