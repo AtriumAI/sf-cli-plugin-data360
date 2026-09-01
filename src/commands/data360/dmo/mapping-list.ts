@@ -12,6 +12,7 @@ type FieldMappingRecord = {
 type MappingListResult = {
   source: string;
   target: string;
+  developerName: string;
   status: string;
   fieldCount: number;
   fields: FieldMappingRecord[];
@@ -68,10 +69,12 @@ export default class Data360DmoMappingList extends Data360Command<MappingListRes
 
     if (maps.length === 0) {
       this.log(`No mapping found between ${flags.source} and ${flags.target}.`);
-      return { source: flags.source, target: flags.target, status: '', fieldCount: 0, fields: [] };
+      return { source: flags.source, target: flags.target, developerName: '', status: '', fieldCount: 0, fields: [] };
     }
 
     const map = maps[0];
+    // The ObjectSourceTargetMap developer name — mapping-update-field's --name.
+    const developerName = str(map.developerName);
     const status = str(map.status);
     const fieldMappings = Array.isArray(map.fieldMappings) ? (map.fieldMappings as Array<Record<string, unknown>>) : [];
 
@@ -96,6 +99,6 @@ export default class Data360DmoMappingList extends Data360Command<MappingListRes
     this.log(`\n${fields.length} field mapping(s).`);
     this.emitTiming(ssotTiming?.totalMs ?? 0, ssotTiming);
 
-    return { source: flags.source, target: flags.target, status, fieldCount: fields.length, fields };
+    return { source: flags.source, target: flags.target, developerName, status, fieldCount: fields.length, fields };
   }
 }

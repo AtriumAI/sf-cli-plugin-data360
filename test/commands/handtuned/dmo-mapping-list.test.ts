@@ -55,6 +55,7 @@ describe('dmo mapping-list', () => {
           {
             objectSourceTargetMaps: [
               {
+                developerName: 'Contact_Home_Individual',
                 sourceEntityDeveloperName: 'Contact_Home__dll',
                 targetEntityDeveloperName: 'ssot__Individual__dlm',
                 status: 'ACTIVE',
@@ -80,6 +81,7 @@ describe('dmo mapping-list', () => {
 
     assert.equal(result.fieldCount, 3);
     assert.equal(result.status, 'ACTIVE');
+    assert.equal(result.developerName, 'Contact_Home_Individual');
     assert.equal(tableData.length, 3);
 
     const first = tableData[0] as Record<string, unknown>;
