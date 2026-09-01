@@ -102,6 +102,41 @@ describe('dmo mapping-list', () => {
     });
 
     assert.equal(result.fieldCount, 0);
+    // undefined, not '' — nothing usable as mapping-update-field's --name.
+    assert.equal(result.developerName, undefined);
+    // The status sentinel stays '' — callers rely on it.
+    assert.equal(result.status, '');
     assert.ok(output.some((line) => line.includes('No mapping found')));
+  });
+
+  it('reports developerName as undefined when the API omits it from the mapping', async () => {
+    const { result } = await runCommand(DmoMappingList, {
+      flags: {
+        'target-org': {},
+        'api-version': '64.0',
+        timing: false,
+        source: 'Contact_Home__dll',
+        target: 'ssot__Individual__dlm',
+      },
+      responses: new Map([
+        [
+          '/data-model-object-mappings',
+          {
+            objectSourceTargetMaps: [
+              {
+                sourceEntityDeveloperName: 'Contact_Home__dll',
+                targetEntityDeveloperName: 'ssot__Individual__dlm',
+                status: 'ACTIVE',
+                fieldMappings: [],
+              },
+            ],
+          },
+        ],
+      ]),
+    });
+
+    assert.equal(result.developerName, undefined);
+    // Distinguishable from "no mapping exists", which reports status ''.
+    assert.equal(result.status, 'ACTIVE');
   });
 });

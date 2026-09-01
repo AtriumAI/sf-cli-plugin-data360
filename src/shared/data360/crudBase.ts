@@ -1,4 +1,5 @@
 import { performance } from 'node:perf_hooks';
+import { SfError } from '@salesforce/core';
 import { Flags } from '@salesforce/sf-plugins-core';
 import { Data360Command, data360Flags } from './Data360Command.js';
 import { buildPath, injectResourceId } from './pathBuilder.js';
@@ -257,6 +258,14 @@ export abstract class CrudUpdateCommand extends Data360Command<MutationResult> {
     const flags = await this.parseData360Flags();
     const allFlags = flags as unknown as Record<string, unknown>;
     const id = this.getResourceId(allFlags);
+
+    // oclif's `required: true` accepts an empty string; an empty id would emit a `//` path that 404s opaquely.
+    if (!id && /:[a-zA-Z]\w*/.test(this.endpoint)) {
+      throw new SfError(
+        `A non-empty resource name is required for ${this.endpoint}. Pass --name (or --id) with a value.`,
+        'DATA360_MISSING_RESOURCE_ID'
+      );
+    }
 
     const defFile = allFlags['definition-file'] as string | undefined;
     if (defFile) {

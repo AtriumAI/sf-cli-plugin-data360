@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **86 tests**, ~51 seconds.
+Total: **57 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -44,7 +44,7 @@ Dynamically discovers and imports all 160 command files, then validates:
 
 **What it catches:** Broken imports, missing flags, missing metadata after refactoring.
 
-## Tier 2: CRUD Base Class Tests (13 tests)
+## Tier 2: CRUD Base Class Tests (23 tests)
 
 **Files:** `test/commands/crud/*.test.ts`
 
@@ -56,12 +56,12 @@ Tests the shared CRUD base classes using real command subclasses with mocked API
 | CrudGetCommand    | `crudGet.test.ts`    | Path injection, response mapping                   |
 | CrudCreateCommand | `crudCreate.test.ts` | POST body, ID extraction                           |
 | CrudDeleteCommand | `crudDelete.test.ts` | DELETE + query params (shouldDeleteDataLakeObject) |
-| CrudUpdateCommand | `crudUpdate.test.ts` | PATCH path injection, definition-file body         |
+| CrudUpdateCommand | `crudUpdate.test.ts` | PATCH path, definition-file body, empty-id guard   |
 | CrudActionCommand | `crudAction.test.ts` | POST path injection, endpoint construction         |
 
 **What it catches:** Regression in shared request building, pagination, response parsing.
 
-## Tier 3: Hand-Tuned Command Tests (15 tests)
+## Tier 3: Hand-Tuned Command Tests (20 tests)
 
 **Files:** `test/commands/handtuned/*.test.ts`
 
