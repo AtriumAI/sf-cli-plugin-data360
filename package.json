@@ -23,7 +23,8 @@
     "/lib",
     "/messages",
     "/oclif.manifest.json",
-    "/oclif.lock"
+    "/oclif.lock",
+    "/scripts/apply-node-compat-patches.mjs"
   ],
   "keywords": [
     "force",
@@ -121,7 +122,7 @@
     "format": "wireit",
     "link-check": "wireit",
     "lint": "wireit",
-    "postinstall": "[ -d .git ] && yarn husky install || exit 0",
+    "postinstall": "node -e \"try { if (require('fs').existsSync('.git')) require('child_process').execSync('husky install', { stdio: 'inherit' }) } catch {}\" && node scripts/apply-node-compat-patches.mjs || exit 0",
     "postpack": "sf-clean --ignore-signing-artifacts",
     "prepack": "sf-prepack",
     "prepare": "tsc -p . && oclif manifest",
@@ -141,7 +142,7 @@
       ]
     },
     "compile": {
-      "command": "tsc -p . --pretty --incremental",
+      "command": "tsc -p . --pretty --incremental && oclif manifest",
       "files": [
         "src/**/*.ts",
         "**/tsconfig.json",
@@ -149,7 +150,8 @@
       ],
       "output": [
         "lib/**",
-        "*.tsbuildinfo"
+        "*.tsbuildinfo",
+        "oclif.manifest.json"
       ],
       "clean": "if-file-deleted"
     },
