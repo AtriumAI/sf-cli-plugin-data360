@@ -25,12 +25,30 @@ cd sf-cli-plugin-data360
 yarn install
 ```
 
-## Step 3: Compile
+This also compiles: the `prepare` script runs `tsc -p . && oclif manifest`, so a fresh clone is ready to
+link. The flip side is that a TypeScript error now fails `yarn install` itself — use
+`yarn install --ignore-scripts` to get dependencies down past a broken tree.
+
+## Step 3: Recompile After Changes
 
 ```bash
 yarn compile
-# or: npx tsc
 ```
+
+`yarn compile` regenerates `oclif.manifest.json` alongside `lib/`. Prefer it over a bare `npx tsc`: the
+oclif loader reads the manifest in preference to the files on disk, so a stale one hides a newly added
+command from `sf plugins link .` and `bin/dev.js`. `yarn clean` removes both.
+
+### Alternative: Install Without a Clone
+
+To consume the plugin rather than develop it, install straight from the git slug — npm runs `prepare`, so
+the install builds from source:
+
+```bash
+sf plugins install AtriumAI/sf-cli-plugin-data360#<ref>
+```
+
+The fork is unsigned, so the CLI prompts to confirm the install. Steps 3 and 4 do not apply.
 
 ## Step 4: Link to Salesforce CLI
 
@@ -164,17 +182,18 @@ sf data360 dmo list --all -o myorg
 
 ### Plugin not found after linking
 
-Recompile first, then re-link:
+Recompile first, then re-link. Use `yarn compile`, not a bare `npx tsc` — a command added since the last
+manifest write stays invisible until the manifest is regenerated:
 
 ```bash
-npx tsc
+yarn compile
 sf plugins link .
 ```
 
 ## Running Tests
 
 ```bash
-# All tests (86 tests, ~1 min)
+# All tests (109 tests, ~10 sec)
 npx mocha 'test/**/*.test.ts' --timeout 120000
 
 # Fast tests only (~1 sec)

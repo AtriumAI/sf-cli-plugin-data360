@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **91 tests**, ~10 seconds.
+Total: **109 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -110,6 +110,37 @@ node --loader ts-node/esm scripts/generate-manifest.mjs
 | definitionFile | 4     | JSON loading, validation (rejects arrays, invalid JSON, missing files)   |
 | asyncPoller    | 3     | Export shape, failure status detection                                   |
 | nameResolver   | 8     | Case-insensitive match, ID passthrough, missing name/ID errors, arrayKey |
+
+## Packaging Tests (18 tests)
+
+**File:** `test/lifecycle-scripts.test.ts`
+
+Asserts the `package.json` lifecycle scripts that make `sf plugins install <slug>#<ref>` work:
+
+- `prepare` exists and runs both `tsc -p .` and `oclif manifest`
+- `prepare` does not delegate to `build`, whose lint step would fail a consumer install
+- `compile` regenerates the manifest and declares it as output, so a linked plugin never reads a stale one
+- `postinstall` runs `husky install` when `.git` exists, never runs it when it does not, and exits 0 either way
+- `postinstall` applies the node compat patch to the tree it landed in, and survives a missing applier
+- `files` ships the compat applier, without which `postinstall` would silently patch nothing
+- `files` ships the directory `oclif.commands` resolves against, and `tsconfig` emits into it
+- `engines.node` admits every Node major we install on, with no upper bound
+
+The `postinstall` cases execute the real script body under `sh -c`, in a throwaway cwd laid out like an
+installed package, against a `husky` stub first on `PATH` that records its argv and exits non-zero.
+Asserting on the recorded argv and on the rewritten `buffer-equal-constant-time` proves each half of the
+body actually ran, rather than the trailing `|| exit 0` making any outcome pass. They are skipped on
+Windows, where npm runs the body through `cmd.exe` and neither `sh` nor the stub's shebang exists.
+
+**What it catches:** A `prepare` dropped in a merge, an ungated `postinstall`, a `files`/`outDir` mismatch.
+
+The end-to-end check cannot be a unit test — it needs a network install of a pushed commit:
+
+```bash
+bash scripts/verify-install.sh <ref>   # defaults to the local HEAD
+```
+
+It installs into a throwaway `SF_DATA_DIR`, so an existing `sf plugins link .` survives the run.
 
 ## Test Helpers
 
