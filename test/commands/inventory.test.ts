@@ -14,6 +14,28 @@ import { discoverCommands, CommandMeta, CommandManifest } from '../helpers/comma
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const MANIFEST_PATH = resolve(__dirname, '../fixtures/command-manifest.json');
+const ROOT = resolve(__dirname, '../..');
+
+/**
+ * Deny-listed in Andi's EXCLUDED_COMMANDS and left without flags on purpose: no consumer,
+ * and no way to doc-verify their shapes. They fail loudly via DATA360_UNRESOLVED_PATH_PARAM.
+ * This set must not grow — a new entry means a command shipped with an unfillable :param.
+ */
+const KNOWN_UNFILLABLE = new Set([
+  'data360 connection preview',
+  'data360 data-graph data-by-id',
+  'data360 profile calculated-insight',
+  'data360 profile child',
+  'data360 universal-id lookup',
+]);
+
+/** injectResourceId fills only the first :param; anything beyond it needs pathParams() or a run() override. */
+const resolvesItsOwnPath = async (file: string): Promise<boolean> => {
+  const mod = (await import(resolve(ROOT, file))) as { default?: new () => unknown };
+  const proto = mod.default?.prototype as object | undefined;
+  if (!proto) return false;
+  return ['pathParams', 'run'].some((m) => Object.prototype.hasOwnProperty.call(proto, m));
+};
 
 describe('Command Inventory', function () {
   this.timeout(120000);
@@ -115,6 +137,35 @@ describe('Command Inventory', function () {
         `${diffs.length} command(s) changed flags:\n` +
           diffs.map((d) => `  - ${d}`).join('\n') +
           '\nRegenerate manifest if intentional.'
+      );
+    }
+  });
+
+  it('no command leaves a :param that nothing can fill', async () => {
+    const offenders: string[] = [];
+    for (const cmd of current) {
+      const params = cmd.endpoint.match(/:[a-zA-Z]\w*/g) ?? [];
+      // eslint-disable-next-line no-await-in-loop
+      if (params.length > 1 && !(await resolvesItsOwnPath(cmd.file))) {
+        offenders.push(cmd.name);
+      }
+    }
+
+    const unexpected = offenders.filter((name) => !KNOWN_UNFILLABLE.has(name));
+    if (unexpected.length > 0) {
+      assert.fail(
+        `${unexpected.length} command(s) would ship a URL containing a literal :token:\n` +
+          unexpected.map((o) => `  - ${o}`).join('\n') +
+          '\nDeclare a flag per param and override pathParams(), or add to KNOWN_UNFILLABLE.'
+      );
+    }
+
+    const fixed = [...KNOWN_UNFILLABLE].filter((name) => !offenders.includes(name));
+    if (fixed.length > 0) {
+      assert.fail(
+        `${fixed.length} command(s) no longer need the exception:\n` +
+          fixed.map((f) => `  - ${f}`).join('\n') +
+          '\nRemove them from KNOWN_UNFILLABLE.'
       );
     }
   });

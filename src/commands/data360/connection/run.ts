@@ -11,7 +11,7 @@ export default class Data360ConnectionRun extends CrudActionCommand {
     ...data360Flags,
     name: Flags.string({
       char: 'n',
-      summary: 'Name or ID of the resource.',
+      summary: 'Connection action to run (the :command path segment).',
       required: true,
     }),
   };

@@ -297,7 +297,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/connections/:connectionId/objects/:resourceName/fields",
       "httpMethod": "",
-      "flags": ["all", "api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["all", "api-version", "name", "object", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -369,7 +369,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/connections/:connectionId/actions/:command",
       "httpMethod": "POST",
-      "flags": ["api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["api-version", "command", "name", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -657,7 +657,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-kits/:dataKitName/components/:componentName/dependencies",
       "httpMethod": "",
-      "flags": ["api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["api-version", "component", "name", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -669,7 +669,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-kits/:dataKitName/components/:componentName/deployment-status",
       "httpMethod": "",
-      "flags": ["api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["api-version", "component", "name", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
