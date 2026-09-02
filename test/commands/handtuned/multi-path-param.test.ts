@@ -7,6 +7,7 @@
 import assert from 'node:assert/strict';
 import { runCommand } from '../../helpers/runCommand.js';
 import { Data360Command } from '../../../src/shared/data360/Data360Command.js';
+import { CrudGetCommand } from '../../../src/shared/data360/crudBase.js';
 import ConnectionFields from '../../../src/commands/data360/connection/fields.js';
 import ConnectionRunExisting from '../../../src/commands/data360/connection/run-existing.js';
 import DataKitDependencies from '../../../src/commands/data360/data-kit/dependencies.js';
@@ -91,6 +92,28 @@ describe('multi-param path resolution', () => {
       });
     });
   }
+
+  describe('pathParams as a general extension point', () => {
+    // Neither param comes from --name, so an id guard running before the hook would reject this.
+    class NoNameFlagCommand extends CrudGetCommand<Record<string, unknown>> {
+      protected readonly endpoint = '/data-kits/:dataKitName/components/:componentName/dependencies';
+      protected readonly columns = [{ key: 'name', name: 'Name' }];
+      // eslint-disable-next-line class-methods-use-this
+      protected pathParams(flags: Record<string, unknown>): Record<string, string> {
+        return { dataKitName: flags.kit as string, componentName: flags.part as string };
+      }
+    }
+
+    it('resolves without requiring --name', async () => {
+      const { requestLog } = await runCommand(NoNameFlagCommand, {
+        flags: { ...baseFlags, kit: 'Sales', part: 'Account' },
+        defaultResponse: {},
+      });
+
+      assert.equal(requestLog.length, 1);
+      assert.ok(requestLog[0].url.endsWith('/data-kits/Sales/components/Account/dependencies'));
+    });
+  });
 
   describe('universal-id lookup (deny-listed, no flags designed)', () => {
     it('fails loudly with the three leftover params rather than issuing a request', async () => {

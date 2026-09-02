@@ -58,4 +58,4 @@ export const buildPath = (
  * @example injectResourceId('/data-lake-objects/:recordIdOrDeveloperName', 'MyDLO')
  */
 export const injectResourceId = (template: string, id: string): string =>
-  assertResolved(template, template.replace(/:[a-zA-Z]\w*/, encodeURIComponent(id)));
+  assertResolved(template, id ? template.replace(/:[a-zA-Z]\w*/, encodeURIComponent(id)) : template);

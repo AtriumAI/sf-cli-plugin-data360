@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **61 tests**, ~10 seconds.
+Total: **91 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -20,7 +20,7 @@ Total: **61 tests**, ~10 seconds.
 npx mocha 'test/**/*.test.ts' --timeout 120000
 
 # Fast tests only (Tier 2 + 3 + utilities, ~1 sec)
-npx mocha 'test/lib/**/*.test.ts' 'test/commands/crud/*.test.ts' 'test/commands/handtuned/*.test.ts'
+npx mocha 'test/shared/**/*.test.ts' 'test/commands/crud/*.test.ts' 'test/commands/handtuned/*.test.ts'
 
 # Smoke test only (Tier 1, ~50 sec — imports all 160 commands)
 npx mocha 'test/commands/smoke.test.ts' --timeout 120000
@@ -44,7 +44,7 @@ Dynamically discovers and imports all 160 command files, then validates:
 
 **What it catches:** Broken imports, missing flags, missing metadata after refactoring.
 
-## Tier 2: CRUD Base Class Tests (27 tests)
+## Tier 2: CRUD Base Class Tests (26 tests)
 
 **Files:** `test/commands/crud/*.test.ts`
 
@@ -61,7 +61,7 @@ Tests the shared CRUD base classes using real command subclasses with mocked API
 
 **What it catches:** Regression in shared request building, pagination, response parsing.
 
-## Tier 3: Hand-Tuned Command Tests (20 tests)
+## Tier 3: Hand-Tuned Command Tests (34 tests)
 
 **Files:** `test/commands/handtuned/*.test.ts`
 
@@ -75,10 +75,11 @@ Tests commands with custom `run()` implementations:
 | query sqlv2             | `query-sqlv2.test.ts`             | POST body, nextBatchId pagination, empty results                  |
 | query async-\*          | `query-async.test.ts`             | Create/status/rows/cancel lifecycle                               |
 | dmo mapping-list        | `dmo-mapping-list.test.ts`        | Custom query params, nested response parsing                      |
+| multi-param endpoints   | `multi-path-param.test.ts`        | Both :params resolved on the 4 reachable cmds; deny-listed throw  |
 
 **What it catches:** Broken name resolution, wrong query params, wrong HTTP method, response parsing errors.
 
-## Tier 4: Inventory Snapshot (6 tests)
+## Tier 4: Inventory Snapshot (7 tests)
 
 **File:** `test/commands/inventory.test.ts`
 
@@ -99,17 +100,13 @@ Compares current command metadata against a checked-in snapshot (`test/fixtures/
 node --loader ts-node/esm scripts/generate-manifest.mjs
 ```
 
-## Shared Utility Tests (42 tests)
+## Shared Utility Tests (16 tests)
 
-**Files:** `test/lib/data360/*.test.ts`
+**Files:** `test/shared/*.test.ts`
 
 | Utility        | Tests | What's Tested                                                            |
 | -------------- | ----- | ------------------------------------------------------------------------ |
-| pathBuilder    | 13    | Path param injection, query string building, URL encoding                |
-| queryResult    | 4     | Metadata parsing, display row formatting, vector match extraction        |
-| sql            | 3     | Identifier quoting, vector search SQL building                           |
-| pagination     | 3     | Export shape, type validation                                            |
-| apiVersion     | 4     | Default version, normalization, SSOT path building                       |
+| pathBuilder    | 16    | Param injection/encoding, unresolved-token guard, query-string building  |
 | definitionFile | 4     | JSON loading, validation (rejects arrays, invalid JSON, missing files)   |
 | asyncPoller    | 3     | Export shape, failure status detection                                   |
 | nameResolver   | 8     | Case-insensitive match, ID passthrough, missing name/ID errors, arrayKey |

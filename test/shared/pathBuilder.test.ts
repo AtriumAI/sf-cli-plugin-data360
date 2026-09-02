@@ -22,6 +22,14 @@ describe('injectResourceId', () => {
     assert.equal(injectResourceId('/data-model-object-mappings', 'ignored'), '/data-model-object-mappings');
   });
 
+  it('throws on an empty id rather than emitting a // segment', () => {
+    assert.throws(() => injectResourceId('/segments/:segmentId', ''), isUnresolvedParamError);
+  });
+
+  it('does not throw when the id itself contains a colon', () => {
+    assert.equal(injectResourceId('/x/:id', 'a:b'), '/x/a%3Ab');
+  });
+
   it('throws on a two-param template rather than shipping a :token', () => {
     assert.throws(
       () => injectResourceId('/data-kits/:dataKitName/components/:componentName/deployment-status', 'Sales'),

@@ -194,10 +194,14 @@ export abstract class CrudGetCommand<T extends Record<string, unknown>> extends 
     const flags = await this.parseData360Flags();
     const allFlags = flags as unknown as Record<string, unknown>;
     const id = this.getResourceId(allFlags);
-    assertResourceId(id, this.endpoint);
-
     const params = this.pathParams(allFlags);
-    const path = params ? buildPath(this.endpoint, params) : injectResourceId(this.endpoint, id);
+    let path: string;
+    if (params) {
+      path = buildPath(this.endpoint, params);
+    } else {
+      assertResourceId(id, this.endpoint);
+      path = injectResourceId(this.endpoint, id);
+    }
 
     let ssotTiming: SsotTiming | undefined;
     const tApi = performance.now();
@@ -385,11 +389,16 @@ export abstract class CrudActionCommand extends Data360Command<MutationResult> {
     const flags = await this.parseData360Flags();
     const allFlags = flags as unknown as Record<string, unknown>;
     const id = this.getResourceId(allFlags);
-    assertResourceId(id, this.endpoint);
     const body = this.buildBody(allFlags);
 
     const params = this.pathParams(allFlags);
-    const path = params ? buildPath(this.endpoint, params) : injectResourceId(this.endpoint, id);
+    let path: string;
+    if (params) {
+      path = buildPath(this.endpoint, params);
+    } else {
+      assertResourceId(id, this.endpoint);
+      path = injectResourceId(this.endpoint, id);
+    }
 
     let ssotTiming: SsotTiming | undefined;
     const tApi = performance.now();

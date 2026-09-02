@@ -8,17 +8,21 @@
 | ---------------------------------- | --------- | -------------------------------------------- |
 | Smoke tested                       | 160 / 160 | Imports, flags, metadata valid               |
 | Inventory snapshot                 | 160 / 160 | No unintentional changes                     |
-| Unit tested (mocked API)           | 20        | Correct requests, responses, name resolution |
+| Unit tested (mocked API)           | 24        | Correct requests, responses, name resolution |
 | Live tested (real org)             | 17        | End-to-end verified, 2026-03-18              |
-| Smoke only (untested individually) | 131       | Covered by CRUD base class tests             |
+| Smoke only (untested individually) | 127       | Covered by CRUD base class tests             |
 
-## Unit Tested Commands (20)
+## Unit Tested Commands (24)
 
 These have dedicated test files with mocked API responses:
 
 | Command                    | Test File                         | What's Verified                                           |
 | -------------------------- | --------------------------------- | --------------------------------------------------------- |
+| `connection fields`        | `multi-path-param.test.ts`        | Both :params resolved (connectionId, resourceName)        |
 | `connection get`           | `connection-get.test.ts`          | Name→ID resolution with connectorType                     |
+| `connection run-existing`  | `multi-path-param.test.ts`        | Both :params resolved (connectionId, command)             |
+| `data-kit dependencies`    | `multi-path-param.test.ts`        | Both :params resolved (dataKitName, componentName)        |
+| `data-kit status`          | `multi-path-param.test.ts`        | Both :params resolved (dataKitName, componentName)        |
 | `data-stream delete`       | `crudDelete.test.ts`              | DELETE + shouldDeleteDataLakeObject param                 |
 | `dmo get`                  | `crudGet.test.ts`                 | GET path injection, response mapping                      |
 | `dmo list`                 | `crudList.test.ts`                | Pagination, batchSize=50, mapRecord                       |
@@ -133,24 +137,25 @@ Key issues:
 
 ## Bug Fixes Applied
 
-| Bug | Command                               | Fix                                                       |
-| --- | ------------------------------------- | --------------------------------------------------------- |
-| B1  | `dmo map-to-canonical`                | --map supports duplicate source keys                      |
-| B2  | `data-stream delete`                  | Added --keep-dlo + shouldDeleteDataLakeObject             |
-| B4  | `calculated-insight list`             | Dotted arrayKey support (collection.items)                |
-| B5  | `search-index get/delete`             | Name→ID resolution                                        |
-| B6  | `identity-resolution list`            | Fixed column mappings                                     |
-| B7  | `identity-resolution run`             | Name→ID resolution                                        |
-| B9  | `dmo list`                            | Pagination fix (batchSize=50)                             |
-| B11 | `segment publish`                     | Name→marketSegmentId resolution                           |
-| B12 | `segment list`                        | Fixed columns + arrayKey                                  |
-| B13 | `connection connector-get`            | Simplified (no resolution needed)                         |
-| B15 | `connection get`                      | Name→ID resolution with connectorType                     |
-| B16 | `connection objects/databases`        | GET→POST + name resolution                                |
-| B17 | `query sql-v1/sqlv2/v2-batch/async-*` | 7 stubs rewritten as functional commands                  |
-| B21 | `transform validate`                  | Fixed endpoint + added --name                             |
-| B22 | `docai generate-schema`               | Fixed endpoint + added --name                             |
-| E5  | `connection list`                     | Added --connector-type flag                               |
-| E10 | Multiple                              | Shared nameResolver.ts utility                            |
-| B27 | `dmo mapping-update-field`            | CrudUpdateCommand + --definition-file, collapsed endpoint |
-| B28 | `dmo mapping-list`                    | Surface object-level developerName                        |
+| Bug | Command                               | Fix                                                        |
+| --- | ------------------------------------- | ---------------------------------------------------------- |
+| B1  | `dmo map-to-canonical`                | --map supports duplicate source keys                       |
+| B2  | `data-stream delete`                  | Added --keep-dlo + shouldDeleteDataLakeObject              |
+| B4  | `calculated-insight list`             | Dotted arrayKey support (collection.items)                 |
+| B5  | `search-index get/delete`             | Name→ID resolution                                         |
+| B6  | `identity-resolution list`            | Fixed column mappings                                      |
+| B7  | `identity-resolution run`             | Name→ID resolution                                         |
+| B9  | `dmo list`                            | Pagination fix (batchSize=50)                              |
+| B11 | `segment publish`                     | Name→marketSegmentId resolution                            |
+| B12 | `segment list`                        | Fixed columns + arrayKey                                   |
+| B13 | `connection connector-get`            | Simplified (no resolution needed)                          |
+| B15 | `connection get`                      | Name→ID resolution with connectorType                      |
+| B16 | `connection objects/databases`        | GET→POST + name resolution                                 |
+| B17 | `query sql-v1/sqlv2/v2-batch/async-*` | 7 stubs rewritten as functional commands                   |
+| B21 | `transform validate`                  | Fixed endpoint + added --name                              |
+| B22 | `docai generate-schema`               | Fixed endpoint + added --name                              |
+| E5  | `connection list`                     | Added --connector-type flag                                |
+| E10 | Multiple                              | Shared nameResolver.ts utility                             |
+| B27 | `dmo mapping-update-field`            | CrudUpdateCommand + --definition-file, collapsed endpoint  |
+| B28 | `dmo mapping-list`                    | Surface object-level developerName                         |
+| B29 | Multi-param endpoints                 | Throw on unresolved :param; flags for the 4 reachable cmds |
