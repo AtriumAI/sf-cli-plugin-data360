@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **91 tests**, ~10 seconds.
+Total: **103 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -110,6 +110,26 @@ node --loader ts-node/esm scripts/generate-manifest.mjs
 | definitionFile | 4     | JSON loading, validation (rejects arrays, invalid JSON, missing files)   |
 | asyncPoller    | 3     | Export shape, failure status detection                                   |
 | nameResolver   | 8     | Case-insensitive match, ID passthrough, missing name/ID errors, arrayKey |
+
+## Packaging Tests (12 tests)
+
+**File:** `test/lifecycle-scripts.test.ts`
+
+Asserts the `package.json` lifecycle scripts that make `sf plugins install <slug>#<ref>` work:
+
+- `prepare` exists and runs both `tsc -p .` and `oclif manifest`
+- `prepare` does not delegate to `build`, whose lint step would fail a consumer install
+- `postinstall` is gated on `.git` and exits 0 with and without one (executed under `sh -c`)
+- `files` ships the directory `oclif.commands` resolves against, and `tsconfig` emits into it
+- `engines.node` admits every Node major we install on, with no upper bound
+
+**What it catches:** A `prepare` dropped in a merge, an ungated `postinstall`, a `files`/`outDir` mismatch.
+
+The end-to-end check cannot be a unit test — it mutates global SF CLI state:
+
+```bash
+bash scripts/verify-install.sh <ref>
+```
 
 ## Test Helpers
 
