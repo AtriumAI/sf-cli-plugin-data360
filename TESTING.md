@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **127 tests**, ~10 seconds.
+Total: **135 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -44,7 +44,7 @@ Dynamically discovers and imports all 160 command files, then validates:
 
 **What it catches:** Broken imports, missing flags, missing metadata after refactoring.
 
-## Tier 2: CRUD Base Class Tests (26 tests)
+## Tier 2: CRUD Base Class Tests (35 tests)
 
 **Files:** `test/commands/crud/*.test.ts`
 
@@ -61,21 +61,26 @@ Tests the shared CRUD base classes using real command subclasses with mocked API
 
 **What it catches:** Regression in shared request building, pagination, response parsing.
 
-## Tier 3: Hand-Tuned Command Tests (34 tests)
+## Tier 3: Hand-Tuned Command Tests (51 tests)
 
 **Files:** `test/commands/handtuned/*.test.ts`
 
 Tests commands with custom `run()` implementations:
 
-| Command                 | Test File                         | What's Tested                                                     |
-| ----------------------- | --------------------------------- | ----------------------------------------------------------------- |
-| identity-resolution run | `identity-resolution-run.test.ts` | Name→ID resolution, 18-char ID passthrough, error on missing name |
-| segment publish         | `segment-publish.test.ts`         | Name→marketSegmentId resolution                                   |
-| connection get          | `connection-get.test.ts`          | Name→ID with connectorType requirement                            |
-| query sqlv2             | `query-sqlv2.test.ts`             | POST body, nextBatchId pagination, empty results                  |
-| query async-\*          | `query-async.test.ts`             | Create/status/rows/cancel lifecycle                               |
-| dmo mapping-list        | `dmo-mapping-list.test.ts`        | Custom query params, nested response parsing                      |
-| multi-param endpoints   | `multi-path-param.test.ts`        | Both :params resolved on the 4 reachable cmds; deny-listed throw  |
+| Command                     | Test File                             | What's Tested                                                         |
+| --------------------------- | ------------------------------------- | --------------------------------------------------------------------- |
+| identity-resolution run     | `identity-resolution-run.test.ts`     | Name→ID resolution, 18-char ID passthrough, error on missing name     |
+| segment publish             | `segment-publish.test.ts`             | Name→marketSegmentId resolution                                       |
+| connection get              | `connection-get.test.ts`              | Name→ID with connectorType requirement                                |
+| query sqlv2                 | `query-sqlv2.test.ts`                 | POST body, nextBatchId pagination, empty results                      |
+| query async-\*              | `query-async.test.ts`                 | Create/status/rows/cancel lifecycle                                   |
+| dmo mapping-list            | `dmo-mapping-list.test.ts`            | Custom query params, nested response parsing                          |
+| multi-param endpoints       | `multi-path-param.test.ts`            | Both :params resolved on the 4 reachable cmds; deny-listed throw      |
+| connection database-schemas | `connection-database-schemas.test.ts` | POST verb + body, `schemas` arrayKey, bare-string rows, inert `--all` |
+| connection schema-get       | `connection-schema-get.test.ts`       | Schema retrieval for a named connection                               |
+| connection test             | `connection-test.test.ts`             | Connection test action                                                |
+| dmo create-from-dlo         | `dmo-create-from-dlo.test.ts`         | DLO SQL type -> DMO type parity; orphan DMO error                     |
+| search-index config         | `search-index-config.test.ts`         | Search index configuration request                                    |
 
 **What it catches:** Broken name resolution, wrong query params, wrong HTTP method, response parsing errors.
 
@@ -104,12 +109,9 @@ node --loader ts-node/esm scripts/generate-manifest.mjs
 
 **Files:** `test/shared/*.test.ts`
 
-| Utility        | Tests | What's Tested                                                            |
-| -------------- | ----- | ------------------------------------------------------------------------ |
-| pathBuilder    | 16    | Param injection/encoding, unresolved-token guard, query-string building  |
-| definitionFile | 4     | JSON loading, validation (rejects arrays, invalid JSON, missing files)   |
-| asyncPoller    | 3     | Export shape, failure status detection                                   |
-| nameResolver   | 8     | Case-insensitive match, ID passthrough, missing name/ID errors, arrayKey |
+| Utility     | Tests | What's Tested                                                           |
+| ----------- | ----- | ----------------------------------------------------------------------- |
+| pathBuilder | 16    | Param injection/encoding, unresolved-token guard, query-string building |
 
 ## Packaging Tests (18 tests)
 

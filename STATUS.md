@@ -8,41 +8,46 @@
 | ---------------------------------- | --------- | -------------------------------------------- |
 | Smoke tested                       | 160 / 160 | Imports, flags, metadata valid               |
 | Inventory snapshot                 | 160 / 160 | No unintentional changes                     |
-| Unit tested (mocked API)           | 25        | Correct requests, responses, name resolution |
+| Unit tested (mocked API)           | 30        | Correct requests, responses, name resolution |
 | Live tested (real org)             | 17        | End-to-end verified, 2026-03-18              |
-| Smoke only (untested individually) | 126       | Covered by CRUD base class tests             |
+| Smoke only (untested individually) | 130       | Covered by CRUD base class tests             |
 
-## Unit Tested Commands (25)
+## Unit Tested Commands (30)
 
 These have dedicated test files with mocked API responses:
 
-| Command                    | Test File                         | What's Verified                                           |
-| -------------------------- | --------------------------------- | --------------------------------------------------------- |
-| `connection fields`        | `multi-path-param.test.ts`        | Both :params resolved; POST body, `fields` arrayKey       |
-| `connection get`           | `connection-get.test.ts`          | Name→ID resolution with connectorType                     |
-| `connection run-existing`  | `multi-path-param.test.ts`        | Both :params resolved (connectionId, command)             |
-| `data-kit dependencies`    | `multi-path-param.test.ts`        | Both :params resolved (dataKitName, componentName)        |
-| `data-kit status`          | `multi-path-param.test.ts`        | Both :params resolved (dataKitName, componentName)        |
-| `data-stream delete`       | `crudDelete.test.ts`              | DELETE + shouldDeleteDataLakeObject param                 |
-| `dmo create-from-dlo`      | `dmo-create-from-dlo.test.ts`     | DLO SQL type → DMO type parity; orphan DMO error          |
-| `dmo get`                  | `crudGet.test.ts`                 | GET path injection, response mapping                      |
-| `dmo list`                 | `crudList.test.ts`                | Pagination, batchSize=50, mapRecord                       |
-| `dmo mapping-list`         | `dmo-mapping-list.test.ts`        | dloDeveloperName/dmoDeveloperName params, nested response |
-| `dmo mapping-update-field` | `crudUpdate.test.ts`              | PATCH to field-mappings collection, definition-file body  |
-| `identity-resolution list` | `crudList.test.ts`                | Column mappings (label, rulesetStatus)                    |
-| `identity-resolution run`  | `identity-resolution-run.test.ts` | Name→ID resolution, ID passthrough, error handling        |
-| `query async-create`       | `query-async.test.ts`             | POST /query-sql with SQL body                             |
-| `query async-status`       | `query-async.test.ts`             | GET /query-sql/{id}                                       |
-| `query async-rows`         | `query-async.test.ts`             | GET /query-sql/{id}/rows, result formatting               |
-| `query async-cancel`       | `query-async.test.ts`             | DELETE /query-sql/{id}                                    |
-| `query sqlv2`              | `query-sqlv2.test.ts`             | POST body, nextBatchId, empty results                     |
-| `segment create`           | `crudCreate.test.ts`              | POST body, ID extraction                                  |
-| `segment delete`           | `crudDelete.test.ts`              | DELETE path                                               |
-| `segment list`             | `crudList.test.ts`                | arrayKey='segments', column mapping                       |
-| `segment publish`          | `segment-publish.test.ts`         | Name→marketSegmentId resolution                           |
-| `transform get`            | `crudGet.test.ts`                 | Response field mapping (createdBy object)                 |
-| `transform run`            | `crudAction.test.ts`              | POST path injection                                       |
-| `transform validate`       | `crudAction.test.ts`              | Endpoint fix verification (B21)                           |
+| Command                       | Test File                             | What's Verified                                                       |
+| ----------------------------- | ------------------------------------- | --------------------------------------------------------------------- |
+| `connection database-schemas` | `connection-database-schemas.test.ts` | POST verb + body, `schemas` arrayKey, bare-string rows, inert `--all` |
+| `connection fields`           | `multi-path-param.test.ts`            | Both :params resolved; POST body, `fields` arrayKey                   |
+| `connection get`              | `connection-get.test.ts`              | Name→ID resolution with connectorType                                 |
+| `connection schema-get`       | `connection-schema-get.test.ts`       | Schema retrieval for a named connection                               |
+| `connection test`             | `connection-test.test.ts`             | Connection test action                                                |
+| `connection run-existing`     | `multi-path-param.test.ts`            | Both :params resolved (connectionId, command)                         |
+| `data-kit dependencies`       | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
+| `data-kit status`             | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
+| `data-stream delete`          | `crudDelete.test.ts`                  | DELETE + shouldDeleteDataLakeObject param                             |
+| `dmo create-from-dlo`         | `dmo-create-from-dlo.test.ts`         | DLO SQL type → DMO type parity; orphan DMO error                      |
+| `dmo get`                     | `crudGet.test.ts`                     | GET path injection, response mapping                                  |
+| `dmo list`                    | `crudList.test.ts`                    | Pagination, batchSize=50, mapRecord                                   |
+| `dmo mapping-list`            | `dmo-mapping-list.test.ts`            | dloDeveloperName/dmoDeveloperName params, nested response             |
+| `dmo mapping-update-field`    | `crudUpdate.test.ts`                  | PATCH to field-mappings collection, definition-file body              |
+| `identity-resolution list`    | `crudList.test.ts`                    | Column mappings (label, rulesetStatus)                                |
+| `identity-resolution run`     | `identity-resolution-run.test.ts`     | Name→ID resolution, ID passthrough, error handling                    |
+| `query async-create`          | `query-async.test.ts`                 | POST /query-sql with SQL body                                         |
+| `query async-status`          | `query-async.test.ts`                 | GET /query-sql/{id}                                                   |
+| `query async-rows`            | `query-async.test.ts`                 | GET /query-sql/{id}/rows, result formatting                           |
+| `query async-cancel`          | `query-async.test.ts`                 | DELETE /query-sql/{id}                                                |
+| `query sqlv2`                 | `query-sqlv2.test.ts`                 | POST body, nextBatchId, empty results                                 |
+| `search-index config`         | `search-index-config.test.ts`         | Search index configuration request                                    |
+| `segment create`              | `crudCreate.test.ts`                  | POST body, ID extraction                                              |
+| `segment delete`              | `crudDelete.test.ts`                  | DELETE path                                                           |
+| `segment list`                | `crudList.test.ts`                    | arrayKey='segments', column mapping                                   |
+| `segment publish`             | `segment-publish.test.ts`             | Name→marketSegmentId resolution                                       |
+| `transform get`               | `crudGet.test.ts`                     | Response field mapping (createdBy object)                             |
+| `transform run`               | `crudAction.test.ts`                  | POST path injection                                                   |
+| `transform validate`          | `crudAction.test.ts`                  | Endpoint fix verification (B21)                                       |
+| `universal-id lookup`         | `multi-path-param.test.ts`            | Deny-listed: throws on its three unresolved :params                   |
 
 ## Live Tested Commands (17)
 
@@ -68,17 +73,20 @@ Verified against a real Data Cloud org on 2026-03-18:
 | `segment list`             | 2 segments with member counts                |
 | `segment publish`          | Publish started (name→ID resolved)           |
 
-## Smoke-Only Commands (131)
+## Smoke-Only Commands (130)
 
-These 131 commands pass smoke tests (import, flags, metadata) and are covered by their CRUD base class tests, but have no individual unit or live tests. They extend standard base classes:
+These 130 commands pass smoke tests (import, flags, metadata) and are covered by their CRUD base class tests, but have no individual unit or live tests. They extend standard base classes:
 
-- **CrudListCommand** (23): activation list, activation-target list, calculated-insight list, etc.
-- **CrudGetCommand** (40): activation get, connection connector-get, data-graph get, etc.
-- **CrudCreateCommand** (20): activation create, connection create, data-graph create, etc.
+- **CrudGetCommand** (33): activation get, connection connector-get, data-graph get, etc.
+- **CrudCreateCommand** (19): activation create, connection create, data-graph create, etc.
 - **CrudUpdateCommand** (18): activation update, connection update, dmo update, etc.
-- **CrudDeleteCommand** (15): activation delete, connection delete, dmo delete, etc.
-- **CrudActionCommand** (11): calculated-insight run, data-graph refresh, etc.
-- **Data360Command** (4): doctor, query sql, query vector, query describe
+- **CrudListCommand** (18): activation list, activation-target list, calculated-insight list, etc.
+- **CrudActionCommand** (17): calculated-insight run, data-graph refresh, etc.
+- **CrudDeleteCommand** (13): activation delete, connection delete, dmo delete, etc.
+- **Data360Command** (12): doctor, query sql, query vector, query describe, etc.
+
+These are smoke-only counts, not per-base-class totals: the 30 unit-tested commands are
+already subtracted, so the seven figures partition the 130 and no command is counted twice.
 
 ## Help Wanted — Testing on Your Org
 
