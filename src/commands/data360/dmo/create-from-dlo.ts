@@ -1,3 +1,4 @@
+import { SfError } from '@salesforce/core';
 import { Flags } from '@salesforce/sf-plugins-core';
 import { Data360Command, data360Flags } from '../../../shared/data360/Data360Command.js';
 import { ssotPost } from '../../../shared/data360/ssotClient.js';
@@ -7,6 +8,8 @@ import { buildPath } from '../../../shared/data360/pathBuilder.js';
 
 // ─── Type mapping: DLO SQL types → DMO field types ───
 
+// The mapping POST enforces type parity with the DLO column, so DATE must not
+// widen to DateTime — that failed the mapping and left an orphan DMO.
 const TYPE_MAP: Record<string, string> = {
   VARCHAR: 'Text',
   DECIMAL: 'Number',
@@ -17,7 +20,7 @@ const TYPE_MAP: Record<string, string> = {
   BOOLEAN: 'Boolean',
   TIMESTAMP: 'DateTime',
   'TIMESTAMP WITH TIME ZONE': 'DateTime',
-  DATE: 'DateTime',
+  DATE: 'Date',
 };
 
 const SKIP_FIELDS = new Set([
@@ -194,7 +197,25 @@ export default class Data360DmoCreateFromDlo extends Data360Command<CreateFromDl
     };
 
     const mappingPath = buildPath('/data-model-object-mappings', undefined, { dataspace });
-    await ssotPost<Record<string, unknown>>(this.org, this.apiVersion, mappingPath, mappingPayload);
+    try {
+      await ssotPost<Record<string, unknown>>(this.org, this.apiVersion, mappingPath, mappingPayload);
+    } catch (error) {
+      // The DMO POST is not rolled back, so a mapping failure leaves an orphan.
+      throw new SfError(
+        `The DMO "${dmoTableName}" was created, but its field mapping failed, so "${dmoTableName}" is now an unmapped orphan. Re-running this command fails at the DMO step because that name already exists. Cause: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+        'DATA360_ORPHAN_DMO',
+        [
+          `Delete the orphan, then retry: sf data360 dmo delete --target-org ${
+            this.org.getUsername() ?? '<org>'
+          } --name ${dmoTableName}`,
+          `Or keep the DMO and create only the mapping: sf data360 dmo mapping-create --target-org ${
+            this.org.getUsername() ?? '<org>'
+          } --definition-file <file> (sourceEntityDeveloperName ${dloName}, targetEntityDeveloperName ${dmoTableName})`,
+        ]
+      );
+    }
     this.log(`Field mapping created with ${fieldMapping.length} field pairs.`);
 
     const result: CreateFromDloResult = {

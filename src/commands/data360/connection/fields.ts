@@ -23,13 +23,27 @@ export default class Data360ConnectionFields extends CrudListCommand<Record<stri
 
   protected readonly endpoint = '/connections/:connectionId/objects/:resourceName/fields';
 
+  /** POST-only: GET answers "HTTP Method 'GET' not allowed. Allowed are POST". */
+  protected readonly httpMethod: 'GET' | 'POST' = 'POST';
+
+  /** The response nests the field list under `fields`, alongside `primaryKeys`. */
+  protected readonly arrayKey = 'fields';
+
+  // `status` is not a key of the documented response; `type` is what callers need.
   protected readonly columns = [
     { key: 'name', name: 'Name' },
-    { key: 'status', name: 'Status' },
+    { key: 'type', name: 'Type' },
+    { key: 'isRequired', name: 'Required' },
   ];
 
   // eslint-disable-next-line class-methods-use-this
   protected pathParams(flags: Record<string, unknown>): Record<string, string> {
     return { connectionId: flags.name as string, resourceName: flags.object as string };
+  }
+
+  /** Postman's minimal body; `filters` is optional and deliberately omitted. */
+  // eslint-disable-next-line class-methods-use-this
+  protected buildBody(): Record<string, unknown> {
+    return { advancedAttributes: {} };
   }
 }

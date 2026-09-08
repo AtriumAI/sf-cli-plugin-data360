@@ -34,8 +34,12 @@ const DEFAULT_BATCH_SIZE = 200;
 /**
  * Extract array data from a response that may have the data at the top level
  * or nested under a known key.
+ *
+ * An explicit `arrayKey` is a STRICT selector: if it is absent the result is
+ * empty, never a sibling array. The fields response nests `fields` alongside
+ * `primaryKeys`, so falling through would render one collection as the other.
  */
-const extractArray = <T>(response: unknown, arrayKey?: string): T[] => {
+export const extractArray = <T>(response: unknown, arrayKey?: string): T[] => {
   if (Array.isArray(response)) return response as T[];
   if (typeof response === 'object' && response !== null) {
     const obj = response as Record<string, unknown>;
@@ -50,7 +54,7 @@ const extractArray = <T>(response: unknown, arrayKey?: string): T[] => {
           break;
         }
       }
-      if (Array.isArray(current)) return current as T[];
+      return Array.isArray(current) ? (current as T[]) : [];
     }
     if (Array.isArray(obj.data)) return obj.data as T[];
     // Some endpoints return the array at a domain-specific key

@@ -19,6 +19,7 @@ export default class Data360DataStreamCreateFromObject extends Data360Command<Cr
     'The platform auto-discovers all fields from the source object. Field selection for modeling happens at the DLO→DMO mapping step.';
   public static readonly examples = [
     '$ sf data360 data-stream create-from-object -o myorg --object Case --category Engagement --event-date-field CreatedDate',
+    '$ sf data360 data-stream create-from-object -o myorg --object Campus_Tour__c --category Engagement --event-date-field Tour_DateTime_c',
     '$ sf data360 data-stream create-from-object -o myorg --object Account --category Profile',
     '$ sf data360 data-stream create-from-object -o myorg --object Order --category Other --name Custom_Order_Stream',
   ];
@@ -36,7 +37,8 @@ export default class Data360DataStreamCreateFromObject extends Data360Command<Cr
       options: ['Profile', 'Engagement', 'Other'],
     }),
     'event-date-field': Flags.string({
-      summary: 'DateTime field for Engagement category streams (e.g., CreatedDate).',
+      summary:
+        'DateTime field for Engagement category streams. Standard fields are bare (CreatedDate); a custom field Foo__c is named Foo_c here — the data-stream API collapses the trailing __c.',
     }),
     name: Flags.string({
       char: 'n',

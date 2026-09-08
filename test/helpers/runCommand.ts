@@ -20,6 +20,7 @@ export type RunResult<T> = {
   output: string[];
   tableData: unknown[];
   styledHeaders: string[];
+  warnings: string[];
 };
 
 /**
@@ -61,6 +62,7 @@ export const runCommand = async <T>(
   const output: string[] = [];
   const tableData: unknown[] = [];
   const styledHeaders: string[] = [];
+  const warnings: string[] = [];
 
   // Stub parseData360Flags — returns flags and sets org/apiVersion
   (cmd as unknown as Record<string, unknown>).parseData360Flags = async () => {
@@ -84,6 +86,10 @@ export const runCommand = async <T>(
     output.push(args.join(' '));
   };
   cmd.logToStderr = () => {};
+  (cmd as unknown as Record<string, unknown>).warn = (msg: string | Error) => {
+    warnings.push(typeof msg === 'string' ? msg : msg.message);
+    return msg;
+  };
   (cmd as unknown as Record<string, unknown>).table = (opts: { data?: unknown[] }) => {
     if (opts?.data) tableData.push(...opts.data);
   };
@@ -99,5 +105,5 @@ export const runCommand = async <T>(
 
   const result = await cmd.run();
 
-  return { result, requestLog, output, tableData, styledHeaders };
+  return { result, requestLog, output, tableData, styledHeaders, warnings };
 };
