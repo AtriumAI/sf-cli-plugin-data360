@@ -22,7 +22,12 @@ FLAGS
 API
 PATCH /ssot/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings
 
-NOTES - --name is the ObjectSourceTargetMap developerName, not a field-mapping name - The definition body is merged into the existing field mappings, not replaced
+NOTES
+
+- --name is the ObjectSourceTargetMap developerName, not a field-mapping name
+- The definition body is merged into the existing field mappings, not replaced
+- The collection PATCH used here is undocumented but verified live
+- Salesforce documents PATCH on the item path /field-mappings/:fieldSourceTargetMapDeveloperName (v61)
 
 TESTING
 Unit tested: yes

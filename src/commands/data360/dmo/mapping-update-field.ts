@@ -7,7 +7,9 @@ export default class Data360DmoMappingUpdateField extends CrudUpdateCommand {
     'PATCHes the field-mappings collection of an existing object-level mapping. The definition is the ' +
     'object-mapping request shape (sourceEntityDeveloperName, targetEntityDeveloperName, fieldMapping[]); ' +
     'fieldMapping needs to list only the pairs being added or changed — the API merges them into the ' +
-    'existing set. --name is the OBJECT-level mapping developer name (from mapping-list/mapping-get).';
+    'existing set. --name is the OBJECT-level mapping developer name (from mapping-list/mapping-get). ' +
+    'The collection PATCH this command uses is undocumented but verified live; Salesforce documents PATCH ' +
+    'on the item path /field-mappings/:fieldSourceTargetMapDeveloperName instead.';
   public static readonly examples = [
     '$ sf data360 dmo mapping-update-field --target-org myorg --name S3_Subscribers_Individual -f add-pairs.json',
   ];
