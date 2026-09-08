@@ -19,6 +19,8 @@ export type RunResult<T> = {
   requestLog: RequestLog[];
   output: string[];
   tableData: unknown[];
+  /** The column set the command handed the table, so a wrong column is visible to a test. */
+  tableColumns: Array<{ key: string; name: string }>;
   styledHeaders: string[];
   warnings: string[];
 };
@@ -61,6 +63,7 @@ export const runCommand = async <T>(
 
   const output: string[] = [];
   const tableData: unknown[] = [];
+  const tableColumns: Array<{ key: string; name: string }> = [];
   const styledHeaders: string[] = [];
   const warnings: string[] = [];
 
@@ -90,8 +93,12 @@ export const runCommand = async <T>(
     warnings.push(typeof msg === 'string' ? msg : msg.message);
     return msg;
   };
-  (cmd as unknown as Record<string, unknown>).table = (opts: { data?: unknown[] }) => {
+  (cmd as unknown as Record<string, unknown>).table = (opts: {
+    data?: unknown[];
+    columns?: Array<{ key: string; name: string }>;
+  }) => {
     if (opts?.data) tableData.push(...opts.data);
+    if (opts?.columns) tableColumns.push(...opts.columns);
   };
   (cmd as unknown as Record<string, unknown>).styledHeader = (header: string) => {
     styledHeaders.push(header);
@@ -105,5 +112,5 @@ export const runCommand = async <T>(
 
   const result = await cmd.run();
 
-  return { result, requestLog, output, tableData, styledHeaders, warnings };
+  return { result, requestLog, output, tableData, tableColumns, styledHeaders, warnings };
 };

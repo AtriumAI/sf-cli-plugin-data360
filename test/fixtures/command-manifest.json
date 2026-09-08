@@ -248,9 +248,9 @@
       "summary": "Database schemas Data 360 connection.",
       "baseClass": "CrudListCommand",
       "endpoint": "/connections/:connectionId/database-schemas",
-      "httpMethod": "GET",
+      "httpMethod": "POST",
       "flags": ["all", "api-version", "name", "raw", "target-org", "timing"],
-      "arrayKey": "",
+      "arrayKey": "schemas",
       "batchSize": null,
       "hasNameResolution": false
     },
