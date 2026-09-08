@@ -2,22 +2,37 @@ NAME
 sf data360 connection database-schemas
 
 SYNOPSIS
-sf data360 connection database-schemas -o <org> [--all] --name <name>
+sf data360 connection database-schemas -o <org> --name <connection-id>
 
 DESCRIPTION
 Database schemas Data 360 connection.
 
+Lists the database schema names a database connection exposes. Use it to find
+the schema that holds a source table before pointing a data stream at it.
+
 FLAGS
---all Fetch all pages of results
+--all (no effect) The endpoint returns every schema in one response, so there are no pages to follow
 --api-version Override API version (default: 66.0)
---name Resource name or ID
+--name (required) Connection ID
 --target-org (required) Target org alias or username
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/connections/:connectionId/database-schemas
+POST /ssot/connections/<connection-id>/database-schemas
+
+Request body: {"advancedAttributes": {}}
+Response: the schema names are nested under "schemas", as bare strings rather
+than objects; each is reported in a "name" column.
+
+NOTES
+--name takes a connection ID, not a connection name. This endpoint performs no
+name-to-ID resolution, unlike "connection databases" and "connection objects".
+
+The endpoint also accepts "advancedAttributes.databaseName" to scope the answer
+to one database. No flag exposes it, so a multi-database connection returns
+whatever the API chooses by default.
 
 TESTING
-Unit tested: no
+Unit tested: yes
 Live tested: no
 Smoke tested: yes

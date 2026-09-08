@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **127 tests**, ~10 seconds.
+Total: **133 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -61,21 +61,22 @@ Tests the shared CRUD base classes using real command subclasses with mocked API
 
 **What it catches:** Regression in shared request building, pagination, response parsing.
 
-## Tier 3: Hand-Tuned Command Tests (34 tests)
+## Tier 3: Hand-Tuned Command Tests (40 tests)
 
 **Files:** `test/commands/handtuned/*.test.ts`
 
 Tests commands with custom `run()` implementations:
 
-| Command                 | Test File                         | What's Tested                                                     |
-| ----------------------- | --------------------------------- | ----------------------------------------------------------------- |
-| identity-resolution run | `identity-resolution-run.test.ts` | Name→ID resolution, 18-char ID passthrough, error on missing name |
-| segment publish         | `segment-publish.test.ts`         | Name→marketSegmentId resolution                                   |
-| connection get          | `connection-get.test.ts`          | Name→ID with connectorType requirement                            |
-| query sqlv2             | `query-sqlv2.test.ts`             | POST body, nextBatchId pagination, empty results                  |
-| query async-\*          | `query-async.test.ts`             | Create/status/rows/cancel lifecycle                               |
-| dmo mapping-list        | `dmo-mapping-list.test.ts`        | Custom query params, nested response parsing                      |
-| multi-param endpoints   | `multi-path-param.test.ts`        | Both :params resolved on the 4 reachable cmds; deny-listed throw  |
+| Command                     | Test File                             | What's Tested                                                         |
+| --------------------------- | ------------------------------------- | --------------------------------------------------------------------- |
+| identity-resolution run     | `identity-resolution-run.test.ts`     | Name→ID resolution, 18-char ID passthrough, error on missing name     |
+| segment publish             | `segment-publish.test.ts`             | Name→marketSegmentId resolution                                       |
+| connection get              | `connection-get.test.ts`              | Name→ID with connectorType requirement                                |
+| query sqlv2                 | `query-sqlv2.test.ts`                 | POST body, nextBatchId pagination, empty results                      |
+| query async-\*              | `query-async.test.ts`                 | Create/status/rows/cancel lifecycle                                   |
+| dmo mapping-list            | `dmo-mapping-list.test.ts`            | Custom query params, nested response parsing                          |
+| multi-param endpoints       | `multi-path-param.test.ts`            | Both :params resolved on the 4 reachable cmds; deny-listed throw      |
+| connection database-schemas | `connection-database-schemas.test.ts` | POST verb + body, `schemas` arrayKey, bare-string rows, inert `--all` |
 
 **What it catches:** Broken name resolution, wrong query params, wrong HTTP method, response parsing errors.
 
