@@ -7,6 +7,8 @@ import { buildPath } from '../../../shared/data360/pathBuilder.js';
 
 // ─── Type mapping: DLO SQL types → DMO field types ───
 
+// The mapping POST enforces type parity with the DLO column, so DATE must not
+// widen to DateTime — that failed the mapping and left an orphan DMO.
 const TYPE_MAP: Record<string, string> = {
   VARCHAR: 'Text',
   DECIMAL: 'Number',
@@ -17,7 +19,7 @@ const TYPE_MAP: Record<string, string> = {
   BOOLEAN: 'Boolean',
   TIMESTAMP: 'DateTime',
   'TIMESTAMP WITH TIME ZONE': 'DateTime',
-  DATE: 'DateTime',
+  DATE: 'Date',
 };
 
 const SKIP_FIELDS = new Set([
