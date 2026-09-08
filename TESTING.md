@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **134 tests**, ~10 seconds.
+Total: **135 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -61,7 +61,7 @@ Tests the shared CRUD base classes using real command subclasses with mocked API
 
 **What it catches:** Regression in shared request building, pagination, response parsing.
 
-## Tier 3: Hand-Tuned Command Tests (50 tests)
+## Tier 3: Hand-Tuned Command Tests (51 tests)
 
 **Files:** `test/commands/handtuned/*.test.ts`
 
@@ -109,12 +109,9 @@ node --loader ts-node/esm scripts/generate-manifest.mjs
 
 **Files:** `test/shared/*.test.ts`
 
-| Utility        | Tests | What's Tested                                                            |
-| -------------- | ----- | ------------------------------------------------------------------------ |
-| pathBuilder    | 16    | Param injection/encoding, unresolved-token guard, query-string building  |
-| definitionFile | 4     | JSON loading, validation (rejects arrays, invalid JSON, missing files)   |
-| asyncPoller    | 3     | Export shape, failure status detection                                   |
-| nameResolver   | 8     | Case-insensitive match, ID passthrough, missing name/ID errors, arrayKey |
+| Utility     | Tests | What's Tested                                                           |
+| ----------- | ----- | ----------------------------------------------------------------------- |
+| pathBuilder | 16    | Param injection/encoding, unresolved-token guard, query-string building |
 
 ## Packaging Tests (18 tests)
 

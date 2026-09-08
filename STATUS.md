@@ -73,17 +73,20 @@ Verified against a real Data Cloud org on 2026-03-18:
 | `segment list`             | 2 segments with member counts                |
 | `segment publish`          | Publish started (name→ID resolved)           |
 
-## Smoke-Only Commands (131)
+## Smoke-Only Commands (130)
 
-These 131 commands pass smoke tests (import, flags, metadata) and are covered by their CRUD base class tests, but have no individual unit or live tests. They extend standard base classes:
+These 130 commands pass smoke tests (import, flags, metadata) and are covered by their CRUD base class tests, but have no individual unit or live tests. They extend standard base classes:
 
-- **CrudListCommand** (23): activation list, activation-target list, calculated-insight list, etc.
-- **CrudGetCommand** (40): activation get, connection connector-get, data-graph get, etc.
-- **CrudCreateCommand** (20): activation create, connection create, data-graph create, etc.
+- **CrudGetCommand** (33): activation get, connection connector-get, data-graph get, etc.
+- **CrudCreateCommand** (19): activation create, connection create, data-graph create, etc.
 - **CrudUpdateCommand** (18): activation update, connection update, dmo update, etc.
-- **CrudDeleteCommand** (15): activation delete, connection delete, dmo delete, etc.
-- **CrudActionCommand** (11): calculated-insight run, data-graph refresh, etc.
-- **Data360Command** (4): doctor, query sql, query vector, query describe
+- **CrudListCommand** (18): activation list, activation-target list, calculated-insight list, etc.
+- **CrudActionCommand** (17): calculated-insight run, data-graph refresh, etc.
+- **CrudDeleteCommand** (13): activation delete, connection delete, dmo delete, etc.
+- **Data360Command** (12): doctor, query sql, query vector, query describe, etc.
+
+These are smoke-only counts, not per-base-class totals: the 30 unit-tested commands are
+already subtracted, so the seven figures partition the 130 and no command is counted twice.
 
 ## Help Wanted — Testing on Your Org
 

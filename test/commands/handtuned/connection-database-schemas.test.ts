@@ -44,6 +44,18 @@ describe('connection database-schemas', () => {
     assert.deepEqual(tableData, [{ name: 'testSchema' }, { name: 'testSchema2' }]);
   });
 
+  it('passes an object element through untouched, in case the API stops sending strings', async () => {
+    const { result } = await runCommand(ConnectionDatabaseSchemas, {
+      flags,
+      responses: new Map<string, unknown>([
+        ['/database-schemas', { schemas: [{ name: 'testSchema', owner: 'dbo' }, 'testSchema2'] }],
+      ]),
+    });
+
+    // A `{ name: String(record) }` shortcut would turn the object into '[object Object]'.
+    assert.deepEqual(result.data, [{ name: 'testSchema', owner: 'dbo' }, { name: 'testSchema2' }]);
+  });
+
   it('renders only the name column, since status is not part of this response', async () => {
     const { tableColumns } = await runCommand(ConnectionDatabaseSchemas, {
       flags,
