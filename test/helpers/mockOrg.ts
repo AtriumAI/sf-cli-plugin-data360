@@ -19,6 +19,12 @@ export type MockOrgOptions = {
   defaultResponse?: unknown;
 };
 
+/** A mapped response that is an Error is thrown, so failure paths are testable. */
+const resolve = (value: unknown): unknown => {
+  if (value instanceof Error) throw value;
+  return value;
+};
+
 export type MockOrgResult = {
   org: Org;
   requestLog: RequestLog[];
@@ -55,22 +61,23 @@ export const createMockOrg = (options?: MockOrgOptions): MockOrgResult => {
   const mockConnection = {
     requestGet: async (url: string) => {
       requestLog.push({ method: 'GET', url });
-      return matchResponse(url, responses, defaultResponse);
+      return resolve(matchResponse(url, responses, defaultResponse));
     },
     requestPost: async (url: string, body: unknown) => {
       requestLog.push({ method: 'POST', url, body });
-      return matchResponse(url, responses, defaultResponse);
+      return resolve(matchResponse(url, responses, defaultResponse));
     },
     request: async (opts: { method: string; url: string; body?: string }) => {
       const method = opts.method as RequestLog['method'];
       const body = opts.body ? JSON.parse(opts.body) : undefined;
       requestLog.push({ method, url: opts.url, body });
-      return matchResponse(opts.url, responses, defaultResponse);
+      return resolve(matchResponse(opts.url, responses, defaultResponse));
     },
   };
 
   const org = {
     getConnection: () => mockConnection,
+    getUsername: () => 'test@example.com',
   } as unknown as Org;
 
   return {

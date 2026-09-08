@@ -205,16 +205,18 @@ describe('CrudListCommand', () => {
     }
 
     const postFlags = { 'target-org': {}, 'api-version': '66.0', timing: false, all: false };
+    // `primaryKeys` is deliberately FIRST: the no-arrayKey fallback returns the
+    // first array in insertion order, so it would return the wrong collection.
     const postResponse = new Map<string, unknown>([
       [
         '/widgets/fields',
         {
           advancedAttributes: {},
+          primaryKeys: [{ name: 'Id' }],
           fields: [
             { name: 'Id', type: 'Text', isRequired: true },
             { name: 'Tour_DateTime_c', type: 'DateTime', isRequired: false },
           ],
-          primaryKeys: [{ name: 'Id' }],
         },
       ],
     ]);
@@ -257,6 +259,53 @@ describe('CrudListCommand', () => {
       assert.equal(requestLog.length, 1);
       assert.equal(requestLog[0].method, 'POST');
       assert.equal(result.data.length, 2);
+    });
+
+    it('warns that --all had no effect', async () => {
+      const { warnings } = await runCommand(PostReadCommand, {
+        flags: { ...postFlags, all: true },
+        responses: postResponse,
+      });
+
+      assert.ok(
+        warnings.some((w) => w.includes('--all has no effect')),
+        `expected an --all warning, got ${JSON.stringify(warnings)}`
+      );
+    });
+
+    it('does not warn about --all when the flag is absent', async () => {
+      const { warnings } = await runCommand(PostReadCommand, { flags: postFlags, responses: postResponse });
+
+      assert.deepEqual(
+        warnings.filter((w) => w.includes('--all')),
+        []
+      );
+    });
+
+    it('without arrayKey the fallback picks the wrong array, which is why it is required', async () => {
+      class NoArrayKeyCommand extends CrudListCommand<Record<string, unknown>> {
+        protected readonly endpoint = '/widgets/fields';
+        protected readonly httpMethod: 'GET' | 'POST' = 'POST';
+        protected readonly columns = [{ key: 'name', name: 'Name' }];
+      }
+
+      const { result } = await runCommand(NoArrayKeyCommand, { flags: postFlags, responses: postResponse });
+
+      assert.equal(
+        result.data.length,
+        1,
+        'fallback returned the fields array, so the fixture no longer proves anything'
+      );
+    });
+
+    it('an explicit arrayKey is strict: a response without the key yields no rows', async () => {
+      const { result } = await runCommand(PostReadCommand, {
+        flags: postFlags,
+        responses: new Map<string, unknown>([['/widgets/fields', { primaryKeys: [{ name: 'Id' }] }]]),
+      });
+
+      assert.deepEqual(result.data, []);
+      assert.equal(result.totalSize, 0);
     });
 
     it('leaves the default subclass on a paginated GET', async () => {

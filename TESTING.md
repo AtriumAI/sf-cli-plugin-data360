@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **109 tests**, ~10 seconds.
+Total: **127 tests**, ~10 seconds.
 
 ## Running Tests
 

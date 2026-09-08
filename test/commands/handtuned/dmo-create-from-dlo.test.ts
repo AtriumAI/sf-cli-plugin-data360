@@ -100,4 +100,50 @@ describe('dmo create-from-dlo type derivation', () => {
 
     assert.equal(fieldNamed(dmoFields(requestLog[1].body), 'Blob_c').dataType, 'Text');
   });
+
+  describe('a failed mapping POST names the orphan DMO it left behind', () => {
+    const runWithFailingMapping = async () =>
+      runCommand(DmoCreateFromDlo, {
+        flags: baseFlags,
+        responses: new Map<string, unknown>([
+          ['/query', { data: [], metadata: metadataFor({ Id__c: 'VARCHAR', Start_Date__c: 'DATE' }) }],
+          ['/data-model-object-mappings', new Error('type Date is different from type DateTime')],
+        ]),
+        defaultResponse: {},
+      });
+
+    it('reports the orphan by name instead of only the wrapped API error', async () => {
+      await assert.rejects(runWithFailingMapping, (error: Error) => {
+        assert.ok(
+          error.message.includes('Healthcare_CarePlan__dlm'),
+          `expected the orphan DMO name in: ${error.message}`
+        );
+        assert.ok(error.message.includes('orphan'), `expected the orphan to be called out in: ${error.message}`);
+        assert.ok(
+          error.message.includes('type Date is different from type DateTime'),
+          `expected the underlying cause to survive in: ${error.message}`
+        );
+        return true;
+      });
+    });
+
+    it('offers both exits: delete the orphan, or create only the mapping', async () => {
+      await assert.rejects(runWithFailingMapping, (error: Error & { actions?: string[] }) => {
+        const actions = error.actions ?? [];
+        assert.equal(actions.length, 2, `expected two recovery actions, got ${JSON.stringify(actions)}`);
+        assert.ok(actions[0].includes('dmo delete'));
+        assert.ok(actions[0].includes('Healthcare_CarePlan__dlm'));
+        assert.ok(actions[1].includes('dmo mapping-create'));
+        assert.ok(actions[1].includes('Healthcare_CarePlan__dll'));
+        return true;
+      });
+    });
+
+    it('raises DATA360_ORPHAN_DMO, distinguishing it from a plain API error', async () => {
+      await assert.rejects(runWithFailingMapping, (error: Error & { name?: string }) => {
+        assert.equal(error.name, 'DATA360_ORPHAN_DMO');
+        return true;
+      });
+    });
+  });
 });

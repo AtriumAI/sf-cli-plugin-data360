@@ -8,22 +8,23 @@
 | ---------------------------------- | --------- | -------------------------------------------- |
 | Smoke tested                       | 160 / 160 | Imports, flags, metadata valid               |
 | Inventory snapshot                 | 160 / 160 | No unintentional changes                     |
-| Unit tested (mocked API)           | 24        | Correct requests, responses, name resolution |
+| Unit tested (mocked API)           | 25        | Correct requests, responses, name resolution |
 | Live tested (real org)             | 17        | End-to-end verified, 2026-03-18              |
-| Smoke only (untested individually) | 127       | Covered by CRUD base class tests             |
+| Smoke only (untested individually) | 126       | Covered by CRUD base class tests             |
 
-## Unit Tested Commands (24)
+## Unit Tested Commands (25)
 
 These have dedicated test files with mocked API responses:
 
 | Command                    | Test File                         | What's Verified                                           |
 | -------------------------- | --------------------------------- | --------------------------------------------------------- |
-| `connection fields`        | `multi-path-param.test.ts`        | Both :params resolved (connectionId, resourceName)        |
+| `connection fields`        | `multi-path-param.test.ts`        | Both :params resolved; POST body, `fields` arrayKey       |
 | `connection get`           | `connection-get.test.ts`          | Name→ID resolution with connectorType                     |
 | `connection run-existing`  | `multi-path-param.test.ts`        | Both :params resolved (connectionId, command)             |
 | `data-kit dependencies`    | `multi-path-param.test.ts`        | Both :params resolved (dataKitName, componentName)        |
 | `data-kit status`          | `multi-path-param.test.ts`        | Both :params resolved (dataKitName, componentName)        |
 | `data-stream delete`       | `crudDelete.test.ts`              | DELETE + shouldDeleteDataLakeObject param                 |
+| `dmo create-from-dlo`      | `dmo-create-from-dlo.test.ts`     | DLO SQL type → DMO type parity; orphan DMO error          |
 | `dmo get`                  | `crudGet.test.ts`                 | GET path injection, response mapping                      |
 | `dmo list`                 | `crudList.test.ts`                | Pagination, batchSize=50, mapRecord                       |
 | `dmo mapping-list`         | `dmo-mapping-list.test.ts`        | dloDeveloperName/dmoDeveloperName params, nested response |

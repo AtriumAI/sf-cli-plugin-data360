@@ -113,14 +113,15 @@ describe('multi-param path resolution', () => {
         responses: new Map<string, unknown>([
           [
             '/objects/Campus_Tour__c/fields',
+            // `primaryKeys` first, so the no-arrayKey fallback would return it.
             {
               advancedAttributes: {},
+              primaryKeys: [{ name: 'Id' }],
+              incrementalExtractAttributes: {},
               fields: [
                 { name: 'Id', type: 'Text', isRequired: true },
                 { name: 'Tour_DateTime_c', type: 'DateTime', isRequired: false },
               ],
-              incrementalExtractAttributes: {},
-              primaryKeys: [{ name: 'Id' }],
             },
           ],
         ]),

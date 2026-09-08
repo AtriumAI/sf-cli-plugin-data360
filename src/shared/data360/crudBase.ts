@@ -125,6 +125,9 @@ export abstract class CrudListCommand<T extends Record<string, unknown>> extends
     let rawData: Array<Record<string, unknown>>;
     if (this.httpMethod === 'POST') {
       // A POST-read endpoint answers in one body, so --all has nothing to follow.
+      if (fetchAll) {
+        this.warn('--all has no effect: this endpoint returns every record in a single response.');
+      }
       const response = await ssotPost<Record<string, unknown>>(
         this.org,
         this.apiVersion,

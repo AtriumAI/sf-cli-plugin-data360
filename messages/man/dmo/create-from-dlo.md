@@ -26,6 +26,6 @@ sf data360 dmo create
 sf data360 dmo map-to-canonical
 
 TESTING
-Unit tested: no
+Unit tested: yes
 Live tested: no
 Smoke tested: yes
