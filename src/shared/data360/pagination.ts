@@ -35,7 +35,7 @@ const DEFAULT_BATCH_SIZE = 200;
  * Extract array data from a response that may have the data at the top level
  * or nested under a known key.
  */
-const extractArray = <T>(response: unknown, arrayKey?: string): T[] => {
+export const extractArray = <T>(response: unknown, arrayKey?: string): T[] => {
   if (Array.isArray(response)) return response as T[];
   if (typeof response === 'object' && response !== null) {
     const obj = response as Record<string, unknown>;

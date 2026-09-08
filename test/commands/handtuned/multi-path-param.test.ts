@@ -39,7 +39,7 @@ const cases: Array<{
     secondFlag: 'object',
     flags: { ...baseFlags, all: false, name: '0hMdL000001lCRlUAM', object: 'Account' },
     expectedPath: '/services/data/v66.0/ssot/connections/0hMdL000001lCRlUAM/objects/Account/fields',
-    defaultResponse: { data: [] },
+    defaultResponse: { fields: [] },
   },
   {
     label: 'connection run-existing',
@@ -92,6 +92,47 @@ describe('multi-param path resolution', () => {
       });
     });
   }
+
+  describe('connection fields reads over POST', () => {
+    const fieldsFlags = { ...baseFlags, all: false, name: '0hMdL000001lCRlUAM', object: 'Campus_Tour__c' };
+
+    it('POSTs the minimal body, with no filters key so the flag surface stays {name, object}', async () => {
+      const { requestLog } = await runCommand(ConnectionFields, {
+        flags: fieldsFlags,
+        defaultResponse: { fields: [] },
+      });
+
+      assert.equal(requestLog.length, 1);
+      assert.equal(requestLog[0].method, 'POST');
+      assert.deepEqual(requestLog[0].body, { advancedAttributes: {} });
+    });
+
+    it('returns the fields array, not the sibling primaryKeys', async () => {
+      const { result } = await runCommand(ConnectionFields, {
+        flags: fieldsFlags,
+        responses: new Map<string, unknown>([
+          [
+            '/objects/Campus_Tour__c/fields',
+            {
+              advancedAttributes: {},
+              fields: [
+                { name: 'Id', type: 'Text', isRequired: true },
+                { name: 'Tour_DateTime_c', type: 'DateTime', isRequired: false },
+              ],
+              incrementalExtractAttributes: {},
+              primaryKeys: [{ name: 'Id' }],
+            },
+          ],
+        ]),
+      });
+
+      assert.deepEqual(
+        result.data.map((f) => f.name),
+        ['Id', 'Tour_DateTime_c']
+      );
+      assert.equal(result.data[1].type, 'DateTime');
+    });
+  });
 
   describe('pathParams as a general extension point', () => {
     // Neither param comes from --name, so an id guard running before the hook would reject this.

@@ -3,7 +3,7 @@ import { SfError } from '@salesforce/core';
 import { Flags } from '@salesforce/sf-plugins-core';
 import { Data360Command, data360Flags } from './Data360Command.js';
 import { buildPath, injectResourceId } from './pathBuilder.js';
-import { fetchAllPages, fetchPage, PaginationOptions } from './pagination.js';
+import { extractArray, fetchAllPages, fetchPage, PaginationOptions } from './pagination.js';
 import { ssotGet, ssotPost, ssotPut, ssotPatch, ssotDelete, SsotTiming } from './ssotClient.js';
 import { loadDefinitionFile } from './definitionFile.js';
 
@@ -78,6 +78,14 @@ export abstract class CrudListCommand<T extends Record<string, unknown>> extends
   protected readonly arrayKey?: string;
   /** Override to match the API's actual page size (default: 200). */
   protected readonly batchSize?: number;
+  /** POST for a list endpoint that reads via a request body; those do not paginate. */
+  protected readonly httpMethod: 'GET' | 'POST' = 'GET';
+
+  /** Request body for a POST-read endpoint; unused when httpMethod is GET. */
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  protected buildBody(_flags: Record<string, unknown>): Record<string, unknown> {
+    return {};
+  }
 
   // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
   protected queryParams(_flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
@@ -115,7 +123,21 @@ export abstract class CrudListCommand<T extends Record<string, unknown>> extends
 
     const bs = this.batchSize ?? 200;
     let rawData: Array<Record<string, unknown>>;
-    if (fetchAll) {
+    if (this.httpMethod === 'POST') {
+      // A POST-read endpoint answers in one body, so --all has nothing to follow.
+      const response = await ssotPost<Record<string, unknown>>(
+        this.org,
+        this.apiVersion,
+        path,
+        this.buildBody(allFlags),
+        {
+          onTiming: (t) => {
+            ssotTiming = t;
+          },
+        }
+      );
+      rawData = extractArray<Record<string, unknown>>(response, this.arrayKey);
+    } else if (fetchAll) {
       const paginationOpts: PaginationOptions = { all: true, batchSize: bs };
       rawData = await fetchAllPages<Record<string, unknown>>(
         this.org,

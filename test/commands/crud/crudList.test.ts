@@ -5,6 +5,7 @@
  */
 import assert from 'node:assert/strict';
 import { runCommand } from '../../helpers/runCommand.js';
+import { CrudListCommand } from '../../../src/shared/data360/crudBase.js';
 
 // Import actual commands as test subjects
 import SegmentList from '../../../src/commands/data360/segment/list.js';
@@ -183,6 +184,91 @@ describe('CrudListCommand', () => {
       const row = tableData[0] as Record<string, unknown>;
       assert.equal(row.label, 'Main');
       assert.equal(row.rulesetStatus, 'PUBLISHED');
+    });
+  });
+
+  describe('POST-read list endpoints', () => {
+    class PostReadCommand extends CrudListCommand<Record<string, unknown>> {
+      protected readonly endpoint = '/widgets/fields';
+      protected readonly httpMethod: 'GET' | 'POST' = 'POST';
+      protected readonly arrayKey = 'fields';
+      protected readonly columns = [{ key: 'name', name: 'Name' }];
+      // eslint-disable-next-line class-methods-use-this
+      protected buildBody(): Record<string, unknown> {
+        return { advancedAttributes: {} };
+      }
+    }
+
+    class DefaultGetCommand extends CrudListCommand<Record<string, unknown>> {
+      protected readonly endpoint = '/widgets';
+      protected readonly columns = [{ key: 'name', name: 'Name' }];
+    }
+
+    const postFlags = { 'target-org': {}, 'api-version': '66.0', timing: false, all: false };
+    const postResponse = new Map<string, unknown>([
+      [
+        '/widgets/fields',
+        {
+          advancedAttributes: {},
+          fields: [
+            { name: 'Id', type: 'Text', isRequired: true },
+            { name: 'Tour_DateTime_c', type: 'DateTime', isRequired: false },
+          ],
+          primaryKeys: [{ name: 'Id' }],
+        },
+      ],
+    ]);
+
+    it('issues exactly one POST, with no pagination params in the URL', async () => {
+      const { requestLog } = await runCommand(PostReadCommand, { flags: postFlags, responses: postResponse });
+
+      assert.equal(requestLog.length, 1);
+      assert.equal(requestLog[0].method, 'POST');
+      assert.ok(requestLog[0].url.includes('/ssot/widgets/fields'));
+      for (const param of ['batchSize=', 'limit=', 'offset=']) {
+        assert.ok(!requestLog[0].url.includes(param), `POST branch must not send ${param}: ${requestLog[0].url}`);
+      }
+    });
+
+    it("sends buildBody()'s return value as the request body", async () => {
+      const { requestLog } = await runCommand(PostReadCommand, { flags: postFlags, responses: postResponse });
+
+      assert.deepEqual(requestLog[0].body, { advancedAttributes: {} });
+    });
+
+    it('extracts the array from arrayKey, not from a sibling array', async () => {
+      const { result, tableData } = await runCommand(PostReadCommand, { flags: postFlags, responses: postResponse });
+
+      assert.equal(result.data.length, 2);
+      assert.equal(result.totalSize, 2);
+      assert.deepEqual(
+        result.data.map((r) => r.name),
+        ['Id', 'Tour_DateTime_c']
+      );
+      assert.equal(tableData.length, 2);
+    });
+
+    it('treats --all as a no-op: still exactly one request', async () => {
+      const { requestLog, result } = await runCommand(PostReadCommand, {
+        flags: { ...postFlags, all: true },
+        responses: postResponse,
+      });
+
+      assert.equal(requestLog.length, 1);
+      assert.equal(requestLog[0].method, 'POST');
+      assert.equal(result.data.length, 2);
+    });
+
+    it('leaves the default subclass on a paginated GET', async () => {
+      const { requestLog } = await runCommand(DefaultGetCommand, {
+        flags: postFlags,
+        responses: new Map<string, unknown>([['/widgets', { data: [{ name: 'w1' }] }]]),
+      });
+
+      assert.equal(requestLog.length, 1);
+      assert.equal(requestLog[0].method, 'GET');
+      assert.ok(requestLog[0].url.includes('batchSize='));
+      assert.equal(requestLog[0].body, undefined);
     });
   });
 });
