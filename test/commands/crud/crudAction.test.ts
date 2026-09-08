@@ -67,20 +67,40 @@ describe('CrudActionCommand', () => {
     });
   });
 
-  describe('transform validate (B21 fix)', () => {
-    it('sends POST to /data-transforms/{name}/actions/validate', async () => {
+  describe('transform validate', () => {
+    const definition = {
+      name: 'IndividualStreaming',
+      label: 'IndividualStreaming',
+      type: 'Streaming',
+      definition: { expression: 'SELECT 1', targetDlo: 'Individual_target__dll', type: 'SQL' },
+    };
+
+    it('POSTs the full definition to /data-transforms-validation with no path param', async () => {
       const { requestLog, result } = await runCommand(TransformValidate, {
-        flags: { 'target-org': {}, 'api-version': '66.0', timing: false, name: 'MyTransform' },
-        defaultResponse: {},
+        flags: { 'target-org': {}, 'api-version': '66.0', timing: false, definitionBody: definition },
+        defaultResponse: { issues: [], outputDataObjects: [] },
       });
 
       assert.equal(requestLog.length, 1);
       assert.equal(requestLog[0].method, 'POST');
-      assert.ok(
-        requestLog[0].url.includes('/data-transforms/MyTransform/actions/validate'),
-        `Expected validate endpoint, got: ${requestLog[0].url}`
-      );
+      assert.ok(requestLog[0].url.endsWith('/ssot/data-transforms-validation'), requestLog[0].url);
+      assert.deepEqual(requestLog[0].body, definition);
       assert.equal(result.success, true);
+    });
+
+    it('returns the issues the API reported', async () => {
+      const { result } = await runCommand(TransformValidate, {
+        flags: { 'target-org': {}, 'api-version': '66.0', timing: false, definitionBody: definition },
+        defaultResponse: { issues: [{ errorCode: 'INVALID_TARGET_DLO', errorSeverity: 'ERROR' }] },
+      });
+
+      assert.equal((result.data?.issues as unknown[]).length, 1);
+    });
+
+    it('declares --definition-file as required and no --name', () => {
+      const flags = TransformValidate.flags as Record<string, { required?: boolean }>;
+      assert.equal(flags['definition-file'].required, true);
+      assert.equal(flags.name, undefined);
     });
   });
   describe('definition body and query params', () => {
