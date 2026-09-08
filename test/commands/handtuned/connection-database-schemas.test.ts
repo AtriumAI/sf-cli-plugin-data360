@@ -44,6 +44,15 @@ describe('connection database-schemas', () => {
     assert.deepEqual(tableData, [{ name: 'testSchema' }, { name: 'testSchema2' }]);
   });
 
+  it('renders only the name column, since status is not part of this response', async () => {
+    const { tableColumns } = await runCommand(ConnectionDatabaseSchemas, {
+      flags,
+      responses: new Map<string, unknown>([['/database-schemas', schemasResponse]]),
+    });
+
+    assert.deepEqual(tableColumns, [{ key: 'name', name: 'Name' }]);
+  });
+
   it('warns that --all is inert rather than silently ignoring it', async () => {
     const { warnings, requestLog } = await runCommand(ConnectionDatabaseSchemas, {
       flags: { ...flags, all: true },

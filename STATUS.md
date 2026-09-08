@@ -8,11 +8,11 @@
 | ---------------------------------- | --------- | -------------------------------------------- |
 | Smoke tested                       | 160 / 160 | Imports, flags, metadata valid               |
 | Inventory snapshot                 | 160 / 160 | No unintentional changes                     |
-| Unit tested (mocked API)           | 26        | Correct requests, responses, name resolution |
+| Unit tested (mocked API)           | 30        | Correct requests, responses, name resolution |
 | Live tested (real org)             | 17        | End-to-end verified, 2026-03-18              |
-| Smoke only (untested individually) | 125       | Covered by CRUD base class tests             |
+| Smoke only (untested individually) | 130       | Covered by CRUD base class tests             |
 
-## Unit Tested Commands (26)
+## Unit Tested Commands (30)
 
 These have dedicated test files with mocked API responses:
 
@@ -21,6 +21,8 @@ These have dedicated test files with mocked API responses:
 | `connection database-schemas` | `connection-database-schemas.test.ts` | POST verb + body, `schemas` arrayKey, bare-string rows, inert `--all` |
 | `connection fields`           | `multi-path-param.test.ts`            | Both :params resolved; POST body, `fields` arrayKey                   |
 | `connection get`              | `connection-get.test.ts`              | Name→ID resolution with connectorType                                 |
+| `connection schema-get`       | `connection-schema-get.test.ts`       | Schema retrieval for a named connection                               |
+| `connection test`             | `connection-test.test.ts`             | Connection test action                                                |
 | `connection run-existing`     | `multi-path-param.test.ts`            | Both :params resolved (connectionId, command)                         |
 | `data-kit dependencies`       | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
 | `data-kit status`             | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
@@ -37,6 +39,7 @@ These have dedicated test files with mocked API responses:
 | `query async-rows`            | `query-async.test.ts`                 | GET /query-sql/{id}/rows, result formatting                           |
 | `query async-cancel`          | `query-async.test.ts`                 | DELETE /query-sql/{id}                                                |
 | `query sqlv2`                 | `query-sqlv2.test.ts`                 | POST body, nextBatchId, empty results                                 |
+| `search-index config`         | `search-index-config.test.ts`         | Search index configuration request                                    |
 | `segment create`              | `crudCreate.test.ts`                  | POST body, ID extraction                                              |
 | `segment delete`              | `crudDelete.test.ts`                  | DELETE path                                                           |
 | `segment list`                | `crudList.test.ts`                    | arrayKey='segments', column mapping                                   |
@@ -44,6 +47,7 @@ These have dedicated test files with mocked API responses:
 | `transform get`               | `crudGet.test.ts`                     | Response field mapping (createdBy object)                             |
 | `transform run`               | `crudAction.test.ts`                  | POST path injection                                                   |
 | `transform validate`          | `crudAction.test.ts`                  | Endpoint fix verification (B21)                                       |
+| `universal-id lookup`         | `multi-path-param.test.ts`            | Deny-listed: throws on its three unresolved :params                   |
 
 ## Live Tested Commands (17)
 

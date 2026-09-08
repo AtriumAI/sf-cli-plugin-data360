@@ -37,7 +37,7 @@ export default class Data360ConnectionDatabaseSchemas extends CrudListCommand<Re
 
   /** `schemas` holds plain strings, so give the table the column key it renders. */
   // eslint-disable-next-line class-methods-use-this
-  protected mapRecord(record: Record<string, unknown>): Record<string, unknown> {
-    return typeof (record as unknown) === 'string' ? { name: record } : record;
+  protected mapRecord(record: Record<string, unknown> | string): Record<string, unknown> {
+    return typeof record === 'string' ? { name: record } : record;
   }
 }

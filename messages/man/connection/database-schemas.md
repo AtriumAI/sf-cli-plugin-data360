@@ -29,8 +29,11 @@ NOTES
 name-to-ID resolution, unlike "connection databases" and "connection objects".
 
 The endpoint also accepts "advancedAttributes.databaseName" to scope the answer
-to one database. No flag exposes it, so a multi-database connection returns
-whatever the API chooses by default.
+to one database. No flag exposes it, so this command always sends an empty
+"advancedAttributes". Whether the API accepts that is UNVERIFIED: the only
+request body documented for this endpoint supplies "databaseName", and 400 is
+among its documented responses. If a live call rejects the empty form, this
+command needs a flag for that field before it can run at all.
 
 TESTING
 Unit tested: yes
