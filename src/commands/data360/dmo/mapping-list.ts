@@ -40,17 +40,13 @@ export default class Data360DmoMappingList extends Data360Command<MappingListRes
       summary: 'Target DMO developer name (e.g. ssot__Individual__dlm).',
       required: true,
     }),
-    'api-version': Flags.string({
-      summary: 'API version to use for Data 360 requests.',
-      // This endpoint errors on v66; v64 is stable per demo-builder
-      default: '64.0',
-    }),
   };
 
   public async run(): Promise<MappingListResult> {
     await this.parseData360Flags();
     const { flags } = await this.parse(Data360DmoMappingList);
 
+    // v66 once failed on this GET's query-param shape; if it regresses, try --api-version 64.0 first.
     const path = buildPath('/data-model-object-mappings', undefined, {
       dloDeveloperName: flags.source,
       dmoDeveloperName: flags.target,

@@ -5,13 +5,13 @@
 The plugin uses a 4-tier testing strategy designed to catch regressions without requiring a live Salesforce org. All tests run locally with mocked API responses.
 
 ```
-Tier 1: Smoke Tests          — Do all 160 commands import and have valid metadata?
+Tier 1: Smoke Tests          — Do all 163 commands import and have valid metadata?
 Tier 2: CRUD Base Tests       — Do the 6 CRUD base classes build correct requests?
 Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.) work?
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **135 tests**, ~10 seconds.
+Total: **172 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -22,7 +22,7 @@ npx mocha 'test/**/*.test.ts' --timeout 120000
 # Fast tests only (Tier 2 + 3 + utilities, ~1 sec)
 npx mocha 'test/shared/**/*.test.ts' 'test/commands/crud/*.test.ts' 'test/commands/handtuned/*.test.ts'
 
-# Smoke test only (Tier 1, ~50 sec — imports all 160 commands)
+# Smoke test only (Tier 1, ~50 sec — imports all 163 commands)
 npx mocha 'test/commands/smoke.test.ts' --timeout 120000
 
 # Inventory snapshot only (Tier 4)
@@ -33,7 +33,7 @@ npx mocha 'test/commands/inventory.test.ts' --timeout 120000
 
 **File:** `test/commands/smoke.test.ts`
 
-Dynamically discovers and imports all 160 command files, then validates:
+Dynamically discovers and imports all 163 command files, then validates:
 
 - All commands import without errors
 - All have a `summary` (non-empty)
@@ -44,24 +44,25 @@ Dynamically discovers and imports all 160 command files, then validates:
 
 **What it catches:** Broken imports, missing flags, missing metadata after refactoring.
 
-## Tier 2: CRUD Base Class Tests (35 tests)
+## Tier 2: CRUD Base Class Tests (46 tests)
 
 **Files:** `test/commands/crud/*.test.ts`
 
 Tests the shared CRUD base classes using real command subclasses with mocked API:
 
-| Base Class        | Test File            | What's Tested                                      |
-| ----------------- | -------------------- | -------------------------------------------------- |
-| CrudListCommand   | `crudList.test.ts`   | Pagination, arrayKey, batchSize, mapRecord         |
-| CrudGetCommand    | `crudGet.test.ts`    | Path injection, response mapping                   |
-| CrudCreateCommand | `crudCreate.test.ts` | POST body, ID extraction                           |
-| CrudDeleteCommand | `crudDelete.test.ts` | DELETE + query params (shouldDeleteDataLakeObject) |
-| CrudUpdateCommand | `crudUpdate.test.ts` | PATCH path, definition-file body, empty-id guard   |
-| CrudActionCommand | `crudAction.test.ts` | POST path injection, endpoint construction         |
+| Base Class        | Test File            | What's Tested                                               |
+| ----------------- | -------------------- | ----------------------------------------------------------- |
+| CrudListCommand   | `crudList.test.ts`   | Pagination, arrayKey, batchSize, mapRecord                  |
+| CrudGetCommand    | `crudGet.test.ts`    | Path injection, response mapping                            |
+| CrudCreateCommand | `crudCreate.test.ts` | POST body, ID extraction                                    |
+| CrudDeleteCommand | `crudDelete.test.ts` | DELETE + query params (shouldDeleteDataLakeObject)          |
+| CrudUpdateCommand | `crudUpdate.test.ts` | PATCH path, definition-file body, empty-id guard            |
+| CrudActionCommand | `crudAction.test.ts` | POST path injection, definition body, query params, `--raw` |
+| --raw (get/list)  | `crudRaw.test.ts`    | Full JSON response printed without column mapping           |
 
 **What it catches:** Regression in shared request building, pagination, response parsing.
 
-## Tier 3: Hand-Tuned Command Tests (51 tests)
+## Tier 3: Hand-Tuned Command Tests (64 tests)
 
 **Files:** `test/commands/handtuned/*.test.ts`
 
@@ -77,10 +78,13 @@ Tests commands with custom `run()` implementations:
 | dmo mapping-list            | `dmo-mapping-list.test.ts`            | Custom query params, nested response parsing                          |
 | multi-param endpoints       | `multi-path-param.test.ts`            | Both :params resolved on the 4 reachable cmds; deny-listed throw      |
 | connection database-schemas | `connection-database-schemas.test.ts` | POST verb + body, `schemas` arrayKey, bare-string rows, inert `--all` |
-| connection schema-get       | `connection-schema-get.test.ts`       | Schema retrieval for a named connection                               |
-| connection test             | `connection-test.test.ts`             | Connection test action                                                |
-| dmo create-from-dlo         | `dmo-create-from-dlo.test.ts`         | DLO SQL type -> DMO type parity; orphan DMO error                     |
-| search-index config         | `search-index-config.test.ts`         | Search index configuration request                                    |
+| connection test             | `connection-test.test.ts`             | Name→ID resolution, then POST to the test action                      |
+| connection schema-get       | `connection-schema-get.test.ts`       | Parses schemas[].fields[]; per-object field counts                    |
+| connection test-definition  | `connection-test-definition.test.ts`  | POSTs the connector definition; `success: false` exits non-zero       |
+| docai generate-schema       | `docai-generate-schema.test.ts`       | Org-level action, definition body, no path param                      |
+| docai detect-schema         | `docai-detect-schema.test.ts`         | Definition body, threshold query param, v67.0 default                 |
+| search-index config         | `search-index-config.test.ts`         | Org-level GET, no `--name`; config field surfaced                     |
+| dmo create-from-dlo         | `dmo-create-from-dlo.test.ts`         | DLO SQL type → DMO type parity; orphan DMO error                      |
 
 **What it catches:** Broken name resolution, wrong query params, wrong HTTP method, response parsing errors.
 
@@ -105,13 +109,14 @@ Compares current command metadata against a checked-in snapshot (`test/fixtures/
 node --loader ts-node/esm scripts/generate-manifest.mjs
 ```
 
-## Shared Utility Tests (16 tests)
+## Shared Utility Tests (29 tests)
 
 **Files:** `test/shared/*.test.ts`
 
-| Utility     | Tests | What's Tested                                                           |
-| ----------- | ----- | ----------------------------------------------------------------------- |
-| pathBuilder | 16    | Param injection/encoding, unresolved-token guard, query-string building |
+| Utility     | Tests | What's Tested                                                                                         |
+| ----------- | ----- | ----------------------------------------------------------------------------------------------------- |
+| pathBuilder | 16    | Param injection/encoding, unresolved-token guard, query-string building                               |
+| pagination  | 13    | Cursor styles and their termination: a reflected `pageToken` and a repeated cursor are never followed |
 
 ## Packaging Tests (18 tests)
 
@@ -193,7 +198,9 @@ These require an authenticated org with Data Cloud provisioned.
 
 ## What's NOT Tested
 
-- **Commands that need org-specific setup:** transform validate, docai generate-schema, async query lifecycle against real data
+- **Commands that need a sample payload:** transform validate, docai generate-schema, docai detect-schema, connection test-definition
+- **Commands that need org-specific setup:** async query lifecycle against real data
+- **Live 2xx confirmation for every path changed in this release** — no authenticated org was available
 - **Platform limitations:** Redshift stream creation (API unsupported), CRM connector manual sync
 - **UI-side behavior:** Search index UI metadata registration, segment UI validation
 

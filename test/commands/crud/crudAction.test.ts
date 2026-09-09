@@ -4,10 +4,28 @@
  * Tests action commands (run, cancel, retry, etc.) with mocked API.
  */
 import assert from 'node:assert/strict';
+import { mkdtempSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { SfError } from '@salesforce/core';
 import { runCommand } from '../../helpers/runCommand.js';
+import { CrudActionCommand } from '../../../src/shared/data360/crudBase.js';
 
 import TransformRun from '../../../src/commands/data360/transform/run.js';
 import TransformValidate from '../../../src/commands/data360/transform/validate.js';
+
+class ActionCommand extends CrudActionCommand {
+  protected readonly endpoint = '/widgets/actions/check';
+}
+
+class ActionWithQuery extends CrudActionCommand {
+  protected readonly endpoint = '/widgets/actions/check';
+
+  // eslint-disable-next-line class-methods-use-this
+  protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return { threshold: flags.threshold as string | undefined };
+  }
+}
 
 describe('CrudActionCommand', () => {
   describe('transform run', () => {
@@ -50,20 +68,139 @@ describe('CrudActionCommand', () => {
     });
   });
 
-  describe('transform validate (B21 fix)', () => {
-    it('sends POST to /data-transforms/{name}/actions/validate', async () => {
+  describe('transform validate', () => {
+    const definition = {
+      name: 'IndividualStreaming',
+      label: 'IndividualStreaming',
+      type: 'Streaming',
+      definition: { expression: 'SELECT 1', targetDlo: 'Individual_target__dll', type: 'SQL' },
+    };
+
+    it('POSTs the full definition to /data-transforms-validation with no path param', async () => {
       const { requestLog, result } = await runCommand(TransformValidate, {
-        flags: { 'target-org': {}, 'api-version': '66.0', timing: false, name: 'MyTransform' },
-        defaultResponse: {},
+        flags: { 'target-org': {}, 'api-version': '66.0', timing: false, definitionBody: definition },
+        defaultResponse: { issues: [], outputDataObjects: [] },
       });
 
       assert.equal(requestLog.length, 1);
       assert.equal(requestLog[0].method, 'POST');
-      assert.ok(
-        requestLog[0].url.includes('/data-transforms/MyTransform/actions/validate'),
-        `Expected validate endpoint, got: ${requestLog[0].url}`
-      );
+      assert.ok(requestLog[0].url.endsWith('/ssot/data-transforms-validation'), requestLog[0].url);
+      assert.deepEqual(requestLog[0].body, definition);
       assert.equal(result.success, true);
+    });
+
+    it('fails on a populated issues[] rather than reporting success', async () => {
+      await assert.rejects(
+        runCommand(TransformValidate, {
+          flags: { 'target-org': {}, 'api-version': '66.0', timing: false, definitionBody: definition },
+          defaultResponse: { issues: [{ errorCode: 'INVALID_TARGET_DLO', errorSeverity: 'ERROR' }] },
+        }),
+        (err: SfError) => {
+          assert.equal(err.name, 'DATA360_INVALID_DEFINITION');
+          assert.match(err.message, /1 issue\(s\)/);
+          // The issues travel on the error, so --json still reports them.
+          assert.equal((err.data as unknown[]).length, 1);
+          return true;
+        }
+      );
+    });
+
+    it('still reports success on an empty issues[]', async () => {
+      const { result } = await runCommand(TransformValidate, {
+        flags: { 'target-org': {}, 'api-version': '66.0', timing: false, definitionBody: definition },
+        defaultResponse: { issues: [], outputDataObjects: [] },
+      });
+
+      assert.equal(result.success, true);
+    });
+
+    it('emits the raw response before failing, so --raw still shows the issues', async () => {
+      const logged: string[] = [];
+      await assert.rejects(
+        runCommand(TransformValidate, {
+          flags: { 'target-org': {}, 'api-version': '66.0', timing: false, raw: true, definitionBody: definition },
+          defaultResponse: { issues: [{ errorCode: 'INVALID_TARGET_DLO' }] },
+          onLog: (line) => logged.push(line),
+        }),
+        (err: SfError) => {
+          assert.equal(err.name, 'DATA360_INVALID_DEFINITION');
+          return true;
+        }
+      );
+
+      assert.ok(logged.join('\n').includes('INVALID_TARGET_DLO'), logged.join('\n'));
+    });
+
+    it('declares --definition-file as required and no --name', () => {
+      const flags = TransformValidate.flags as Record<string, { required?: boolean }>;
+      assert.equal(flags['definition-file'].required, true);
+      assert.equal(flags.name, undefined);
+    });
+  });
+  describe('definition body and query params', () => {
+    const baseFlags = { 'target-org': {}, 'api-version': '66.0', timing: false };
+
+    it('posts the definition body', async () => {
+      const { requestLog } = await runCommand(ActionCommand, {
+        flags: { ...baseFlags, definitionBody: { mlModel: 'm', files: [] } },
+        defaultResponse: {},
+      });
+
+      assert.deepEqual(requestLog[0].body, { mlModel: 'm', files: [] });
+    });
+
+    it('posts an empty body when no definition was given', async () => {
+      const { requestLog } = await runCommand(ActionCommand, { flags: baseFlags, defaultResponse: {} });
+
+      assert.deepEqual(requestLog[0].body, {});
+    });
+
+    it('loads --definition-file from disk', async () => {
+      const file = join(mkdtempSync(join(tmpdir(), 'data360-action-')), 'body.json');
+      writeFileSync(file, JSON.stringify({ mode: 'Single' }));
+
+      const { requestLog } = await runCommand(ActionCommand, {
+        flags: { ...baseFlags, 'definition-file': file },
+        defaultResponse: {},
+      });
+
+      assert.deepEqual(requestLog[0].body, { mode: 'Single' });
+    });
+
+    it('appends queryParams to the path', async () => {
+      const { requestLog } = await runCommand(ActionWithQuery, {
+        flags: { ...baseFlags, threshold: '0.9' },
+        defaultResponse: {},
+      });
+
+      assert.ok(requestLog[0].url.endsWith('/widgets/actions/check?threshold=0.9'), requestLog[0].url);
+    });
+
+    it('omits an unset query param entirely', async () => {
+      const { requestLog } = await runCommand(ActionWithQuery, { flags: baseFlags, defaultResponse: {} });
+
+      assert.ok(!requestLog[0].url.includes('?'), requestLog[0].url);
+    });
+  });
+
+  describe('--raw', () => {
+    const baseFlags = { 'target-org': {}, 'api-version': '66.0', timing: false };
+
+    it('prints the full response instead of the success line', async () => {
+      const { output } = await runCommand(ActionCommand, {
+        flags: { ...baseFlags, raw: true },
+        defaultResponse: { schema: '{"fields":[]}', someDeepField: { nested: true } },
+      });
+
+      const json = output.join('\n');
+      assert.ok(json.includes('someDeepField'), json);
+      assert.ok(!json.includes('Action completed successfully.'), json);
+    });
+
+    it('logs the success line when --raw is not set', async () => {
+      const { output } = await runCommand(ActionCommand, { flags: baseFlags, defaultResponse: { ok: true } });
+
+      assert.deepEqual(output, ['Action completed successfully.']);
     });
   });
 });

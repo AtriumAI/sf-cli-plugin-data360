@@ -394,9 +394,14 @@ export abstract class CrudActionCommand extends Data360Command<MutationResult> {
   protected abstract readonly endpoint: string;
   protected readonly httpMethod: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' = 'POST';
 
+  // eslint-disable-next-line class-methods-use-this
+  protected buildBody(flags: Record<string, unknown>): Record<string, unknown> | undefined {
+    return getDefinitionBody(flags);
+  }
+
   // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
-  protected buildBody(_flags: Record<string, unknown>): Record<string, unknown> | undefined {
-    return undefined;
+  protected queryParams(_flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return {};
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -414,16 +419,23 @@ export abstract class CrudActionCommand extends Data360Command<MutationResult> {
     const flags = await this.parseData360Flags();
     const allFlags = flags as unknown as Record<string, unknown>;
     const id = this.getResourceId(allFlags);
+
+    const defFile = allFlags['definition-file'] as string | undefined;
+    if (defFile) {
+      allFlags.definitionBody = await loadDefinitionFile(defFile);
+    }
+
     const body = this.buildBody(allFlags);
 
     const params = this.pathParams(allFlags);
-    let path: string;
+    let basePath: string;
     if (params) {
-      path = buildPath(this.endpoint, params);
+      basePath = buildPath(this.endpoint, params);
     } else {
       assertResourceId(id, this.endpoint);
-      path = injectResourceId(this.endpoint, id);
+      basePath = injectResourceId(this.endpoint, id);
     }
+    const path = buildPath(basePath, undefined, this.queryParams(allFlags));
 
     let ssotTiming: SsotTiming | undefined;
     const tApi = performance.now();
@@ -436,7 +448,12 @@ export abstract class CrudActionCommand extends Data360Command<MutationResult> {
     const response = await this.executeAction(path, body, timingOpt);
     const apiMs = performance.now() - tApi;
 
-    this.log('Action completed successfully.');
+    // --raw: output full response as JSON. Logged before any subclass verdict throws, so the body is still seen.
+    if (allFlags.raw === true) {
+      this.log(JSON.stringify(response, null, 2));
+    } else {
+      this.log('Action completed successfully.');
+    }
     this.emitTiming(apiMs, ssotTiming);
 
     return { success: true, id, data: isRecord(response) ? response : undefined };

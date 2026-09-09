@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "commandCount": 161,
+  "commandCount": 163,
   "commands": [
     {
       "name": "data360 activation-target create",
@@ -430,6 +430,18 @@
       "endpoint": "/connections/:connectionId/sitemap",
       "httpMethod": "PUT",
       "flags": ["api-version", "definition-file", "name", "raw", "target-org", "timing"],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
+      "name": "data360 connection test-definition",
+      "file": "src/commands/data360/connection/test-definition.ts",
+      "summary": "Test a connector definition before creating the connection.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/connections/actions/test",
+      "httpMethod": "POST",
+      "flags": ["api-version", "definition-file", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1213,6 +1225,18 @@
       "hasNameResolution": false
     },
     {
+      "name": "data360 docai detect-schema",
+      "file": "src/commands/data360/docai/detect-schema.ts",
+      "summary": "Detect which extraction schema best matches a document.",
+      "baseClass": "CrudActionCommand",
+      "endpoint": "/document-processing/actions/detect-schema",
+      "httpMethod": "POST",
+      "flags": ["api-version", "definition-file", "raw", "target-org", "threshold", "timing"],
+      "arrayKey": "",
+      "batchSize": null,
+      "hasNameResolution": false
+    },
+    {
       "name": "data360 docai extract",
       "file": "src/commands/data360/docai/extract.ts",
       "summary": "Extract Data 360 docai.",
@@ -1227,11 +1251,11 @@
     {
       "name": "data360 docai generate-schema",
       "file": "src/commands/data360/docai/generate-schema.ts",
-      "summary": "Generate schema for a Document AI configuration.",
+      "summary": "Generate a Document AI extraction schema from sample files.",
       "baseClass": "CrudActionCommand",
-      "endpoint": "/document-processing/configurations/:idOrApiName/actions/generate-schema",
+      "endpoint": "/document-processing/actions/generate-schema",
       "httpMethod": "POST",
-      "flags": ["api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["api-version", "definition-file", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1611,11 +1635,11 @@
     {
       "name": "data360 search-index config",
       "file": "src/commands/data360/search-index/config.ts",
-      "summary": "Get configuration for a Data 360 search index.",
+      "summary": "Get the org-level semantic search configuration.",
       "baseClass": "CrudGetCommand",
-      "endpoint": "/search-index/:searchIndexId/config",
+      "endpoint": "/search-index/config",
       "httpMethod": "",
-      "flags": ["api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["api-version", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1947,11 +1971,11 @@
     {
       "name": "data360 transform validate",
       "file": "src/commands/data360/transform/validate.ts",
-      "summary": "Validate a Data 360 data transform.",
+      "summary": "Validate a data transform definition before creating it.",
       "baseClass": "CrudActionCommand",
-      "endpoint": "/data-transforms/:dataTransformNameOrId/actions/validate",
+      "endpoint": "/data-transforms-validation",
       "httpMethod": "POST",
-      "flags": ["api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["api-version", "definition-file", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false

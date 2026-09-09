@@ -12,6 +12,8 @@ export type RunOptions = MockOrgOptions & {
   flags: Record<string, unknown>;
   /** Override API version (default: '66.0'). */
   apiVersion?: string;
+  /** Receives each log line as it is written, so output stays readable when run() throws. */
+  onLog?: (line: string) => void;
 };
 
 export type RunResult<T> = {
@@ -86,7 +88,9 @@ export const runCommand = async <T>(
 
   // Capture output methods
   cmd.log = (...args: string[]) => {
-    output.push(args.join(' '));
+    const line = args.join(' ');
+    output.push(line);
+    options.onLog?.(line);
   };
   cmd.logToStderr = () => {};
   (cmd as unknown as Record<string, unknown>).warn = (msg: string | Error) => {

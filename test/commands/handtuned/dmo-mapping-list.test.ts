@@ -4,13 +4,14 @@
 import assert from 'node:assert/strict';
 import { runCommand } from '../../helpers/runCommand.js';
 import DmoMappingList from '../../../src/commands/data360/dmo/mapping-list.js';
+import { DEFAULT_API_VERSION } from '../../../src/shared/data360/apiVersion.js';
 
 describe('dmo mapping-list', () => {
   it('sends correct query params (dloDeveloperName, dmoDeveloperName)', async () => {
     const { requestLog } = await runCommand(DmoMappingList, {
       flags: {
         'target-org': {},
-        'api-version': '64.0',
+        'api-version': '66.0',
         timing: false,
         source: 'Contact_Home__dll',
         target: 'ssot__Individual__dlm',
@@ -44,7 +45,7 @@ describe('dmo mapping-list', () => {
     const { result, tableData } = await runCommand(DmoMappingList, {
       flags: {
         'target-org': {},
-        'api-version': '64.0',
+        'api-version': '66.0',
         timing: false,
         source: 'Contact_Home__dll',
         target: 'ssot__Individual__dlm',
@@ -93,7 +94,7 @@ describe('dmo mapping-list', () => {
     const { result, output } = await runCommand(DmoMappingList, {
       flags: {
         'target-org': {},
-        'api-version': '64.0',
+        'api-version': '66.0',
         timing: false,
         source: 'Missing__dll',
         target: 'ssot__Missing__dlm',
@@ -113,7 +114,7 @@ describe('dmo mapping-list', () => {
     const { result } = await runCommand(DmoMappingList, {
       flags: {
         'target-org': {},
-        'api-version': '64.0',
+        'api-version': '66.0',
         timing: false,
         source: 'Contact_Home__dll',
         target: 'ssot__Individual__dlm',
@@ -138,5 +139,9 @@ describe('dmo mapping-list', () => {
     assert.equal(result.developerName, undefined);
     // Distinguishable from "no mapping exists", which reports status ''.
     assert.equal(result.status, 'ACTIVE');
+  });
+  it('inherits the default API version rather than pinning one', () => {
+    const flags = DmoMappingList.flags as Record<string, { default?: unknown }>;
+    assert.equal(flags['api-version'].default, DEFAULT_API_VERSION);
   });
 });

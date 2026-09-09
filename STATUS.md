@@ -1,18 +1,18 @@
 # Plugin Status
 
-> Last updated: 2026-09-01
+> Last updated: 2026-09-08
 
 ## Testing Summary
 
 | Level                              | Commands  | What it proves                               |
 | ---------------------------------- | --------- | -------------------------------------------- |
-| Smoke tested                       | 160 / 160 | Imports, flags, metadata valid               |
-| Inventory snapshot                 | 160 / 160 | No unintentional changes                     |
-| Unit tested (mocked API)           | 30        | Correct requests, responses, name resolution |
+| Smoke tested                       | 163 / 163 | Imports, flags, metadata valid               |
+| Inventory snapshot                 | 163 / 163 | No unintentional changes                     |
+| Unit tested (mocked API)           | 33        | Correct requests, responses, name resolution |
 | Live tested (real org)             | 17        | End-to-end verified, 2026-03-18              |
 | Smoke only (untested individually) | 130       | Covered by CRUD base class tests             |
 
-## Unit Tested Commands (30)
+## Unit Tested Commands (33)
 
 These have dedicated test files with mocked API responses:
 
@@ -21,9 +21,10 @@ These have dedicated test files with mocked API responses:
 | `connection database-schemas` | `connection-database-schemas.test.ts` | POST verb + body, `schemas` arrayKey, bare-string rows, inert `--all` |
 | `connection fields`           | `multi-path-param.test.ts`            | Both :params resolved; POST body, `fields` arrayKey                   |
 | `connection get`              | `connection-get.test.ts`              | Name→ID resolution with connectorType                                 |
-| `connection schema-get`       | `connection-schema-get.test.ts`       | Schema retrieval for a named connection                               |
-| `connection test`             | `connection-test.test.ts`             | Connection test action                                                |
 | `connection run-existing`     | `multi-path-param.test.ts`            | Both :params resolved (connectionId, command)                         |
+| `connection schema-get`       | `connection-schema-get.test.ts`       | Parses schemas[].fields[]; per-object field counts                    |
+| `connection test`             | `connection-test.test.ts`             | Name→ID resolution, then POST to the test action                      |
+| `connection test-definition`  | `connection-test-definition.test.ts`  | POSTs the definition; `success: false` exits non-zero                 |
 | `data-kit dependencies`       | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
 | `data-kit status`             | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
 | `data-stream delete`          | `crudDelete.test.ts`                  | DELETE + shouldDeleteDataLakeObject param                             |
@@ -32,6 +33,8 @@ These have dedicated test files with mocked API responses:
 | `dmo list`                    | `crudList.test.ts`                    | Pagination, batchSize=50, mapRecord                                   |
 | `dmo mapping-list`            | `dmo-mapping-list.test.ts`            | dloDeveloperName/dmoDeveloperName params, nested response             |
 | `dmo mapping-update-field`    | `crudUpdate.test.ts`                  | PATCH to field-mappings collection, definition-file body              |
+| `docai detect-schema`         | `docai-detect-schema.test.ts`         | Definition body, threshold query param, v67.0 default                 |
+| `docai generate-schema`       | `docai-generate-schema.test.ts`       | Org-level action, definition body, no path param                      |
 | `identity-resolution list`    | `crudList.test.ts`                    | Column mappings (label, rulesetStatus)                                |
 | `identity-resolution run`     | `identity-resolution-run.test.ts`     | Name→ID resolution, ID passthrough, error handling                    |
 | `query async-create`          | `query-async.test.ts`                 | POST /query-sql with SQL body                                         |
@@ -39,14 +42,14 @@ These have dedicated test files with mocked API responses:
 | `query async-rows`            | `query-async.test.ts`                 | GET /query-sql/{id}/rows, result formatting                           |
 | `query async-cancel`          | `query-async.test.ts`                 | DELETE /query-sql/{id}                                                |
 | `query sqlv2`                 | `query-sqlv2.test.ts`                 | POST body, nextBatchId, empty results                                 |
-| `search-index config`         | `search-index-config.test.ts`         | Search index configuration request                                    |
+| `search-index config`         | `search-index-config.test.ts`         | Org-level GET, no `--name`; config field surfaced                     |
 | `segment create`              | `crudCreate.test.ts`                  | POST body, ID extraction                                              |
 | `segment delete`              | `crudDelete.test.ts`                  | DELETE path                                                           |
 | `segment list`                | `crudList.test.ts`                    | arrayKey='segments', column mapping                                   |
 | `segment publish`             | `segment-publish.test.ts`             | Name→marketSegmentId resolution                                       |
 | `transform get`               | `crudGet.test.ts`                     | Response field mapping (createdBy object)                             |
 | `transform run`               | `crudAction.test.ts`                  | POST path injection                                                   |
-| `transform validate`          | `crudAction.test.ts`                  | Endpoint fix verification (B21)                                       |
+| `transform validate`          | `crudAction.test.ts`                  | Validation endpoint, definition body, issues[] exits non-zero         |
 | `universal-id lookup`         | `multi-path-param.test.ts`            | Deny-listed: throws on its three unresolved :params                   |
 
 ## Live Tested Commands (17)
@@ -77,16 +80,17 @@ Verified against a real Data Cloud org on 2026-03-18:
 
 These 130 commands pass smoke tests (import, flags, metadata) and are covered by their CRUD base class tests, but have no individual unit or live tests. They extend standard base classes:
 
-- **CrudGetCommand** (33): activation get, connection connector-get, data-graph get, etc.
-- **CrudCreateCommand** (19): activation create, connection create, data-graph create, etc.
-- **CrudUpdateCommand** (18): activation update, connection update, dmo update, etc.
-- **CrudListCommand** (18): activation list, activation-target list, calculated-insight list, etc.
-- **CrudActionCommand** (17): calculated-insight run, data-graph refresh, etc.
-- **CrudDeleteCommand** (13): activation delete, connection delete, dmo delete, etc.
-- **Data360Command** (12): doctor, query sql, query vector, query describe, etc.
+- **CrudListCommand** (18): activation list, activation-target list, connection connector-list, etc.
+- **CrudGetCommand** (33): activation data, activation get, activation platforms, etc.
+- **CrudCreateCommand** (19): activation create, activation-target create, calculated-insight create, etc.
+- **CrudUpdateCommand** (18): activation update, activation-target update, calculated-insight update, etc.
+- **CrudDeleteCommand** (13): activation delete, calculated-insight delete, connection delete, etc.
+- **CrudActionCommand** (16): calculated-insight run, connection run, connection test-existing, etc.
+- **Data360Command** (12): data-stream create-from-object, dmo map-to-canonical, doctor, etc.
+- **SfCommand** (1): man
 
-These are smoke-only counts, not per-base-class totals: the 30 unit-tested commands are
-already subtracted, so the seven figures partition the 130 and no command is counted twice.
+These are smoke-only counts, not per-base-class totals: the 33 unit-tested commands are
+already subtracted, so the eight figures partition the 130 and no command is counted twice.
 
 ## Help Wanted — Testing on Your Org
 
@@ -115,12 +119,15 @@ sf data360 doctor -o <org> 2>/dev/null
 
 ### Needs Specific Setup
 
-| Command                   | What You Need                | How to Test                                                                                                                  |
-| ------------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `data-graph create`       | A data graph definition JSON | `sf data360 data-graph create -o <org> -f graph.json`                                                                        |
-| `search-index create`     | Unstructured data DMO        | `sf data360 search-index create -o <org> -f index.json`                                                                      |
-| `docai generate-schema`   | Document AI config           | `sf data360 docai generate-schema -o <org> --name <config>`                                                                  |
-| `query async-*` lifecycle | Any large DMO (1000+ rows)   | `sf data360 query async-create -o <org> --sql 'SELECT * FROM "ssot__Individual__dlm"'` then `async-status` then `async-rows` |
+| Command                      | What You Need                     | How to Test                                                                                                                  |
+| ---------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `data-graph create`          | A data graph definition JSON      | `sf data360 data-graph create -o <org> -f graph.json`                                                                        |
+| `search-index create`        | Unstructured data DMO             | `sf data360 search-index create -o <org> -f index.json`                                                                      |
+| `docai generate-schema`      | A sample document, base64-encoded | `sf data360 docai generate-schema -o <org> -f sample.json`                                                                   |
+| `docai detect-schema`        | Sample document + named schemas   | `sf data360 docai detect-schema -o <org> -f sample.json`                                                                     |
+| `transform validate`         | A transform definition JSON       | `sf data360 transform validate -o <org> -f transform.json`                                                                   |
+| `connection test-definition` | A connector definition JSON       | `sf data360 connection test-definition -o <org> -f conn.json`                                                                |
+| `query async-*` lifecycle    | Any large DMO (1000+ rows)        | `sf data360 query async-create -o <org> --sql 'SELECT * FROM "ssot__Individual__dlm"'` then `async-status` then `async-rows` |
 
 ### How to Report
 
@@ -168,3 +175,11 @@ Key issues:
 | B27 | `dmo mapping-update-field`            | CrudUpdateCommand + --definition-file, collapsed endpoint  |
 | B28 | `dmo mapping-list`                    | Surface object-level developerName                         |
 | B29 | Multi-param endpoints                 | Throw on unresolved :param; flags for the 4 reachable cmds |
+| B30 | `docai generate-schema`               | Org-level endpoint + --definition-file; dropped --name     |
+| B31 | `search-index config`                 | Org-level endpoint; dropped --name; corrected columns      |
+| B32 | `transform validate`                  | Pre-create validation endpoint + --definition-file         |
+| B33 | `dmo mapping-list`                    | Dropped the v64.0 pin; inherits the default                |
+| B34 | Pagination                            | Follow nextPageToken and continuationToken cursors         |
+| B35 | Pagination                            | Stop on reflected/repeated cursors; no offset restart      |
+| B36 | Action commands                       | Honour --raw instead of ignoring it                        |
+| B37 | `validate` / `test-definition`        | Exit non-zero on the API's negative verdict                |
