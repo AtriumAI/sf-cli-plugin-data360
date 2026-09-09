@@ -180,3 +180,6 @@ Key issues:
 | B32 | `transform validate`                  | Pre-create validation endpoint + --definition-file         |
 | B33 | `dmo mapping-list`                    | Dropped the v64.0 pin; inherits the default                |
 | B34 | Pagination                            | Follow nextPageToken and continuationToken cursors         |
+| B35 | Pagination                            | Stop on reflected/repeated cursors; no offset restart      |
+| B36 | Action commands                       | Honour --raw instead of ignoring it                        |
+| B37 | `validate` / `test-definition`        | Exit non-zero on the API's negative verdict                |
