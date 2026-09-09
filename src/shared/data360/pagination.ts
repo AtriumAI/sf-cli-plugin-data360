@@ -95,7 +95,7 @@ const toPage = <T>(response: Record<string, unknown>, arrayKey?: string): Pagina
     totalSize: typeof src.totalSize === 'number' ? src.totalSize : undefined,
     nextBatchId: str('nextBatchId'),
     nextPageUrl: str('nextPageUrl'),
-    nextPageToken: str('nextPageToken') ?? str('pageToken'),
+    nextPageToken: str('nextPageToken'),
     continuationToken: str('continuationToken'),
   };
 };
@@ -156,6 +156,15 @@ const fetchNextPage = async <T>(
   return null;
 };
 
+/** The cursor fetchNextPage would follow, in its own precedence order, or undefined if the chain has ended. */
+const nextCursor = <T>(page: PaginatedResponse<T>): string | undefined => {
+  if (page.nextPageUrl) return page.nextPageUrl;
+  for (const { field } of CURSOR_PARAMS) {
+    if (page[field]) return page[field];
+  }
+  return undefined;
+};
+
 /**
  * Fetch all pages from an endpoint, handling three pagination styles:
  * 1. nextPageUrl (data-streams, etc.) — follow the URL directly
@@ -173,6 +182,8 @@ export const fetchAllPages = async <T>(
   const batchSize = paginationOptions?.batchSize ?? DEFAULT_BATCH_SIZE;
   const maxRecords = paginationOptions?.maxRecords ?? Infinity;
   const all: T[] = [];
+  const seenCursors = new Set<string>();
+  let followedChain = false;
 
   // First page
   let page = await fetchPage<T>(org, apiVersion, endpoint, 0, batchSize, requestOptions, arrayKey);
@@ -180,15 +191,27 @@ export const fetchAllPages = async <T>(
 
   // Follow pages
   while (all.length < maxRecords) {
+    // A repeated cursor is a protocol violation: following it again re-requests the page in hand, forever.
+    const cursor = nextCursor(page);
+    if (cursor) {
+      if (seenCursors.has(cursor)) break;
+      seenCursors.add(cursor);
+    }
+
     // Try nextPageUrl or a cursor token
     // eslint-disable-next-line no-await-in-loop
     const next = await fetchNextPage<T>(org, apiVersion, page, endpoint, batchSize, requestOptions, arrayKey);
     if (next) {
+      followedChain = true;
       if (next.data.length === 0) break;
       all.push(...next.data);
       page = next;
       continue;
     }
+
+    // A finished cursor/URL chain is done — offset paging is a different protocol, and an exactly-full
+    // final page would otherwise restart the chain on an endpoint that ignores offset.
+    if (followedChain) break;
 
     // Style 3: offset-based — infer from totalSize or data length
     if (page.totalSize !== undefined && all.length >= page.totalSize) break;
