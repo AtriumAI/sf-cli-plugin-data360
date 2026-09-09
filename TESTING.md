@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **159 tests**, ~10 seconds.
+Total: **172 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -44,25 +44,25 @@ Dynamically discovers and imports all 163 command files, then validates:
 
 **What it catches:** Broken imports, missing flags, missing metadata after refactoring.
 
-## Tier 2: CRUD Base Class Tests (42 tests)
+## Tier 2: CRUD Base Class Tests (46 tests)
 
 **Files:** `test/commands/crud/*.test.ts`
 
 Tests the shared CRUD base classes using real command subclasses with mocked API:
 
-| Base Class        | Test File            | What's Tested                                      |
-| ----------------- | -------------------- | -------------------------------------------------- |
-| CrudListCommand   | `crudList.test.ts`   | Pagination, arrayKey, batchSize, mapRecord         |
-| CrudGetCommand    | `crudGet.test.ts`    | Path injection, response mapping                   |
-| CrudCreateCommand | `crudCreate.test.ts` | POST body, ID extraction                           |
-| CrudDeleteCommand | `crudDelete.test.ts` | DELETE + query params (shouldDeleteDataLakeObject) |
-| CrudUpdateCommand | `crudUpdate.test.ts` | PATCH path, definition-file body, empty-id guard   |
-| CrudActionCommand | `crudAction.test.ts` | POST path injection, definition body, query params |
-| --raw (get/list)  | `crudRaw.test.ts`    | Full JSON response printed without column mapping  |
+| Base Class        | Test File            | What's Tested                                               |
+| ----------------- | -------------------- | ----------------------------------------------------------- |
+| CrudListCommand   | `crudList.test.ts`   | Pagination, arrayKey, batchSize, mapRecord                  |
+| CrudGetCommand    | `crudGet.test.ts`    | Path injection, response mapping                            |
+| CrudCreateCommand | `crudCreate.test.ts` | POST body, ID extraction                                    |
+| CrudDeleteCommand | `crudDelete.test.ts` | DELETE + query params (shouldDeleteDataLakeObject)          |
+| CrudUpdateCommand | `crudUpdate.test.ts` | PATCH path, definition-file body, empty-id guard            |
+| CrudActionCommand | `crudAction.test.ts` | POST path injection, definition body, query params, `--raw` |
+| --raw (get/list)  | `crudRaw.test.ts`    | Full JSON response printed without column mapping           |
 
 **What it catches:** Regression in shared request building, pagination, response parsing.
 
-## Tier 3: Hand-Tuned Command Tests (62 tests)
+## Tier 3: Hand-Tuned Command Tests (64 tests)
 
 **Files:** `test/commands/handtuned/*.test.ts`
 
@@ -80,7 +80,7 @@ Tests commands with custom `run()` implementations:
 | connection database-schemas | `connection-database-schemas.test.ts` | POST verb + body, `schemas` arrayKey, bare-string rows, inert `--all` |
 | connection test             | `connection-test.test.ts`             | Name→ID resolution, then POST to the test action                      |
 | connection schema-get       | `connection-schema-get.test.ts`       | Parses schemas[].fields[]; per-object field counts                    |
-| connection test-definition  | `connection-test-definition.test.ts`  | POSTs the connector definition; test-existing left on its own path    |
+| connection test-definition  | `connection-test-definition.test.ts`  | POSTs the connector definition; `success: false` exits non-zero       |
 | docai generate-schema       | `docai-generate-schema.test.ts`       | Org-level action, definition body, no path param                      |
 | docai detect-schema         | `docai-detect-schema.test.ts`         | Definition body, threshold query param, v67.0 default                 |
 | search-index config         | `search-index-config.test.ts`         | Org-level GET, no `--name`; config field surfaced                     |
@@ -109,14 +109,14 @@ Compares current command metadata against a checked-in snapshot (`test/fixtures/
 node --loader ts-node/esm scripts/generate-manifest.mjs
 ```
 
-## Shared Utility Tests (22 tests)
+## Shared Utility Tests (29 tests)
 
 **Files:** `test/shared/*.test.ts`
 
-| Utility     | Tests | What's Tested                                                                                              |
-| ----------- | ----- | ---------------------------------------------------------------------------------------------------------- |
-| pathBuilder | 16    | Param injection/encoding, unresolved-token guard, query-string building                                    |
-| pagination  | 6     | Cursor styles: nextPageUrl, nextBatchId, nextPageToken, continuationToken; currentPageToken never followed |
+| Utility     | Tests | What's Tested                                                                                         |
+| ----------- | ----- | ----------------------------------------------------------------------------------------------------- |
+| pathBuilder | 16    | Param injection/encoding, unresolved-token guard, query-string building                               |
+| pagination  | 13    | Cursor styles and their termination: a reflected `pageToken` and a repeated cursor are never followed |
 
 ## Packaging Tests (18 tests)
 

@@ -37,7 +37,7 @@ NOTES
 - Available from API v62.0
 - Pre-create validation: it takes a definition, not the name of an existing transform
 - Response shape: { "issues": [ { "errorCode", "errorMessage", "errorSeverity" } ], "outputDataObjects": [] }
-- The command logs only that the call succeeded — read "issues" with --json to see whether the definition is valid
+- A populated "issues" array exits non-zero; read the issues themselves with --json or --raw
 
 SEE ALSO
 sf data360 transform create

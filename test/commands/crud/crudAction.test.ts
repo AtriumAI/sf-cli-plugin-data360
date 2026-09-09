@@ -7,6 +7,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { SfError } from '@salesforce/core';
 import { runCommand } from '../../helpers/runCommand.js';
 import { CrudActionCommand } from '../../../src/shared/data360/crudBase.js';
 
@@ -88,13 +89,46 @@ describe('CrudActionCommand', () => {
       assert.equal(result.success, true);
     });
 
-    it('returns the issues the API reported', async () => {
+    it('fails on a populated issues[] rather than reporting success', async () => {
+      await assert.rejects(
+        runCommand(TransformValidate, {
+          flags: { 'target-org': {}, 'api-version': '66.0', timing: false, definitionBody: definition },
+          defaultResponse: { issues: [{ errorCode: 'INVALID_TARGET_DLO', errorSeverity: 'ERROR' }] },
+        }),
+        (err: SfError) => {
+          assert.equal(err.name, 'DATA360_INVALID_DEFINITION');
+          assert.match(err.message, /1 issue\(s\)/);
+          // The issues travel on the error, so --json still reports them.
+          assert.equal((err.data as unknown[]).length, 1);
+          return true;
+        }
+      );
+    });
+
+    it('still reports success on an empty issues[]', async () => {
       const { result } = await runCommand(TransformValidate, {
         flags: { 'target-org': {}, 'api-version': '66.0', timing: false, definitionBody: definition },
-        defaultResponse: { issues: [{ errorCode: 'INVALID_TARGET_DLO', errorSeverity: 'ERROR' }] },
+        defaultResponse: { issues: [], outputDataObjects: [] },
       });
 
-      assert.equal((result.data?.issues as unknown[]).length, 1);
+      assert.equal(result.success, true);
+    });
+
+    it('emits the raw response before failing, so --raw still shows the issues', async () => {
+      const logged: string[] = [];
+      await assert.rejects(
+        runCommand(TransformValidate, {
+          flags: { 'target-org': {}, 'api-version': '66.0', timing: false, raw: true, definitionBody: definition },
+          defaultResponse: { issues: [{ errorCode: 'INVALID_TARGET_DLO' }] },
+          onLog: (line) => logged.push(line),
+        }),
+        (err: SfError) => {
+          assert.equal(err.name, 'DATA360_INVALID_DEFINITION');
+          return true;
+        }
+      );
+
+      assert.ok(logged.join('\n').includes('INVALID_TARGET_DLO'), logged.join('\n'));
     });
 
     it('declares --definition-file as required and no --name', () => {
@@ -146,6 +180,27 @@ describe('CrudActionCommand', () => {
       const { requestLog } = await runCommand(ActionWithQuery, { flags: baseFlags, defaultResponse: {} });
 
       assert.ok(!requestLog[0].url.includes('?'), requestLog[0].url);
+    });
+  });
+
+  describe('--raw', () => {
+    const baseFlags = { 'target-org': {}, 'api-version': '66.0', timing: false };
+
+    it('prints the full response instead of the success line', async () => {
+      const { output } = await runCommand(ActionCommand, {
+        flags: { ...baseFlags, raw: true },
+        defaultResponse: { schema: '{"fields":[]}', someDeepField: { nested: true } },
+      });
+
+      const json = output.join('\n');
+      assert.ok(json.includes('someDeepField'), json);
+      assert.ok(!json.includes('Action completed successfully.'), json);
+    });
+
+    it('logs the success line when --raw is not set', async () => {
+      const { output } = await runCommand(ActionCommand, { flags: baseFlags, defaultResponse: { ok: true } });
+
+      assert.deepEqual(output, ['Action completed successfully.']);
     });
   });
 });

@@ -448,7 +448,12 @@ export abstract class CrudActionCommand extends Data360Command<MutationResult> {
     const response = await this.executeAction(path, body, timingOpt);
     const apiMs = performance.now() - tApi;
 
-    this.log('Action completed successfully.');
+    // --raw: output full response as JSON. Logged before any subclass verdict throws, so the body is still seen.
+    if (allFlags.raw === true) {
+      this.log(JSON.stringify(response, null, 2));
+    } else {
+      this.log('Action completed successfully.');
+    }
     this.emitTiming(apiMs, ssotTiming);
 
     return { success: true, id, data: isRecord(response) ? response : undefined };

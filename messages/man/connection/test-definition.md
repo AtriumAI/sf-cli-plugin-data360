@@ -41,7 +41,8 @@ NOTES
 - Available from API v62.0
 - Tests a definition, not an existing connection — use "connection test" or "connection test-existing" for that
 - The attribute names differ per connector type; "connection connector-list" shows the available types
-- Response shape: { "success": true, "errors": [ { "errorCode", "message" } ] } — read it with --json
+- Response shape: { "success": true, "errors": [ { "errorCode", "message" } ] } — read it with --json or --raw
+- "success": false exits non-zero, so a failed test is visible to a script through the exit status
 
 SEE ALSO
 sf data360 connection test

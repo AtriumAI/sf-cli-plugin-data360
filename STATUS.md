@@ -24,7 +24,7 @@ These have dedicated test files with mocked API responses:
 | `connection run-existing`     | `multi-path-param.test.ts`            | Both :params resolved (connectionId, command)                         |
 | `connection schema-get`       | `connection-schema-get.test.ts`       | Parses schemas[].fields[]; per-object field counts                    |
 | `connection test`             | `connection-test.test.ts`             | Name→ID resolution, then POST to the test action                      |
-| `connection test-definition`  | `connection-test-definition.test.ts`  | POSTs the connector definition; test-existing left on its own path    |
+| `connection test-definition`  | `connection-test-definition.test.ts`  | POSTs the definition; `success: false` exits non-zero                 |
 | `data-kit dependencies`       | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
 | `data-kit status`             | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
 | `data-stream delete`          | `crudDelete.test.ts`                  | DELETE + shouldDeleteDataLakeObject param                             |
@@ -49,7 +49,7 @@ These have dedicated test files with mocked API responses:
 | `segment publish`             | `segment-publish.test.ts`             | Name→marketSegmentId resolution                                       |
 | `transform get`               | `crudGet.test.ts`                     | Response field mapping (createdBy object)                             |
 | `transform run`               | `crudAction.test.ts`                  | POST path injection                                                   |
-| `transform validate`          | `crudAction.test.ts`                  | Pre-create validation endpoint, full definition body                  |
+| `transform validate`          | `crudAction.test.ts`                  | Validation endpoint, definition body, issues[] exits non-zero         |
 | `universal-id lookup`         | `multi-path-param.test.ts`            | Deny-listed: throws on its three unresolved :params                   |
 
 ## Live Tested Commands (17)
@@ -150,7 +150,6 @@ Key issues:
 - `segment members` — returns opaque IDs only (use SQL JOIN instead)
 - `data-stream run` — CRM connector cannot be run manually (platform schedule)
 - `connection list` — requires `--connector-type` (no "list all" option)
-- Action commands ignore `--raw` and always log "Action completed successfully.", so `transform validate` reports success even when the response lists validation errors — read the result with `--json`
 
 ## Bug Fixes Applied
 
