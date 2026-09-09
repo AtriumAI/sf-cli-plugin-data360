@@ -17,8 +17,8 @@ const MANIFEST_PATH = resolve(__dirname, '../fixtures/command-manifest.json');
 const ROOT = resolve(__dirname, '../..');
 
 /**
- * Deny-listed in Andi's EXCLUDED_COMMANDS and left without flags on purpose: no consumer,
- * and no way to doc-verify their shapes. They fail loudly via DATA360_UNRESOLVED_PATH_PARAM.
+ * Left without flags on purpose: no consumer, and no way to doc-verify their shapes.
+ * They fail loudly via DATA360_UNRESOLVED_PATH_PARAM.
  * This set must not grow — a new entry means a command shipped with an unfillable :param.
  */
 const KNOWN_UNFILLABLE = new Set([
