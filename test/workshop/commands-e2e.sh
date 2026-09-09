@@ -103,13 +103,13 @@ test_transform() {
   run "transform refresh-status" \
     "$SF" data360 transform refresh-status -o "$ORG" --name StaticCurrencyRatesTransform_Home
 
-  # Write operations — test with caution
-  run "transform validate (expect pass or informative error)" \
-    "$SF" data360 transform validate -o "$ORG" --name StaticCurrencyRatesTransform_Home || true
-
   # Skip destructive: create, delete, update, run, cancel, retry, schedule-set
   echo "  SKIPPED: create, delete, update, run, cancel, retry, schedule-set (destructive)"
   ((SKIP+=7))
+
+  # validate takes a full transform definition on -f; there is no fixture here to point it at
+  echo "  SKIPPED: validate (needs a definition payload)"
+  ((SKIP++))
 }
 
 # =============================================================================
@@ -127,12 +127,9 @@ test_docai() {
   run "docai global-config" \
     "$SF" data360 docai global-config -o "$ORG"
 
-  run "docai generate-schema" \
-    "$SF" data360 docai generate-schema -o "$ORG" --name test_insurance_policy || true
-
-  # Skip: config-create, config-delete, config-update, config-run, extract (need files/payloads)
-  echo "  SKIPPED: config-create, config-delete, config-update, config-run, extract (need payloads)"
-  ((SKIP+=5))
+  # Skip: config-create, config-delete, config-update, config-run, extract, generate-schema (need files/payloads)
+  echo "  SKIPPED: config-create, config-delete, config-update, config-run, extract, generate-schema (need payloads)"
+  ((SKIP+=6))
 }
 
 # =============================================================================
