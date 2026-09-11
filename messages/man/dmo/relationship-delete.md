@@ -9,14 +9,15 @@ Relationship delete Data 360 dmo.
 
 FLAGS
 --api-version Override API version (default: 66.0)
+--dataspace Data space name (default: default)
 --name Resource name or ID
 --target-org (required) Target org alias or username
 --timing Print timing breakdown to stderr
 
 API
-DELETE /ssot/data-model-objects/relationships/:name
+DELETE /ssot/data-model-objects/relationships/:name?dataspace=<name>
 
 TESTING
-Unit tested: no
+Unit tested: yes
 Live tested: no
 Smoke tested: yes

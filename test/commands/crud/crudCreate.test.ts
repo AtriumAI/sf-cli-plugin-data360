@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { runCommand } from '../../helpers/runCommand.js';
 
 import SegmentCreate from '../../../src/commands/data360/segment/create.js';
+import DataActionCreate from '../../../src/commands/data360/data-action/create.js';
 
 describe('CrudCreateCommand', () => {
   describe('segment create', () => {
@@ -25,6 +26,33 @@ describe('CrudCreateCommand', () => {
       assert.deepEqual(requestLog[0].body, { name: 'TestSeg', sql: 'SELECT * FROM "ssot__Individual__dlm"' });
       assert.equal(result.success, true);
       assert.equal(result.id, 'seg123');
+    });
+  });
+  describe('queryParams hook', () => {
+    it('emits no query string when a command overrides nothing', async () => {
+      const { requestLog } = await runCommand(DataActionCreate, {
+        flags: { 'target-org': {}, 'api-version': '66.0', timing: false, definitionBody: { a: 1 } },
+        defaultResponse: {},
+      });
+
+      assert.ok(!requestLog[0].url.includes('?'), requestLog[0].url);
+      assert.ok(requestLog[0].url.endsWith('/data-actions'), requestLog[0].url);
+    });
+
+    it('appends the override as a query string without disturbing the body', async () => {
+      const { requestLog } = await runCommand(SegmentCreate, {
+        flags: {
+          'target-org': {},
+          'api-version': '66.0',
+          timing: false,
+          definitionBody: { a: 1 },
+          dataspace: 'Marketing',
+        },
+        defaultResponse: {},
+      });
+
+      assert.ok(requestLog[0].url.endsWith('/segments?dataspace=Marketing'), requestLog[0].url);
+      assert.deepEqual(requestLog[0].body, { a: 1 });
     });
   });
 });

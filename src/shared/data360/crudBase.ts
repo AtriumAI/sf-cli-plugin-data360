@@ -215,18 +215,24 @@ export abstract class CrudGetCommand<T extends Record<string, unknown>> extends 
     return (flags.name ?? flags.id ?? '') as string;
   }
 
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  protected queryParams(_flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return {};
+  }
+
   public async run(): Promise<GetResult<T>> {
     const flags = await this.parseData360Flags();
     const allFlags = flags as unknown as Record<string, unknown>;
     const id = this.getResourceId(allFlags);
     const params = this.pathParams(allFlags);
-    let path: string;
+    let basePath: string;
     if (params) {
-      path = buildPath(this.endpoint, params);
+      basePath = buildPath(this.endpoint, params);
     } else {
       assertResourceId(id, this.endpoint);
-      path = injectResourceId(this.endpoint, id);
+      basePath = injectResourceId(this.endpoint, id);
     }
+    const path = buildPath(basePath, undefined, this.queryParams(allFlags));
 
     let ssotTiming: SsotTiming | undefined;
     const tApi = performance.now();
@@ -263,6 +269,11 @@ export abstract class CrudCreateCommand extends Data360Command<MutationResult> {
     return getDefinitionBody(flags);
   }
 
+  // eslint-disable-next-line class-methods-use-this, @typescript-eslint/no-unused-vars
+  protected queryParams(_flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return {};
+  }
+
   public async run(): Promise<MutationResult> {
     const flags = await this.parseData360Flags();
     const allFlags = flags as unknown as Record<string, unknown>;
@@ -274,7 +285,8 @@ export abstract class CrudCreateCommand extends Data360Command<MutationResult> {
 
     const body = this.buildBody(allFlags);
     const resourceName = (allFlags.name ?? allFlags.id ?? '') as string;
-    const path = resourceName ? injectResourceId(this.endpoint, resourceName) : buildPath(this.endpoint);
+    const basePath = resourceName ? injectResourceId(this.endpoint, resourceName) : this.endpoint;
+    const path = buildPath(basePath, undefined, this.queryParams(allFlags));
 
     let ssotTiming: SsotTiming | undefined;
     const tApi = performance.now();

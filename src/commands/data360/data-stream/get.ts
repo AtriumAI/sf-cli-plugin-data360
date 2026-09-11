@@ -11,10 +11,14 @@ type DataStreamDetail = {
   streamType: string;
   totalRecords: string;
   lastRefreshDate: string;
+  /** Empty unless --include-mappings is passed; the API returns [] otherwise. */
+  mappings: Array<Record<string, unknown>>;
 };
 
 const str = (v: unknown): string => (typeof v === 'string' ? v : String(v ?? ''));
 const num = (v: unknown): string => (typeof v === 'number' ? v.toLocaleString() : str(v));
+const mappings = (v: unknown): Array<Record<string, unknown>> =>
+  Array.isArray(v) ? (v as Array<Record<string, unknown>>) : [];
 
 export default class Data360DataStreamGet extends CrudGetCommand<DataStreamDetail> {
   public static readonly summary = 'Get a Data 360 data stream.';
@@ -27,6 +31,10 @@ export default class Data360DataStreamGet extends CrudGetCommand<DataStreamDetai
       char: 'n',
       summary: 'Data stream name or record ID.',
       required: true,
+    }),
+    'include-mappings': Flags.boolean({
+      summary: "Include the stream's source-to-DLO field mappings in the response.",
+      default: false,
     }),
   };
 
@@ -55,6 +63,12 @@ export default class Data360DataStreamGet extends CrudGetCommand<DataStreamDetai
       streamType: str(record.dataStreamType),
       totalRecords: num(record.totalRecords),
       lastRefreshDate: str(record.lastRefreshDate),
+      mappings: mappings(record.mappings),
     };
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return { includeMappings: flags['include-mappings'] === true ? 'true' : undefined };
   }
 }

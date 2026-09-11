@@ -26,6 +26,14 @@ export const data360Flags = {
   }),
 };
 
+/** Spread into a command's own flags; the query key is the flag name verbatim. */
+export const dataspaceFlag = {
+  dataspace: Flags.string({
+    summary: 'Data space name.',
+    default: 'default',
+  }),
+};
+
 export type CommandTiming = {
   parseMs: number;
   apiMs: number;

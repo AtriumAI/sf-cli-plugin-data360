@@ -9,15 +9,16 @@ List field mappings between a DLO and DMO.
 
 FLAGS
 --api-version Override API version (default: 66.0)
+--dataspace Data space name (default: default)
 --source Source DLO developer name
 --target Target DMO developer name
 --target-org (required) Target org alias or username
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/data-model-object-mappings
+GET /ssot/data-model-object-mappings?dloDeveloperName=<dlo>&dmoDeveloperName=<dmo>&dataspace=<name>
 
-NOTES
+NOTES - Live-verified 2026-09-11 (andi-dc-sdo, v66.0): omitting --dataspace and passing --dataspace default return identical records, so the default is not a behaviour change
 
 - Documented from API v61.0; a v66 failure was once observed on this request shape — if it returns errors, try --api-version 64.0
 - Query params: dloDeveloperName + dmoDeveloperName

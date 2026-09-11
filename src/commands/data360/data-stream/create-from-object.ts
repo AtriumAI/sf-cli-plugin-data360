@@ -1,5 +1,5 @@
 import { Flags } from '@salesforce/sf-plugins-core';
-import { Data360Command, data360Flags } from '../../../shared/data360/Data360Command.js';
+import { Data360Command, data360Flags, dataspaceFlag } from '../../../shared/data360/Data360Command.js';
 import { ssotPost } from '../../../shared/data360/ssotClient.js';
 
 type CreateStreamResult = {
@@ -44,10 +44,7 @@ export default class Data360DataStreamCreateFromObject extends Data360Command<Cr
       char: 'n',
       summary: 'Stream name. Defaults to <Object>_Home.',
     }),
-    dataspace: Flags.string({
-      summary: 'Data space name.',
-      default: 'default',
-    }),
+    ...dataspaceFlag,
     'refresh-mode': Flags.string({
       summary: 'Data refresh mode.',
       default: 'UPSERT',

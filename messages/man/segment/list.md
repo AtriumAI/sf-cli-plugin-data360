@@ -10,13 +10,16 @@ List Data 360 segment.
 FLAGS
 --all Fetch all pages of results
 --api-version Override API version (default: 66.0)
+--dataspace Data space name (default: default)
+--filters Condition string, e.g. "Name CONTAINS Foo"
+--order-by Order expression, e.g. "Name desc"
 --target-org (required) Target org alias or username
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/segments
+GET /ssot/segments?dataspace=<name>&filters=<condition>&orderBy=<expression>
 
-NOTES - Shows lastSegmentMemberCount for each segment - Columns: apiName, displayName, segmentStatus, segmentType, publishStatus, members
+NOTES - Shows lastSegmentMemberCount for each segment - Columns: apiName, displayName, segmentStatus, segmentType, publishStatus, members - Live-verified 2026-09-11 (andi-dc-sdo, v66.0): omitting --dataspace and passing --dataspace default return identical records, so the default is not a behaviour change
 
 SEE ALSO
 sf data360 segment publish

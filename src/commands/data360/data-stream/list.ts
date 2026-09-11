@@ -1,3 +1,4 @@
+import { Flags } from '@salesforce/sf-plugins-core';
 import { CrudListCommand, listFlags } from '../../../shared/data360/crudBase.js';
 
 type DataStreamRecord = {
@@ -8,10 +9,14 @@ type DataStreamRecord = {
   connectorType: string;
   streamType: string;
   totalRecords: string;
+  /** Empty unless --include-mappings is passed; the API returns [] otherwise. */
+  mappings: Array<Record<string, unknown>>;
 };
 
 const str = (v: unknown): string => (typeof v === 'string' ? v : String(v ?? ''));
 const num = (v: unknown): string => (typeof v === 'number' ? v.toLocaleString() : str(v));
+const mappings = (v: unknown): Array<Record<string, unknown>> =>
+  Array.isArray(v) ? (v as Array<Record<string, unknown>>) : [];
 
 export default class Data360DataStreamList extends CrudListCommand<DataStreamRecord> {
   public static readonly summary = 'List Data 360 data streams.';
@@ -20,6 +25,13 @@ export default class Data360DataStreamList extends CrudListCommand<DataStreamRec
 
   public static readonly flags = {
     ...listFlags,
+    'include-mappings': Flags.boolean({
+      summary: "Include the stream's source-to-DLO field mappings in the response.",
+      default: false,
+    }),
+    'connection-name': Flags.string({
+      summary: 'Restrict the list to one connection. A name that matches nothing returns an empty list.',
+    }),
   };
 
   protected readonly endpoint = '/data-streams';
@@ -45,6 +57,15 @@ export default class Data360DataStreamList extends CrudListCommand<DataStreamRec
       connectorType: str(connInfo?.connectorType),
       streamType: str(record.dataStreamType),
       totalRecords: num(record.totalRecords),
+      mappings: mappings(record.mappings),
+    };
+  }
+
+  protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return {
+      ...super.queryParams(flags),
+      includeMappings: flags['include-mappings'] === true ? 'true' : undefined,
+      connectionName: flags['connection-name'] as string | undefined,
     };
   }
 }

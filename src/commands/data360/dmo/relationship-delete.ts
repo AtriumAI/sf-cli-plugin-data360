@@ -1,6 +1,6 @@
 import { Flags } from '@salesforce/sf-plugins-core';
 import { CrudDeleteCommand } from '../../../shared/data360/crudBase.js';
-import { data360Flags } from '../../../shared/data360/Data360Command.js';
+import { data360Flags, dataspaceFlag } from '../../../shared/data360/Data360Command.js';
 
 export default class Data360DmoRelationshipDelete extends CrudDeleteCommand {
   public static readonly summary = 'Relationship delete Data 360 dmo.';
@@ -9,6 +9,7 @@ export default class Data360DmoRelationshipDelete extends CrudDeleteCommand {
 
   public static readonly flags = {
     ...data360Flags,
+    ...dataspaceFlag,
     name: Flags.string({
       char: 'n',
       summary: 'Name or ID of the resource.',
@@ -17,4 +18,9 @@ export default class Data360DmoRelationshipDelete extends CrudDeleteCommand {
   };
 
   protected readonly endpoint = '/data-model-objects/relationships/:name';
+
+  // eslint-disable-next-line class-methods-use-this
+  protected deleteQueryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return { dataspace: flags.dataspace as string };
+  }
 }

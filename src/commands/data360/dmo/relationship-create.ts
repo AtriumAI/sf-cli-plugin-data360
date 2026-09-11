@@ -1,5 +1,6 @@
 import { Flags } from '@salesforce/sf-plugins-core';
 import { CrudCreateCommand, MutationResult, mutationFlags } from '../../../shared/data360/crudBase.js';
+import { dataspaceFlag } from '../../../shared/data360/Data360Command.js';
 
 export default class Data360DmoRelationshipCreate extends CrudCreateCommand {
   public static readonly summary = 'Relationship create Data 360 dmo.';
@@ -8,6 +9,7 @@ export default class Data360DmoRelationshipCreate extends CrudCreateCommand {
 
   public static readonly flags = {
     ...mutationFlags,
+    ...dataspaceFlag,
     name: Flags.string({
       char: 'n',
       summary: 'Name or ID of the resource.',
@@ -24,5 +26,10 @@ export default class Data360DmoRelationshipCreate extends CrudCreateCommand {
       encodeURIComponent(flags.name)
     );
     return super.run();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return { dataspace: flags.dataspace as string };
   }
 }
