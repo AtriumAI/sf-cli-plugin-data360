@@ -15,6 +15,18 @@ export default class Data360DmoRelationshipList extends CrudListCommand<Record<s
       summary: 'Name or ID of the resource.',
       required: true,
     }),
+    'creation-type': Flags.string({
+      summary: 'Filter by how the relationship was created, e.g. Standard or Custom.',
+    }),
+    status: Flags.string({
+      summary: 'Filter by relationship status, e.g. Active or Inactive.',
+    }),
+    'sort-by': Flags.string({
+      summary: 'Sort field: DeveloperName (default), CreatedDate, LastModifiedDate or CreationType.',
+    }),
+    'order-by': Flags.string({
+      summary: 'Sort direction, asc or desc. Unlike segment list, this endpoint takes a direction, not an expression.',
+    }),
   };
 
   protected readonly endpoint = '/data-model-objects/:dataModelObjectName/relationships';
@@ -34,6 +46,13 @@ export default class Data360DmoRelationshipList extends CrudListCommand<Record<s
   }
 
   protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
-    return { ...super.queryParams(flags), dataspace: flags.dataspace as string };
+    return {
+      ...super.queryParams(flags),
+      dataspace: flags.dataspace as string,
+      creationType: flags['creation-type'] as string | undefined,
+      status: flags.status as string | undefined,
+      sortBy: flags['sort-by'] as string | undefined,
+      orderBy: flags['order-by'] as string | undefined,
+    };
   }
 }

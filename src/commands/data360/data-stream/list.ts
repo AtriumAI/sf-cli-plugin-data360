@@ -1,3 +1,4 @@
+import { Flags } from '@salesforce/sf-plugins-core';
 import { CrudListCommand, listFlags } from '../../../shared/data360/crudBase.js';
 
 type DataStreamRecord = {
@@ -20,6 +21,13 @@ export default class Data360DataStreamList extends CrudListCommand<DataStreamRec
 
   public static readonly flags = {
     ...listFlags,
+    'include-mappings': Flags.boolean({
+      summary: "Include the stream's source-to-DLO field mappings in the response.",
+      default: false,
+    }),
+    'connection-name': Flags.string({
+      summary: 'Restrict the list to one connection. A name that matches nothing returns an empty list.',
+    }),
   };
 
   protected readonly endpoint = '/data-streams';
@@ -45,6 +53,14 @@ export default class Data360DataStreamList extends CrudListCommand<DataStreamRec
       connectorType: str(connInfo?.connectorType),
       streamType: str(record.dataStreamType),
       totalRecords: num(record.totalRecords),
+    };
+  }
+
+  protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return {
+      ...super.queryParams(flags),
+      includeMappings: flags['include-mappings'] === true ? 'true' : undefined,
+      connectionName: flags['connection-name'] as string | undefined,
     };
   }
 }

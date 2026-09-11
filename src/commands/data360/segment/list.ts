@@ -1,3 +1,4 @@
+import { Flags } from '@salesforce/sf-plugins-core';
 import { CrudListCommand, listFlags } from '../../../shared/data360/crudBase.js';
 import { dataspaceFlag } from '../../../shared/data360/Data360Command.js';
 
@@ -9,6 +10,12 @@ export default class Data360SegmentList extends CrudListCommand<Record<string, u
   public static readonly flags = {
     ...listFlags,
     ...dataspaceFlag,
+    filters: Flags.string({
+      summary: 'Condition string, e.g. "Name CONTAINS Foo". Operators: EQUALS, CONTAINS, IN, NOTEQUALSTO.',
+    }),
+    'order-by': Flags.string({
+      summary: 'Order expression, e.g. "Name desc". The API rejects an invalid expression.',
+    }),
   };
 
   protected readonly endpoint = '/segments';
@@ -25,6 +32,11 @@ export default class Data360SegmentList extends CrudListCommand<Record<string, u
   ];
 
   protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
-    return { ...super.queryParams(flags), dataspace: flags.dataspace as string };
+    return {
+      ...super.queryParams(flags),
+      dataspace: flags.dataspace as string,
+      filters: flags.filters as string | undefined,
+      orderBy: flags['order-by'] as string | undefined,
+    };
   }
 }

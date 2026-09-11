@@ -10,6 +10,7 @@ Get Data 360 metadata.
 FLAGS
 --api-version Override API version (default: 66.0)
 --dataspace Data space name (default: default)
+--entity-name Restrict the read to one data graph entity
 --target-org (required) Target org alias or username
 --timing Print timing breakdown to stderr
 

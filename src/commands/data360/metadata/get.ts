@@ -1,3 +1,4 @@
+import { Flags } from '@salesforce/sf-plugins-core';
 import { CrudGetCommand } from '../../../shared/data360/crudBase.js';
 import { data360Flags, dataspaceFlag } from '../../../shared/data360/Data360Command.js';
 
@@ -9,6 +10,9 @@ export default class Data360MetadataGet extends CrudGetCommand<Record<string, un
   public static readonly flags = {
     ...data360Flags,
     ...dataspaceFlag,
+    'entity-name': Flags.string({
+      summary: 'Restrict the read to one data graph entity. An unknown name returns 404 from the graph service.',
+    }),
   };
 
   protected readonly endpoint = '/data-graphs/metadata';
@@ -22,6 +26,9 @@ export default class Data360MetadataGet extends CrudGetCommand<Record<string, un
 
   // eslint-disable-next-line class-methods-use-this
   protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
-    return { dataspace: flags.dataspace as string };
+    return {
+      dataspace: flags.dataspace as string,
+      dataGraphEntityName: flags['entity-name'] as string | undefined,
+    };
   }
 }

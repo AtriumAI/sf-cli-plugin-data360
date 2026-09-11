@@ -28,6 +28,10 @@ export default class Data360DataStreamGet extends CrudGetCommand<DataStreamDetai
       summary: 'Data stream name or record ID.',
       required: true,
     }),
+    'include-mappings': Flags.boolean({
+      summary: "Include the stream's source-to-DLO field mappings in the response.",
+      default: false,
+    }),
   };
 
   protected readonly endpoint = '/data-streams/:recordIdOrDeveloperName';
@@ -56,5 +60,10 @@ export default class Data360DataStreamGet extends CrudGetCommand<DataStreamDetai
       totalRecords: num(record.totalRecords),
       lastRefreshDate: str(record.lastRefreshDate),
     };
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return { includeMappings: flags['include-mappings'] === true ? 'true' : undefined };
   }
 }

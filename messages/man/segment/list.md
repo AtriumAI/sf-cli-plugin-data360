@@ -11,6 +11,8 @@ FLAGS
 --all Fetch all pages of results
 --api-version Override API version (default: 66.0)
 --dataspace Data space name (default: default)
+--filters Condition string, e.g. "Name CONTAINS Foo"
+--order-by Order expression, e.g. "Name desc"
 --target-org (required) Target org alias or username
 --timing Print timing breakdown to stderr
 
