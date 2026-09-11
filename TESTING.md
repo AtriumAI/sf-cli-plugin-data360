@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **172 tests**, ~10 seconds.
+Total: **248 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -44,7 +44,7 @@ Dynamically discovers and imports all 163 command files, then validates:
 
 **What it catches:** Broken imports, missing flags, missing metadata after refactoring.
 
-## Tier 2: CRUD Base Class Tests (46 tests)
+## Tier 2: CRUD Base Class Tests (50 tests)
 
 **Files:** `test/commands/crud/*.test.ts`
 
@@ -62,29 +62,32 @@ Tests the shared CRUD base classes using real command subclasses with mocked API
 
 **What it catches:** Regression in shared request building, pagination, response parsing.
 
-## Tier 3: Hand-Tuned Command Tests (64 tests)
+## Tier 3: Hand-Tuned Command Tests (131 tests)
 
 **Files:** `test/commands/handtuned/*.test.ts`
 
 Tests commands with custom `run()` implementations:
 
-| Command                     | Test File                             | What's Tested                                                         |
-| --------------------------- | ------------------------------------- | --------------------------------------------------------------------- |
-| identity-resolution run     | `identity-resolution-run.test.ts`     | Name→ID resolution, 18-char ID passthrough, error on missing name     |
-| segment publish             | `segment-publish.test.ts`             | Name→marketSegmentId resolution                                       |
-| connection get              | `connection-get.test.ts`              | Name→ID with connectorType requirement                                |
-| query sqlv2                 | `query-sqlv2.test.ts`                 | POST body, nextBatchId pagination, empty results                      |
-| query async-\*              | `query-async.test.ts`                 | Create/status/rows/cancel lifecycle                                   |
-| dmo mapping-list            | `dmo-mapping-list.test.ts`            | Custom query params, nested response parsing                          |
-| multi-param endpoints       | `multi-path-param.test.ts`            | Both :params resolved on the 4 reachable cmds; deny-listed throw      |
-| connection database-schemas | `connection-database-schemas.test.ts` | POST verb + body, `schemas` arrayKey, bare-string rows, inert `--all` |
-| connection test             | `connection-test.test.ts`             | Name→ID resolution, then POST to the test action                      |
-| connection schema-get       | `connection-schema-get.test.ts`       | Parses schemas[].fields[]; per-object field counts                    |
-| connection test-definition  | `connection-test-definition.test.ts`  | POSTs the connector definition; `success: false` exits non-zero       |
-| docai generate-schema       | `docai-generate-schema.test.ts`       | Org-level action, definition body, no path param                      |
-| docai detect-schema         | `docai-detect-schema.test.ts`         | Definition body, threshold query param, v67.0 default                 |
-| search-index config         | `search-index-config.test.ts`         | Org-level GET, no `--name`; config field surfaced                     |
-| dmo create-from-dlo         | `dmo-create-from-dlo.test.ts`         | DLO SQL type → DMO type parity; orphan DMO error                      |
+| Command                        | Test File                              | What's Tested                                                         |
+| ------------------------------ | -------------------------------------- | --------------------------------------------------------------------- |
+| identity-resolution run        | `identity-resolution-run.test.ts`      | Name→ID resolution, 18-char ID passthrough, error on missing name     |
+| segment publish                | `segment-publish.test.ts`              | Name→marketSegmentId resolution                                       |
+| connection get                 | `connection-get.test.ts`               | Name→ID with connectorType requirement                                |
+| query sqlv2                    | `query-sqlv2.test.ts`                  | POST body, nextBatchId pagination, empty results                      |
+| query async-\*                 | `query-async.test.ts`                  | Create/status/rows/cancel lifecycle                                   |
+| dmo mapping-list               | `dmo-mapping-list.test.ts`             | Custom query params, nested response parsing                          |
+| multi-param endpoints          | `multi-path-param.test.ts`             | Both :params resolved on the 4 reachable cmds; deny-listed throw      |
+| connection database-schemas    | `connection-database-schemas.test.ts`  | POST verb + body, `schemas` arrayKey, bare-string rows, inert `--all` |
+| connection test                | `connection-test.test.ts`              | Name→ID resolution, then POST to the test action                      |
+| connection schema-get          | `connection-schema-get.test.ts`        | Parses schemas[].fields[]; per-object field counts                    |
+| connection test-definition     | `connection-test-definition.test.ts`   | POSTs the connector definition; `success: false` exits non-zero       |
+| docai generate-schema          | `docai-generate-schema.test.ts`        | Org-level action, definition body, no path param                      |
+| docai detect-schema            | `docai-detect-schema.test.ts`          | Definition body, threshold query param, v67.0 default                 |
+| search-index config            | `search-index-config.test.ts`          | Org-level GET, no `--name`; config field surfaced                     |
+| dmo create-from-dlo            | `dmo-create-from-dlo.test.ts`          | DLO SQL type → DMO type parity; orphan DMO error                      |
+| --dataspace (12 commands)      | `dataspace-query-param.test.ts`        | Exact query URL per command, for an explicit space and for `default`  |
+| list filter params             | `list-filters.test.ts`                 | Exact query URL per filter flag, with a paired omitted-flag case      |
+| data-stream --include-mappings | `data-stream-include-mappings.test.ts` | `includeMappings` on the URL; `mappings` carried into the result      |
 
 **What it catches:** Broken name resolution, wrong query params, wrong HTTP method, response parsing errors.
 
@@ -109,14 +112,14 @@ Compares current command metadata against a checked-in snapshot (`test/fixtures/
 node --loader ts-node/esm scripts/generate-manifest.mjs
 ```
 
-## Shared Utility Tests (29 tests)
+## Shared Utility Tests (34 tests)
 
 **Files:** `test/shared/*.test.ts`
 
-| Utility     | Tests | What's Tested                                                                                         |
-| ----------- | ----- | ----------------------------------------------------------------------------------------------------- |
-| pathBuilder | 16    | Param injection/encoding, unresolved-token guard, query-string building                               |
-| pagination  | 13    | Cursor styles and their termination: a reflected `pageToken` and a repeated cursor are never followed |
+| Utility     | Tests | What's Tested                                                                                     |
+| ----------- | ----- | ------------------------------------------------------------------------------------------------- |
+| pathBuilder | 16    | Param injection/encoding, unresolved-token guard, query-string building                           |
+| pagination  | 18    | Cursor styles and their termination, and carrying the request query onto a followed `nextPageUrl` |
 
 ## Packaging Tests (18 tests)
 

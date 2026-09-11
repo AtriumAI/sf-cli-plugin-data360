@@ -22,7 +22,9 @@ FLAGS
 API
 GET /ssot/data-model-objects/:dataModelObjectName/relationships?dataspace=<name>&creationType=<type>&status=<status>&sortBy=<field>&orderBy=<asc|desc>
 
+NOTES - Unlike segment list, --order-by here takes a DIRECTION (asc or desc), not an order expression - --sort-by and --order-by are closed value sets; oclif rejects anything else before the request is sent - Live-verified 2026-09-11 (andi-dc-sdo, v66.0): omitting --dataspace and passing --dataspace default return identical records, so the default is not a behaviour change
+
 TESTING
-Unit tested: no
+Unit tested: yes
 Live tested: no
 Smoke tested: yes

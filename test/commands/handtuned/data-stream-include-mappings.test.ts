@@ -47,6 +47,45 @@ describe('--include-mappings', () => {
     assert.ok(!requestLog[0].url.includes('includeMappings'), requestLog[0].url);
   });
 
+  it('data-stream get carries the returned mappings into the mapped result', async () => {
+    const pairs = [{ sourceFieldName: 'Email', targetFieldName: 'Email__c' }];
+    const { result } = await runCommand(DataStreamGet, {
+      flags: { ...base, name: 'Contact_Home', 'include-mappings': true },
+      defaultResponse: { name: 'Contact_Home', mappings: pairs },
+    });
+
+    assert.deepEqual(result.data.mappings, pairs);
+  });
+
+  it('data-stream get reports mappings as [] when the flag is absent', async () => {
+    // Live 2026-09-11: the API always returns the key, valued [] without includeMappings.
+    const { result } = await runCommand(DataStreamGet, {
+      flags: { ...base, name: 'Contact_Home' },
+      defaultResponse: { name: 'Contact_Home', mappings: [] },
+    });
+
+    assert.deepEqual(result.data.mappings, []);
+  });
+
+  it('data-stream get reports mappings as [] when the key is missing entirely', async () => {
+    const { result } = await runCommand(DataStreamGet, {
+      flags: { ...base, name: 'Contact_Home' },
+      defaultResponse: { name: 'Contact_Home' },
+    });
+
+    assert.deepEqual(result.data.mappings, []);
+  });
+
+  it('data-stream list carries the returned mappings onto every mapped row', async () => {
+    const pairs = [{ sourceFieldName: 'Email', targetFieldName: 'Email__c' }];
+    const { result } = await runCommand(DataStreamList, {
+      flags: { ...base, 'include-mappings': true },
+      defaultResponse: { dataStreams: [{ name: 'Contact_Home', mappings: pairs }] },
+    });
+
+    assert.deepEqual(result.data[0].mappings, pairs);
+  });
+
   it('declares include-mappings as a boolean defaulting to false', () => {
     for (const cmd of [DataStreamGet, DataStreamList]) {
       const declared = cmd.flags as Record<string, { default?: unknown; type?: string }>;

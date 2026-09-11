@@ -23,31 +23,99 @@ const base = { 'target-org': {}, 'api-version': '66.0', timing: false };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Cmd = new (...args: any[]) => never;
 
-const wired: Array<{ name: string; cmd: unknown; flags: Record<string, unknown>; response?: unknown }> = [
-  { name: 'dmo mapping-get', cmd: DmoMappingGet, flags: { name: 'Account_map_1' } },
-  { name: 'dmo mapping-list', cmd: DmoMappingList, flags: { source: 'A__dll', target: 'B__dlm' } },
-  { name: 'dmo relationship-list', cmd: DmoRelationshipList, flags: { name: 'ssot__Account__dlm' } },
-  { name: 'dmo mapping-create', cmd: DmoMappingCreate, flags: { definitionBody: { a: 1 } } },
-  { name: 'dmo relationship-create', cmd: DmoRelationshipCreate, flags: { name: 'ssot__Account__dlm' } },
-  { name: 'dmo relationship-delete', cmd: DmoRelationshipDelete, flags: { name: 'RelX' } },
-  { name: 'segment list', cmd: SegmentList, flags: {} },
-  { name: 'segment create', cmd: SegmentCreate, flags: { definitionBody: { a: 1 } } },
-  { name: 'data-action list', cmd: DataActionList, flags: {} },
-  { name: 'calculated-insight list', cmd: CalculatedInsightList, flags: {} },
-  { name: 'data-graph metadata', cmd: DataGraphMetadata, flags: {} },
-  { name: 'metadata get', cmd: MetadataGet, flags: {} },
+/** `expect` is the exact URL tail for dataspace=Marketing; the default case swaps the value. */
+const wired: Array<{ name: string; cmd: unknown; flags: Record<string, unknown>; expect: string }> = [
+  {
+    name: 'dmo mapping-get',
+    cmd: DmoMappingGet,
+    flags: { name: 'Account_map_1' },
+    expect: '/data-model-object-mappings/Account_map_1?dataspace=Marketing',
+  },
+  {
+    name: 'dmo mapping-list',
+    cmd: DmoMappingList,
+    flags: { source: 'A__dll', target: 'B__dlm' },
+    expect: '/data-model-object-mappings?dloDeveloperName=A__dll&dmoDeveloperName=B__dlm&dataspace=Marketing',
+  },
+  {
+    name: 'dmo relationship-list',
+    cmd: DmoRelationshipList,
+    flags: { name: 'ssot__Account__dlm' },
+    expect: '/data-model-objects/ssot__Account__dlm/relationships?dataspace=Marketing&batchSize=200&limit=200&offset=0',
+  },
+  {
+    name: 'dmo mapping-create',
+    cmd: DmoMappingCreate,
+    flags: { definitionBody: { a: 1 } },
+    expect: '/data-model-object-mappings?dataspace=Marketing',
+  },
+  {
+    name: 'dmo relationship-create',
+    cmd: DmoRelationshipCreate,
+    flags: { name: 'ssot__Account__dlm' },
+    expect: '/data-model-objects/ssot__Account__dlm/relationships?dataspace=Marketing',
+  },
+  {
+    name: 'dmo relationship-delete',
+    cmd: DmoRelationshipDelete,
+    flags: { name: 'RelX' },
+    expect: '/data-model-objects/relationships/RelX?dataspace=Marketing',
+  },
+  {
+    name: 'segment list',
+    cmd: SegmentList,
+    flags: {},
+    expect: '/segments?dataspace=Marketing&batchSize=200&limit=200&offset=0',
+  },
+  {
+    name: 'segment create',
+    cmd: SegmentCreate,
+    flags: { definitionBody: { a: 1 } },
+    expect: '/segments?dataspace=Marketing',
+  },
+  {
+    name: 'data-action list',
+    cmd: DataActionList,
+    flags: {},
+    expect: '/data-actions?dataspace=Marketing&batchSize=200&limit=200&offset=0',
+  },
+  {
+    name: 'calculated-insight list',
+    cmd: CalculatedInsightList,
+    flags: {},
+    expect: '/calculated-insights?dataspace=Marketing&batchSize=200&limit=200&offset=0',
+  },
+  {
+    name: 'data-graph metadata',
+    cmd: DataGraphMetadata,
+    flags: {},
+    expect: '/data-graphs/metadata?dataspace=Marketing',
+  },
+  { name: 'metadata get', cmd: MetadataGet, flags: {}, expect: '/data-graphs/metadata?dataspace=Marketing' },
 ];
 
 describe('--dataspace query parameter', () => {
-  for (const { name, cmd, flags } of wired) {
+  for (const { name, cmd, flags, expect } of wired) {
     it(`${name} sends dataspace in the query string`, async () => {
       const { requestLog } = await runCommand(cmd as Cmd, {
         flags: { ...base, ...flags, dataspace: 'Marketing' },
         defaultResponse: {},
       });
 
-      assert.ok(requestLog.length >= 1, 'no request was made');
-      assert.ok(requestLog[0].url.includes('dataspace=Marketing'), requestLog[0].url);
+      assert.equal(requestLog.length, 1);
+      assert.ok(requestLog[0].url.endsWith(expect), `${requestLog[0].url} !endsWith ${expect}`);
+    });
+
+    // The harness stubs oclif parsing, so `default:` never applies — pass it as the user's
+    // shell would once oclif has filled it in, and pin the string production actually sends.
+    it(`${name} sends dataspace=default when the flag takes its declared default`, async () => {
+      const { requestLog } = await runCommand(cmd as Cmd, {
+        flags: { ...base, ...flags, dataspace: 'default' },
+        defaultResponse: {},
+      });
+
+      const want = expect.replace('dataspace=Marketing', 'dataspace=default');
+      assert.ok(requestLog[0].url.endsWith(want), `${requestLog[0].url} !endsWith ${want}`);
     });
 
     it(`${name} declares dataspace defaulting to "default"`, () => {

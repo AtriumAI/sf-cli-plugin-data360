@@ -17,7 +17,7 @@ FLAGS
 API
 POST /ssot/segments?dataspace=<name>
 
-NOTES - Often fails on v66 — use --api-version 64.0 - SQL cannot JOIN \_\_cio objects - Use <> not != (strict SQL)
+NOTES - Often fails on v66 — use --api-version 64.0 - SQL cannot JOIN \_\_cio objects - Use <> not != (strict SQL) - The definition-file body cannot name a data space: the API rejects a dataspace/dataSpace key with JSON_PARSER_ERROR "Unrecognized field" (live 2026-09-11), so --dataspace is the only channel (unlike data-action create, whose body does carry the key)
 
 SEE ALSO
 sf data360 segment publish

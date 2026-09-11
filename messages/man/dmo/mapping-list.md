@@ -18,7 +18,7 @@ FLAGS
 API
 GET /ssot/data-model-object-mappings?dloDeveloperName=<dlo>&dmoDeveloperName=<dmo>&dataspace=<name>
 
-NOTES
+NOTES - Live-verified 2026-09-11 (andi-dc-sdo, v66.0): omitting --dataspace and passing --dataspace default return identical records, so the default is not a behaviour change
 
 - Documented from API v61.0; a v66 failure was once observed on this request shape — if it returns errors, try --api-version 64.0
 - Query params: dloDeveloperName + dmoDeveloperName

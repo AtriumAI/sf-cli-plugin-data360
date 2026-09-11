@@ -23,9 +23,11 @@ export default class Data360DmoRelationshipList extends CrudListCommand<Record<s
     }),
     'sort-by': Flags.string({
       summary: 'Sort field: DeveloperName (default), CreatedDate, LastModifiedDate or CreationType.',
+      options: ['DeveloperName', 'CreatedDate', 'LastModifiedDate', 'CreationType'],
     }),
     'order-by': Flags.string({
-      summary: 'Sort direction, asc or desc. Unlike segment list, this endpoint takes a direction, not an expression.',
+      summary: 'Sort direction, asc or desc.',
+      options: ['asc', 'desc'],
     }),
   };
 

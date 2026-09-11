@@ -17,7 +17,9 @@ FLAGS
 API
 GET /ssot/data-streams/:recordIdOrDeveloperName?includeMappings=true
 
+NOTES - mappings comes back as [] unless --include-mappings is passed; the flag alone is enough, --raw is not required
+
 TESTING
-Unit tested: no
+Unit tested: yes
 Live tested: no
 Smoke tested: yes

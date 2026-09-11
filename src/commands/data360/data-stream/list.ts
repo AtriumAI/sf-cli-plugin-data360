@@ -9,10 +9,14 @@ type DataStreamRecord = {
   connectorType: string;
   streamType: string;
   totalRecords: string;
+  /** Empty unless --include-mappings is passed; the API returns [] otherwise. */
+  mappings: Array<Record<string, unknown>>;
 };
 
 const str = (v: unknown): string => (typeof v === 'string' ? v : String(v ?? ''));
 const num = (v: unknown): string => (typeof v === 'number' ? v.toLocaleString() : str(v));
+const mappings = (v: unknown): Array<Record<string, unknown>> =>
+  Array.isArray(v) ? (v as Array<Record<string, unknown>>) : [];
 
 export default class Data360DataStreamList extends CrudListCommand<DataStreamRecord> {
   public static readonly summary = 'List Data 360 data streams.';
@@ -53,6 +57,7 @@ export default class Data360DataStreamList extends CrudListCommand<DataStreamRec
       connectorType: str(connInfo?.connectorType),
       streamType: str(record.dataStreamType),
       totalRecords: num(record.totalRecords),
+      mappings: mappings(record.mappings),
     };
   }
 

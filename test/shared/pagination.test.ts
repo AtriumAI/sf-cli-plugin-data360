@@ -20,6 +20,9 @@ const fullPage = (prefix: string): Array<Record<string, unknown>> =>
 
 const allFlags = { 'target-org': {}, 'api-version': '66.0', timing: false, all: true };
 
+/** ssotGet prepends this to every path it is handed. */
+const SSOT = '/services/data/v66.0/ssot';
+
 describe('pagination cursors', () => {
   it('follows a nextPageToken nested beside a dotted arrayKey', async () => {
     const { requestLog, result } = await runCommand(CalculatedInsightList, {
@@ -205,8 +208,49 @@ describe('pagination termination', () => {
 
     await fetchAllPages<Record<string, unknown>>(org, '66.0', '/widgets?dataspace=Base', { all: true });
 
-    assert.ok(urls[1].includes('dataspace=Followed'), urls[1]);
-    assert.ok(!urls[1].includes('dataspace=Base'), urls[1]);
+    assert.equal(urls.length, 2);
+    assert.equal(urls[1], `${SSOT}/widgets?dataspace=Followed`);
+  });
+
+  it('keeps every value of a key the followed URL repeats', async () => {
+    let call = 0;
+    const { org, urls } = cappedOrg(5, () => ({
+      data: call++ === 0 ? fullPage('W_') : [{ name: 'W_last' }],
+      nextPageUrl: call === 1 ? '/services/data/v66.0/ssot/widgets?k=1&k=2' : undefined,
+    }));
+
+    await fetchAllPages<Record<string, unknown>>(org, '66.0', '/widgets?k=base&other=x', { all: true });
+
+    assert.equal(urls.length, 2);
+    assert.equal(urls[1], `${SSOT}/widgets?other=x&k=1&k=2`);
+  });
+
+  it('splits the followed URL at its first ? so a query may contain another', async () => {
+    let call = 0;
+    const { org, urls } = cappedOrg(5, () => ({
+      data: call++ === 0 ? fullPage('W_') : [{ name: 'W_last' }],
+      nextPageUrl: call === 1 ? '/services/data/v66.0/ssot/widgets?cursor=abc?def&offset=200' : undefined,
+    }));
+
+    await fetchAllPages<Record<string, unknown>>(org, '66.0', '/widgets?dataspace=Base', { all: true });
+
+    assert.equal(urls.length, 2);
+    assert.equal(urls[1], `${SSOT}/widgets?dataspace=Base&cursor=abc%3Fdef&offset=200`);
+  });
+
+  it('carries a space-containing filter value onto page 2', async () => {
+    let call = 0;
+    const { org, urls } = cappedOrg(5, () => ({
+      data: call++ === 0 ? fullPage('W_') : [{ name: 'W_last' }],
+      nextPageUrl: call === 1 ? '/services/data/v66.0/ssot/widgets?limit=200&offset=200' : undefined,
+    }));
+
+    await fetchAllPages<Record<string, unknown>>(org, '66.0', '/widgets?filters=Name%20CONTAINS%20QA', {
+      all: true,
+    });
+
+    assert.equal(urls.length, 2);
+    assert.equal(urls[1], `${SSOT}/widgets?filters=Name+CONTAINS+QA&limit=200&offset=200`);
   });
 
   it('stops when a repeated nextPageUrl is echoed back', async () => {

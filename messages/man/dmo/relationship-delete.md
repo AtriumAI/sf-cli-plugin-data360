@@ -18,6 +18,6 @@ API
 DELETE /ssot/data-model-objects/relationships/:name?dataspace=<name>
 
 TESTING
-Unit tested: no
+Unit tested: yes
 Live tested: no
 Smoke tested: yes

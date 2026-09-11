@@ -11,10 +11,14 @@ type DataStreamDetail = {
   streamType: string;
   totalRecords: string;
   lastRefreshDate: string;
+  /** Empty unless --include-mappings is passed; the API returns [] otherwise. */
+  mappings: Array<Record<string, unknown>>;
 };
 
 const str = (v: unknown): string => (typeof v === 'string' ? v : String(v ?? ''));
 const num = (v: unknown): string => (typeof v === 'number' ? v.toLocaleString() : str(v));
+const mappings = (v: unknown): Array<Record<string, unknown>> =>
+  Array.isArray(v) ? (v as Array<Record<string, unknown>>) : [];
 
 export default class Data360DataStreamGet extends CrudGetCommand<DataStreamDetail> {
   public static readonly summary = 'Get a Data 360 data stream.';
@@ -59,6 +63,7 @@ export default class Data360DataStreamGet extends CrudGetCommand<DataStreamDetai
       streamType: str(record.dataStreamType),
       totalRecords: num(record.totalRecords),
       lastRefreshDate: str(record.lastRefreshDate),
+      mappings: mappings(record.mappings),
     };
   }
 

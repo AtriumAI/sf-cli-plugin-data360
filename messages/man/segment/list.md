@@ -19,7 +19,7 @@ FLAGS
 API
 GET /ssot/segments?dataspace=<name>&filters=<condition>&orderBy=<expression>
 
-NOTES - Shows lastSegmentMemberCount for each segment - Columns: apiName, displayName, segmentStatus, segmentType, publishStatus, members
+NOTES - Shows lastSegmentMemberCount for each segment - Columns: apiName, displayName, segmentStatus, segmentType, publishStatus, members - Live-verified 2026-09-11 (andi-dc-sdo, v66.0): omitting --dataspace and passing --dataspace default return identical records, so the default is not a behaviour change
 
 SEE ALSO
 sf data360 segment publish

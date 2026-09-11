@@ -126,6 +126,12 @@ const stripSsotPrefix = (url: string, apiVersion: string): string => {
   return url.startsWith(prefix) ? url.slice(prefix.length) : url;
 };
 
+/** Split a URL at its FIRST `?`; a query may legally contain further `?` characters. */
+const splitAtFirstQuestionMark = (url: string): [string, string] => {
+  const i = url.indexOf('?');
+  return i === -1 ? [url, ''] : [url.slice(0, i), url.slice(i + 1)];
+};
+
 /**
  * Carry the request's own query params onto a followed nextPageUrl.
  *
@@ -134,11 +140,16 @@ const stripSsotPrefix = (url: string, apiVersion: string): string => {
  * so pages 2+ would be unfiltered. Params already on the followed URL win.
  */
 const withBaseQuery = (followed: string, endpoint: string): string => {
-  const baseQuery = endpoint.split('?')[1];
+  const baseQuery = splitAtFirstQuestionMark(endpoint)[1];
   if (!baseQuery) return followed;
-  const [path, followedQuery] = followed.split('?');
+  const [path, followedQuery] = splitAtFirstQuestionMark(followed);
   const params = new URLSearchParams(baseQuery);
-  new URLSearchParams(followedQuery ?? '').forEach((value, key) => params.set(key, value));
+  const followedParams = new URLSearchParams(followedQuery);
+  // Drop the base's copy of every key the followed URL names, then keep all of its values.
+  const followedKeys = new Set<string>();
+  followedParams.forEach((_value, key) => followedKeys.add(key));
+  followedKeys.forEach((key) => params.delete(key));
+  followedParams.forEach((value, key) => params.append(key, value));
   return `${path}?${params.toString()}`;
 };
 
