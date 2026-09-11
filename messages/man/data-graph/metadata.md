@@ -15,7 +15,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/data-graphs/metadata
+GET /ssot/data-graphs/metadata?dataspace=<name>&dataGraphEntityName=<entity>
 
 TESTING
 Unit tested: no

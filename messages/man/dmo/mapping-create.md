@@ -15,7 +15,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-POST /ssot/data-model-object-mappings
+POST /ssot/data-model-object-mappings?dataspace=<name>
 
 TESTING
 Unit tested: no

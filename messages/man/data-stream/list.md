@@ -16,7 +16,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/data-streams
+GET /ssot/data-streams?connectionName=<name>&includeMappings=true
 
 NOTES - Does NOT include record counts - Use SQL COUNT per DLO for record counts - External/NONE = BYOL never accelerated
 

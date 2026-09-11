@@ -16,7 +16,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/data-model-object-mappings
+GET /ssot/data-model-object-mappings?dloDeveloperName=<dlo>&dmoDeveloperName=<dmo>&dataspace=<name>
 
 NOTES
 

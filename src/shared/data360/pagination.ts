@@ -126,6 +126,22 @@ const stripSsotPrefix = (url: string, apiVersion: string): string => {
   return url.startsWith(prefix) ? url.slice(prefix.length) : url;
 };
 
+/**
+ * Carry the request's own query params onto a followed nextPageUrl.
+ *
+ * /ssot/data-streams returns a nextPageUrl that DROPS them (live 2026-09-11: a
+ * request with connectionName came back with nextPageUrl=...?limit=1&offset=2),
+ * so pages 2+ would be unfiltered. Params already on the followed URL win.
+ */
+const withBaseQuery = (followed: string, endpoint: string): string => {
+  const baseQuery = endpoint.split('?')[1];
+  if (!baseQuery) return followed;
+  const [path, followedQuery] = followed.split('?');
+  const params = new URLSearchParams(baseQuery);
+  new URLSearchParams(followedQuery ?? '').forEach((value, key) => params.set(key, value));
+  return `${path}?${params.toString()}`;
+};
+
 /** Fetch next page via URL or cursor, returning null if no more pages. */
 const fetchNextPage = async <T>(
   org: Org,
@@ -138,7 +154,7 @@ const fetchNextPage = async <T>(
 ): Promise<PaginatedResponse<T> | null> => {
   // Style 1: follow nextPageUrl
   if (page.nextPageUrl) {
-    const next = stripSsotPrefix(page.nextPageUrl, apiVersion);
+    const next = withBaseQuery(stripSsotPrefix(page.nextPageUrl, apiVersion), endpoint);
     // eslint-disable-next-line no-await-in-loop
     const response = await ssotGet<Record<string, unknown>>(org, apiVersion, next, requestOptions);
     return toPage<T>(response, arrayKey);

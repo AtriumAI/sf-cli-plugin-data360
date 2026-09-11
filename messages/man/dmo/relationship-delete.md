@@ -15,7 +15,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-DELETE /ssot/data-model-objects/relationships/:name
+DELETE /ssot/data-model-objects/relationships/:name?dataspace=<name>
 
 TESTING
 Unit tested: no

@@ -15,7 +15,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/data-actions
+GET /ssot/data-actions?dataspace=<name>
 
 TESTING
 Unit tested: no

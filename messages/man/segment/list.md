@@ -17,7 +17,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/segments
+GET /ssot/segments?dataspace=<name>&filters=<condition>&orderBy=<expression>
 
 NOTES - Shows lastSegmentMemberCount for each segment - Columns: apiName, displayName, segmentStatus, segmentType, publishStatus, members
 

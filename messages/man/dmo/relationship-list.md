@@ -20,7 +20,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/data-model-objects/:dataModelObjectName/relationships
+GET /ssot/data-model-objects/:dataModelObjectName/relationships?dataspace=<name>&creationType=<type>&status=<status>&sortBy=<field>&orderBy=<asc|desc>
 
 TESTING
 Unit tested: no

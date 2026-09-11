@@ -15,7 +15,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/calculated-insights
+GET /ssot/calculated-insights?dataspace=<name>
 
 SEE ALSO
 sf data360 calculated-insight run

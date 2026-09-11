@@ -16,7 +16,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-POST /ssot/data-model-objects/:dataModelObjectName/relationships
+POST /ssot/data-model-objects/:dataModelObjectName/relationships?dataspace=<name>
 
 NOTES - Use sourceObjectName/targetObjectName (not sourceEntity) - Field: relationshipOwner (singular) - Cardinality from source perspective: ManyToOne = many source per target
 

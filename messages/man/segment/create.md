@@ -15,7 +15,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-POST /ssot/segments
+POST /ssot/segments?dataspace=<name>
 
 NOTES - Often fails on v66 — use --api-version 64.0 - SQL cannot JOIN \_\_cio objects - Use <> not != (strict SQL)
 

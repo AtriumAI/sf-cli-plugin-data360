@@ -177,6 +177,38 @@ describe('pagination termination', () => {
     assert.equal(rows.length, 400);
   });
 
+  it('re-applies the request filter on a nextPageUrl that dropped it', async () => {
+    // Live 2026-09-11: /ssot/data-streams answers a filtered request with
+    // nextPageUrl=...?limit=1&offset=2, so page 2 would come back unfiltered.
+    let call = 0;
+    const { org, urls } = cappedOrg(5, () => ({
+      data: call++ === 0 ? fullPage('W_') : [{ name: 'W_last' }],
+      nextPageUrl: call === 1 ? '/services/data/v66.0/ssot/widgets?limit=200&offset=200' : undefined,
+    }));
+
+    const rows = await fetchAllPages<Record<string, unknown>>(org, '66.0', '/widgets?connectionName=Conn_Home', {
+      all: true,
+    });
+
+    assert.equal(urls.length, 2);
+    assert.ok(urls[1].includes('connectionName=Conn_Home'), urls[1]);
+    assert.ok(urls[1].includes('offset=200'), urls[1]);
+    assert.equal(rows.length, 201);
+  });
+
+  it('lets the followed nextPageUrl win where it names the same param', async () => {
+    let call = 0;
+    const { org, urls } = cappedOrg(5, () => ({
+      data: call++ === 0 ? fullPage('W_') : [{ name: 'W_last' }],
+      nextPageUrl: call === 1 ? '/services/data/v66.0/ssot/widgets?dataspace=Followed' : undefined,
+    }));
+
+    await fetchAllPages<Record<string, unknown>>(org, '66.0', '/widgets?dataspace=Base', { all: true });
+
+    assert.ok(urls[1].includes('dataspace=Followed'), urls[1]);
+    assert.ok(!urls[1].includes('dataspace=Base'), urls[1]);
+  });
+
   it('stops when a repeated nextPageUrl is echoed back', async () => {
     const { org, urls } = cappedOrg(5, () => ({
       data: fullPage('W_'),

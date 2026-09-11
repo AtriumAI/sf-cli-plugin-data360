@@ -15,7 +15,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/data-streams/:recordIdOrDeveloperName
+GET /ssot/data-streams/:recordIdOrDeveloperName?includeMappings=true
 
 TESTING
 Unit tested: no

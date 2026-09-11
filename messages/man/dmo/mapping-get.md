@@ -15,7 +15,7 @@ FLAGS
 --timing Print timing breakdown to stderr
 
 API
-GET /ssot/data-model-object-mappings/:objectSourceTargetMapDeveloperName
+GET /ssot/data-model-object-mappings/:objectSourceTargetMapDeveloperName?dataspace=<name>
 
 TESTING
 Unit tested: no
