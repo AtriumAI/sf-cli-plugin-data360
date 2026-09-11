@@ -1,4 +1,5 @@
 import { CrudListCommand, listFlags } from '../../../shared/data360/crudBase.js';
+import { dataspaceFlag } from '../../../shared/data360/Data360Command.js';
 
 export default class Data360SegmentList extends CrudListCommand<Record<string, unknown>> {
   public static readonly summary = 'List Data 360 segment.';
@@ -7,6 +8,7 @@ export default class Data360SegmentList extends CrudListCommand<Record<string, u
 
   public static readonly flags = {
     ...listFlags,
+    ...dataspaceFlag,
   };
 
   protected readonly endpoint = '/segments';
@@ -21,4 +23,8 @@ export default class Data360SegmentList extends CrudListCommand<Record<string, u
     { key: 'publishStatus', name: 'Publish Status' },
     { key: 'lastSegmentMemberCount', name: 'Members' },
   ];
+
+  protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return { ...super.queryParams(flags), dataspace: flags.dataspace as string };
+  }
 }

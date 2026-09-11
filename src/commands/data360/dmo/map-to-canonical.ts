@@ -1,5 +1,5 @@
 import { Flags } from '@salesforce/sf-plugins-core';
-import { Data360Command, data360Flags } from '../../../shared/data360/Data360Command.js';
+import { Data360Command, data360Flags, dataspaceFlag } from '../../../shared/data360/Data360Command.js';
 import { ssotGet, ssotPost } from '../../../shared/data360/ssotClient.js';
 import { normalizeMetadataColumns, QueryResponse } from '../../../shared/data360/queryResult.js';
 import { quoteIdentifier } from '../../../shared/data360/sql.js';
@@ -85,10 +85,7 @@ export default class Data360DmoMapToCanonical extends Data360Command<MapResult> 
       summary: 'Canonical DMO name (e.g., ssot__Individual__dlm).',
       required: true,
     }),
-    dataspace: Flags.string({
-      summary: 'Data space name.',
-      default: 'default',
-    }),
+    ...dataspaceFlag,
     'include-fields': Flags.string({
       summary: 'Comma-separated DLO field names to include.',
     }),

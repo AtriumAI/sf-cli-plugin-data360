@@ -9,6 +9,7 @@ Relationship create Data 360 dmo.
 
 FLAGS
 --api-version Override API version (default: 66.0)
+--dataspace Data space name (default: default)
 --definition-file Path to JSON definition file
 --name Resource name or ID
 --target-org (required) Target org alias or username

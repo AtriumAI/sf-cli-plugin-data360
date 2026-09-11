@@ -1,5 +1,5 @@
 import { CrudGetCommand } from '../../../shared/data360/crudBase.js';
-import { data360Flags } from '../../../shared/data360/Data360Command.js';
+import { data360Flags, dataspaceFlag } from '../../../shared/data360/Data360Command.js';
 
 export default class Data360DataGraphMetadata extends CrudGetCommand<Record<string, unknown>> {
   public static readonly summary = 'Metadata Data 360 data graph.';
@@ -8,6 +8,7 @@ export default class Data360DataGraphMetadata extends CrudGetCommand<Record<stri
 
   public static readonly flags = {
     ...data360Flags,
+    ...dataspaceFlag,
   };
 
   protected readonly endpoint = '/data-graphs/metadata';
@@ -16,4 +17,9 @@ export default class Data360DataGraphMetadata extends CrudGetCommand<Record<stri
     { key: 'name', name: 'Name' },
     { key: 'status', name: 'Status' },
   ];
+
+  // eslint-disable-next-line class-methods-use-this
+  protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return { dataspace: flags.dataspace as string };
+  }
 }

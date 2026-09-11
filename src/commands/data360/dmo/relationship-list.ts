@@ -1,5 +1,6 @@
 import { Flags } from '@salesforce/sf-plugins-core';
 import { CrudListCommand, ListResult, listFlags } from '../../../shared/data360/crudBase.js';
+import { dataspaceFlag } from '../../../shared/data360/Data360Command.js';
 
 export default class Data360DmoRelationshipList extends CrudListCommand<Record<string, unknown>> {
   public static readonly summary = 'Relationship list Data 360 dmo.';
@@ -8,6 +9,7 @@ export default class Data360DmoRelationshipList extends CrudListCommand<Record<s
 
   public static readonly flags = {
     ...listFlags,
+    ...dataspaceFlag,
     name: Flags.string({
       char: 'n',
       summary: 'Name or ID of the resource.',
@@ -29,5 +31,9 @@ export default class Data360DmoRelationshipList extends CrudListCommand<Record<s
       encodeURIComponent(flags.name)
     );
     return super.run();
+  }
+
+  protected queryParams(flags: Record<string, unknown>): Record<string, string | number | boolean | undefined> {
+    return { ...super.queryParams(flags), dataspace: flags.dataspace as string };
   }
 }

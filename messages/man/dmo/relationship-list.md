@@ -10,6 +10,7 @@ Relationship list Data 360 dmo.
 FLAGS
 --all Fetch all pages of results
 --api-version Override API version (default: 66.0)
+--dataspace Data space name (default: default)
 --name Resource name or ID
 --target-org (required) Target org alias or username
 --timing Print timing breakdown to stderr

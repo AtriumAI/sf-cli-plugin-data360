@@ -6,6 +6,7 @@ import { runCommand } from '../../helpers/runCommand.js';
 
 import DmoGet from '../../../src/commands/data360/dmo/get.js';
 import TransformGet from '../../../src/commands/data360/transform/get.js';
+import DataGraphMetadata from '../../../src/commands/data360/data-graph/metadata.js';
 
 describe('CrudGetCommand', () => {
   describe('dmo get', () => {
@@ -58,6 +59,26 @@ describe('CrudGetCommand', () => {
       assert.equal(row.name, 'MyTransform');
       assert.equal(row.status, 'ACTIVE');
       assert.equal(row.createdBy, 'Admin');
+    });
+  });
+  describe('queryParams hook', () => {
+    it('emits no query string when a command overrides nothing', async () => {
+      const { requestLog } = await runCommand(DmoGet, {
+        flags: { 'target-org': {}, 'api-version': '66.0', timing: false, name: 'ssot__Individual__dlm' },
+        defaultResponse: {},
+      });
+
+      assert.ok(!requestLog[0].url.includes('?'), requestLog[0].url);
+      assert.ok(requestLog[0].url.endsWith('/data-model-objects/ssot__Individual__dlm'), requestLog[0].url);
+    });
+
+    it('appends the override as a query string', async () => {
+      const { requestLog } = await runCommand(DataGraphMetadata, {
+        flags: { 'target-org': {}, 'api-version': '66.0', timing: false, dataspace: 'Marketing' },
+        defaultResponse: {},
+      });
+
+      assert.ok(requestLog[0].url.endsWith('/data-graphs/metadata?dataspace=Marketing'), requestLog[0].url);
     });
   });
 });

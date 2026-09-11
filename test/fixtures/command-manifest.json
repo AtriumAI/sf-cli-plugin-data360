@@ -177,7 +177,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/calculated-insights",
       "httpMethod": "GET",
-      "flags": ["all", "api-version", "raw", "target-org", "timing"],
+      "flags": ["all", "api-version", "dataspace", "raw", "target-org", "timing"],
       "arrayKey": "collection.items",
       "batchSize": null,
       "hasNameResolution": false
@@ -573,7 +573,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/data-actions",
       "httpMethod": "GET",
-      "flags": ["all", "api-version", "raw", "target-org", "timing"],
+      "flags": ["all", "api-version", "dataspace", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -645,7 +645,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-graphs/metadata",
       "httpMethod": "",
-      "flags": ["api-version", "raw", "target-org", "timing"],
+      "flags": ["api-version", "dataspace", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1039,7 +1039,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-model-object-mappings",
       "httpMethod": "",
-      "flags": ["api-version", "definition-file", "raw", "target-org", "timing"],
+      "flags": ["api-version", "dataspace", "definition-file", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1075,7 +1075,7 @@
       "baseClass": "CrudActionCommand",
       "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName",
       "httpMethod": "GET",
-      "flags": ["api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["api-version", "dataspace", "name", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1087,7 +1087,7 @@
       "baseClass": "Data360Command",
       "endpoint": "",
       "httpMethod": "",
-      "flags": ["api-version", "raw", "source", "target", "target-org", "timing"],
+      "flags": ["api-version", "dataspace", "raw", "source", "target", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1111,7 +1111,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/data-model-objects/:dataModelObjectName/relationships",
       "httpMethod": "",
-      "flags": ["api-version", "definition-file", "name", "raw", "target-org", "timing"],
+      "flags": ["api-version", "dataspace", "definition-file", "name", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1123,7 +1123,7 @@
       "baseClass": "CrudDeleteCommand",
       "endpoint": "/data-model-objects/relationships/:name",
       "httpMethod": "",
-      "flags": ["api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["api-version", "dataspace", "name", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1135,7 +1135,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/data-model-objects/:dataModelObjectName/relationships",
       "httpMethod": "GET",
-      "flags": ["all", "api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["all", "api-version", "dataspace", "name", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1411,7 +1411,7 @@
       "baseClass": "CrudGetCommand",
       "endpoint": "/data-graphs/metadata",
       "httpMethod": "",
-      "flags": ["api-version", "raw", "target-org", "timing"],
+      "flags": ["api-version", "dataspace", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1723,7 +1723,7 @@
       "baseClass": "CrudCreateCommand",
       "endpoint": "/segments",
       "httpMethod": "",
-      "flags": ["api-version", "definition-file", "raw", "target-org", "timing"],
+      "flags": ["api-version", "dataspace", "definition-file", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
@@ -1783,7 +1783,7 @@
       "baseClass": "CrudListCommand",
       "endpoint": "/segments",
       "httpMethod": "GET",
-      "flags": ["all", "api-version", "raw", "target-org", "timing"],
+      "flags": ["all", "api-version", "dataspace", "raw", "target-org", "timing"],
       "arrayKey": "segments",
       "batchSize": null,
       "hasNameResolution": false

@@ -9,6 +9,7 @@ Mapping get Data 360 dmo.
 
 FLAGS
 --api-version Override API version (default: 66.0)
+--dataspace Data space name (default: default)
 --name Resource name or ID
 --target-org (required) Target org alias or username
 --timing Print timing breakdown to stderr

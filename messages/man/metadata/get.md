@@ -9,6 +9,7 @@ Get Data 360 metadata.
 
 FLAGS
 --api-version Override API version (default: 66.0)
+--dataspace Data space name (default: default)
 --target-org (required) Target org alias or username
 --timing Print timing breakdown to stderr
 

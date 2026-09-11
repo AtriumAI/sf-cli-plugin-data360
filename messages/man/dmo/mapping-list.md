@@ -9,6 +9,7 @@ List field mappings between a DLO and DMO.
 
 FLAGS
 --api-version Override API version (default: 66.0)
+--dataspace Data space name (default: default)
 --source Source DLO developer name
 --target Target DMO developer name
 --target-org (required) Target org alias or username

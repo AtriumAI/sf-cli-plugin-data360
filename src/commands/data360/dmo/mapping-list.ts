@@ -1,5 +1,5 @@
 import { Flags } from '@salesforce/sf-plugins-core';
-import { Data360Command, data360Flags } from '../../../shared/data360/Data360Command.js';
+import { Data360Command, data360Flags, dataspaceFlag } from '../../../shared/data360/Data360Command.js';
 import { ssotGet, SsotTiming } from '../../../shared/data360/ssotClient.js';
 import { buildPath } from '../../../shared/data360/pathBuilder.js';
 
@@ -30,6 +30,7 @@ export default class Data360DmoMappingList extends Data360Command<MappingListRes
 
   public static readonly flags = {
     ...data360Flags,
+    ...dataspaceFlag,
     source: Flags.string({
       char: 's',
       summary: 'Source DLO developer name (e.g. Contact_Home__dll).',
@@ -50,6 +51,7 @@ export default class Data360DmoMappingList extends Data360Command<MappingListRes
     const path = buildPath('/data-model-object-mappings', undefined, {
       dloDeveloperName: flags.source,
       dmoDeveloperName: flags.target,
+      dataspace: flags.dataspace,
     });
 
     let ssotTiming: SsotTiming | undefined;
