@@ -282,3 +282,34 @@ describe('pagination termination', () => {
     assert.equal(result.totalSize, 400);
   });
 });
+
+describe('empty response body', () => {
+  /** An endpoint with nothing to return answers with no body, which reaches the paginator as undefined; a JSON null is the same case. */
+  const emptyBodies: Array<[string, unknown]> = [
+    ['undefined', undefined],
+    ['null', null],
+  ];
+
+  for (const [label, body] of emptyBodies) {
+    it(`returns an empty page when the body is ${label}`, async () => {
+      const { requestLog, result, output } = await runCommand(WidgetList, {
+        flags: { ...allFlags, all: false },
+        responses: new Map<string, unknown>([['/widgets', body]]),
+      });
+
+      assert.equal(requestLog.length, 1);
+      assert.deepEqual(result, { data: [], totalSize: 0 });
+      assert.ok(output.includes('No results.'), output.join(' '));
+    });
+
+    it(`stops after one page with --all when the body is ${label}`, async () => {
+      const { requestLog, result } = await runCommand(WidgetList, {
+        flags: allFlags,
+        responses: new Map<string, unknown>([['/widgets', body]]),
+      });
+
+      assert.equal(requestLog.length, 1);
+      assert.deepEqual(result, { data: [], totalSize: 0 });
+    });
+  }
+});

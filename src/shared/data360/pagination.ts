@@ -88,7 +88,8 @@ const cursorSource = (response: Record<string, unknown>, arrayKey?: string): Rec
 
 /** Parse raw API response into a PaginatedResponse. */
 const toPage = <T>(response: Record<string, unknown>, arrayKey?: string): PaginatedResponse<T> => {
-  const src = cursorSource(response, arrayKey);
+  // An endpoint with nothing to return answers with no body, which arrives here as undefined.
+  const src = isRecord(response) ? cursorSource(response, arrayKey) : {};
   const str = (key: string): string | undefined => (typeof src[key] === 'string' ? (src[key] as string) : undefined);
   return {
     data: extractArray<T>(response, arrayKey),
