@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **248 tests**, ~10 seconds.
+Total: **252 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -116,10 +116,10 @@ node --loader ts-node/esm scripts/generate-manifest.mjs
 
 **Files:** `test/shared/*.test.ts`
 
-| Utility     | Tests | What's Tested                                                                                     |
-| ----------- | ----- | ------------------------------------------------------------------------------------------------- |
-| pathBuilder | 16    | Param injection/encoding, unresolved-token guard, query-string building                           |
-| pagination  | 18    | Cursor styles and their termination, and carrying the request query onto a followed `nextPageUrl` |
+| Utility     | Tests | What's Tested                                                                                                            |
+| ----------- | ----- | ------------------------------------------------------------------------------------------------------------------------ |
+| pathBuilder | 16    | Param injection/encoding, unresolved-token guard, query-string building                                                  |
+| pagination  | 22    | Cursor styles and their termination, empty response bodies, and carrying the request query onto a followed `nextPageUrl` |
 
 ## Packaging Tests (18 tests)
 
