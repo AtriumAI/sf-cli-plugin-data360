@@ -1,5 +1,5 @@
 /**
- * Tier 3: the four agent-reachable commands whose endpoint carries two :params.
+ * Tier 3: the five agent-reachable commands whose endpoint carries two :params.
  *
  * Each must resolve BOTH params, and must declare a flag for the second one —
  * an undeclared flag is an oclif parse failure before any HTTP request.
@@ -12,6 +12,7 @@ import ConnectionFields from '../../../src/commands/data360/connection/fields.js
 import ConnectionRunExisting from '../../../src/commands/data360/connection/run-existing.js';
 import DataKitDependencies from '../../../src/commands/data360/data-kit/dependencies.js';
 import DataKitStatus from '../../../src/commands/data360/data-kit/status.js';
+import DmoMappingDeleteFields from '../../../src/commands/data360/dmo/mapping-delete-fields.js';
 import UniversalIdLookup from '../../../src/commands/data360/universal-id/lookup.js';
 
 // The cases span List/Get/Action bases, whose result types differ.
@@ -63,6 +64,20 @@ const cases: Array<{
     secondFlag: 'component',
     flags: { ...baseFlags, name: 'Sales', component: 'Account' },
     expectedPath: '/services/data/v66.0/ssot/data-kits/Sales/components/Account/deployment-status',
+    defaultResponse: {},
+  },
+  {
+    label: 'dmo mapping-delete-fields',
+    Command: DmoMappingDeleteFields as AnyData360Command,
+    secondFlag: 'field-mapping',
+    flags: {
+      ...baseFlags,
+      dataspace: 'default',
+      name: 'Orders_map_Order_1',
+      'field-mapping': 'Qty_c__c_fieldmap_Qty__c',
+    },
+    expectedPath:
+      '/services/data/v66.0/ssot/data-model-object-mappings/Orders_map_Order_1/field-mappings/Qty_c__c_fieldmap_Qty__c',
     defaultResponse: {},
   },
 ];
@@ -132,6 +147,28 @@ describe('multi-param path resolution', () => {
         ['Id', 'Tour_DateTime_c']
       );
       assert.equal(result.data[1].type, 'DateTime');
+    });
+  });
+
+  describe('dmo mapping-delete-fields deletes one pair', () => {
+    it('DELETEs the item path in the data space and reports the pair', async () => {
+      const { requestLog, result } = await runCommand(DmoMappingDeleteFields, {
+        flags: {
+          ...baseFlags,
+          dataspace: 'default',
+          name: 'Orders_map_Order_1',
+          'field-mapping': 'Qty_c__c_fieldmap_Qty__c',
+        },
+        defaultResponse: {},
+      });
+
+      assert.equal(requestLog.length, 1);
+      assert.equal(requestLog[0].method, 'DELETE');
+      assert.equal(
+        requestLog[0].url,
+        '/services/data/v66.0/ssot/data-model-object-mappings/Orders_map_Order_1/field-mappings/Qty_c__c_fieldmap_Qty__c?dataspace=default'
+      );
+      assert.deepEqual(result, { success: true, id: 'Qty_c__c_fieldmap_Qty__c' });
     });
   });
 

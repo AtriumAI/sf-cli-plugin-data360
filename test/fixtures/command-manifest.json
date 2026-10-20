@@ -1047,11 +1047,11 @@
     {
       "name": "data360 dmo mapping-delete-fields",
       "file": "src/commands/data360/dmo/mapping-delete-fields.ts",
-      "summary": "Mapping delete fields Data 360 dmo.",
+      "summary": "Delete one field mapping from a DLO→DMO mapping.",
       "baseClass": "CrudDeleteCommand",
-      "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings",
+      "endpoint": "/data-model-object-mappings/:objectSourceTargetMapDeveloperName/field-mappings/:fieldSourceTargetMapDeveloperName",
       "httpMethod": "",
-      "flags": ["api-version", "name", "raw", "target-org", "timing"],
+      "flags": ["api-version", "dataspace", "field-mapping", "name", "raw", "target-org", "timing"],
       "arrayKey": "",
       "batchSize": null,
       "hasNameResolution": false
