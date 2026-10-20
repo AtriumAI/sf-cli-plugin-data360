@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **256 tests**, ~10 seconds.
+Total: **263 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -62,7 +62,7 @@ Tests the shared CRUD base classes using real command subclasses with mocked API
 
 **What it catches:** Regression in shared request building, pagination, response parsing.
 
-## Tier 3: Hand-Tuned Command Tests (135 tests)
+## Tier 3: Hand-Tuned Command Tests (142 tests)
 
 **Files:** `test/commands/handtuned/*.test.ts`
 
@@ -84,7 +84,7 @@ Tests commands with custom `run()` implementations:
 | docai generate-schema          | `docai-generate-schema.test.ts`        | Org-level action, definition body, no path param                      |
 | docai detect-schema            | `docai-detect-schema.test.ts`          | Definition body, threshold query param, v67.0 default                 |
 | search-index config            | `search-index-config.test.ts`          | Org-level GET, no `--name`; config field surfaced                     |
-| dmo create-from-dlo            | `dmo-create-from-dlo.test.ts`          | DLO SQL type → DMO type parity; orphan DMO error                      |
+| dmo create-from-dlo            | `dmo-create-from-dlo.test.ts`          | Declared DLO type, SQL fallback, record-currency pair; orphan DMO     |
 | --dataspace (12 commands)      | `dataspace-query-param.test.ts`        | Exact query URL per command, for an explicit space and for `default`  |
 | list filter params             | `list-filters.test.ts`                 | Exact query URL per filter flag, with a paired omitted-flag case      |
 | data-stream --include-mappings | `data-stream-include-mappings.test.ts` | `includeMappings` on the URL; `mappings` carried into the result      |

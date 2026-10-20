@@ -28,7 +28,7 @@ These have dedicated test files with mocked API responses:
 | `data-kit dependencies`       | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
 | `data-kit status`             | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
 | `data-stream delete`          | `crudDelete.test.ts`                  | DELETE + shouldDeleteDataLakeObject param                             |
-| `dmo create-from-dlo`         | `dmo-create-from-dlo.test.ts`         | DLO SQL type → DMO type parity; orphan DMO error                      |
+| `dmo create-from-dlo`         | `dmo-create-from-dlo.test.ts`         | Declared DLO type, SQL fallback, record-currency pair; orphan DMO     |
 | `dmo get`                     | `crudGet.test.ts`                     | GET path injection, response mapping                                  |
 | `dmo list`                    | `crudList.test.ts`                    | Pagination, batchSize=50, mapRecord                                   |
 | `dmo mapping-delete-fields`   | `multi-path-param.test.ts`            | DELETE of one pair; both :params resolved                             |
