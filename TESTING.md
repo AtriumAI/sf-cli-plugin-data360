@@ -11,7 +11,7 @@ Tier 3: Hand-Tuned Tests      — Do custom commands (name resolution, SQL, etc.
 Tier 4: Inventory Snapshot    — Has any command been added, removed, or changed?
 ```
 
-Total: **263 tests**, ~10 seconds.
+Total: **264 tests**, ~10 seconds.
 
 ## Running Tests
 
@@ -62,7 +62,7 @@ Tests the shared CRUD base classes using real command subclasses with mocked API
 
 **What it catches:** Regression in shared request building, pagination, response parsing.
 
-## Tier 3: Hand-Tuned Command Tests (142 tests)
+## Tier 3: Hand-Tuned Command Tests (143 tests)
 
 **Files:** `test/commands/handtuned/*.test.ts`
 

@@ -148,8 +148,13 @@ describe('dmo create-from-dlo type derivation', () => {
   });
 
   it('falls back to the SQL type for a field the DLO declares no type for', async () => {
-    const { requestLog } = await runWithDeclared({ Id__c: 'VARCHAR', Start__c: 'DATE' }, [['Id__c', 'Text']]);
-    assert.equal(fieldNamed(dmoFields(requestLog[2].body), 'Start_c').dataType, 'Date');
+    const { requestLog } = await runWithDeclared({ Id__c: 'VARCHAR', Start__c: 'DATE', End__c: 'DATE' }, [
+      ['Id__c', 'Text'],
+      ['End__c', ''],
+    ]);
+    const fields = dmoFields(requestLog[2].body);
+    assert.equal(fieldNamed(fields, 'Start_c').dataType, 'Date');
+    assert.equal(fieldNamed(fields, 'End_c').dataType, 'Date');
   });
 
   it('maps the record-currency field onto the DMO system field when a Currency field lands', async () => {
@@ -174,6 +179,14 @@ describe('dmo create-from-dlo type derivation', () => {
       ['cdp_sys_record_currency__c', 'Text'],
     ]);
     assert.ok(!dmoFields(requestLog[2].body).some((f) => f.name.startsWith('cdp_sys_record_currency')));
+    assert.ok(!fieldPairs(requestLog[3].body).some((p) => p.sourceFieldDeveloperName === 'cdp_sys_record_currency__c'));
+  });
+
+  it('adds no record-currency pair when the DLO has no record-currency field', async () => {
+    const { requestLog } = await runWithDeclared({ Id__c: 'VARCHAR', Amount__c: 'DECIMAL' }, [
+      ['Id__c', 'Text'],
+      ['Amount__c', 'Currency'],
+    ]);
     assert.ok(!fieldPairs(requestLog[3].body).some((p) => p.sourceFieldDeveloperName === 'cdp_sys_record_currency__c'));
   });
 
