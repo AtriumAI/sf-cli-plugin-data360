@@ -1,15 +1,15 @@
 import { SfError } from '@salesforce/core';
 import { Flags } from '@salesforce/sf-plugins-core';
 import { Data360Command, data360Flags, dataspaceFlag } from '../../../shared/data360/Data360Command.js';
-import { ssotPost } from '../../../shared/data360/ssotClient.js';
+import { ssotGet, ssotPost } from '../../../shared/data360/ssotClient.js';
 import { normalizeMetadataColumns, QueryResponse } from '../../../shared/data360/queryResult.js';
 import { quoteIdentifier } from '../../../shared/data360/sql.js';
 import { buildPath } from '../../../shared/data360/pathBuilder.js';
 
 // ─── Type mapping: DLO SQL types → DMO field types ───
 
-// The mapping POST enforces type parity with the DLO column, so DATE must not
-// widen to DateTime — that failed the mapping and left an orphan DMO.
+// Fallback only, for a field the DLO declares no dataType for. The mapping POST
+// enforces type parity, so DATE must not widen to DateTime.
 const TYPE_MAP: Record<string, string> = {
   VARCHAR: 'Text',
   DECIMAL: 'Number',
@@ -42,6 +42,21 @@ type FieldPair = { sourceFieldDeveloperName: string; targetFieldDeveloperName: s
 
 const toDmoType = (sqlType: string): string => TYPE_MAP[sqlType.toUpperCase()] ?? 'Text';
 
+// A Currency field makes the API add this system field to the DMO, so the DLO's copy maps onto it.
+const RECORD_CURRENCY_FIELD = 'cdp_sys_record_currency__c';
+
+/** The DLO's own field types; its SQL schema reads a Currency field as DECIMAL. */
+const declaredTypes = (response: Record<string, unknown>): Map<string, string> => {
+  // Wrapped as { dataLakeObjects: [...] }, which dlo get unwraps the same way.
+  const dlos = Array.isArray(response.dataLakeObjects) ? (response.dataLakeObjects as unknown[]) : [response];
+  const fields = (dlos[0] as { fields?: unknown } | undefined)?.fields;
+  const types = new Map<string, string>();
+  for (const f of Array.isArray(fields) ? (fields as Array<{ name?: unknown; dataType?: unknown }>) : []) {
+    if (typeof f?.name === 'string' && typeof f.dataType === 'string' && f.dataType) types.set(f.name, f.dataType);
+  }
+  return types;
+};
+
 const isSkippedField = (name: string): boolean =>
   SKIP_FIELDS.has(name) || name.startsWith('KQ_') || !name.endsWith('__c');
 
@@ -53,6 +68,7 @@ const isFilteredOut = (name: string, include: Set<string> | null, exclude: Set<s
 
 const buildDmoFieldsFromColumns = (
   columns: Array<{ name: string; type: string }>,
+  types: Map<string, string>,
   include: Set<string> | null,
   exclude: Set<string> | null
 ): { dmoFields: DmoField[]; fieldMapping: FieldPair[]; skippedByFilter: number } => {
@@ -62,7 +78,7 @@ const buildDmoFieldsFromColumns = (
   let pkFound = false;
 
   for (const col of columns) {
-    if (isSkippedField(col.name)) continue;
+    if (isSkippedField(col.name) || col.name === RECORD_CURRENCY_FIELD) continue;
     if (isFilteredOut(col.name, include, exclude)) {
       skippedByFilter++;
       continue;
@@ -76,7 +92,7 @@ const buildDmoFieldsFromColumns = (
     dmoFields.push({
       name: dmoFieldName,
       label: stripped.replace(/_/g, ' '),
-      dataType: toDmoType(col.type),
+      dataType: types.get(col.name) ?? toDmoType(col.type),
       isPrimaryKey: isPk,
     });
 
@@ -90,13 +106,20 @@ const buildDmoFieldsFromColumns = (
     dmoFields[0].isPrimaryKey = true;
   }
 
+  if (dmoFields.some((f) => f.dataType === 'Currency') && columns.some((c) => c.name === RECORD_CURRENCY_FIELD)) {
+    fieldMapping.push({
+      sourceFieldDeveloperName: RECORD_CURRENCY_FIELD,
+      targetFieldDeveloperName: RECORD_CURRENCY_FIELD,
+    });
+  }
+
   return { dmoFields, fieldMapping, skippedByFilter };
 };
 
 export default class Data360DmoCreateFromDlo extends Data360Command<CreateFromDloResult> {
   public static readonly summary = 'Create a DMO from an existing DLO with auto-mapping.';
   public static readonly description =
-    'Describes the DLO schema, creates a DMO with mapped field types, then creates the DLO→DMO field mapping. Replicates the Python CLI create-dmo-from-dlo workflow.';
+    "Describes the DLO schema, creates a DMO whose fields take the DLO fields' declared types, then creates the DLO→DMO field mapping. A Currency field also maps the DLO's cdp_sys_record_currency__c onto the DMO's system field of that name.";
   public static readonly examples = [
     '$ sf data360 dmo create-from-dlo --target-org myorg --dlo ADL_GF_EAT_Docs__dll',
     '$ sf data360 dmo create-from-dlo --target-org myorg --dlo MyData__dll --dmo MyCustomDMO --category Other',
@@ -162,9 +185,15 @@ export default class Data360DmoCreateFromDlo extends Data360Command<CreateFromDl
       this.error(`No columns found for DLO "${dloName}". Is the name correct?`);
     }
 
-    // Step 2: Build DMO fields from DLO columns
+    // Step 2: Build DMO fields from DLO columns, typed as the DLO declares them
+    const dlo = await ssotGet<Record<string, unknown>>(
+      this.org,
+      this.apiVersion,
+      buildPath('/data-lake-objects/:recordIdOrDeveloperName', { recordIdOrDeveloperName: dloName })
+    );
     const { dmoFields, fieldMapping, skippedByFilter } = buildDmoFieldsFromColumns(
       columns,
+      declaredTypes(dlo),
       includeFields,
       excludeFields
     );

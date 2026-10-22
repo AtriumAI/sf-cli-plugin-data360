@@ -1,6 +1,6 @@
 # Plugin Status
 
-> Last updated: 2026-09-08
+> Last updated: 2026-10-20
 
 ## Testing Summary
 
@@ -8,11 +8,11 @@
 | ---------------------------------- | --------- | -------------------------------------------- |
 | Smoke tested                       | 163 / 163 | Imports, flags, metadata valid               |
 | Inventory snapshot                 | 163 / 163 | No unintentional changes                     |
-| Unit tested (mocked API)           | 33        | Correct requests, responses, name resolution |
+| Unit tested (mocked API)           | 34        | Correct requests, responses, name resolution |
 | Live tested (real org)             | 17        | End-to-end verified, 2026-03-18              |
-| Smoke only (untested individually) | 130       | Covered by CRUD base class tests             |
+| Smoke only (untested individually) | 129       | Covered by CRUD base class tests             |
 
-## Unit Tested Commands (33)
+## Unit Tested Commands (34)
 
 These have dedicated test files with mocked API responses:
 
@@ -28,9 +28,10 @@ These have dedicated test files with mocked API responses:
 | `data-kit dependencies`       | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
 | `data-kit status`             | `multi-path-param.test.ts`            | Both :params resolved (dataKitName, componentName)                    |
 | `data-stream delete`          | `crudDelete.test.ts`                  | DELETE + shouldDeleteDataLakeObject param                             |
-| `dmo create-from-dlo`         | `dmo-create-from-dlo.test.ts`         | DLO SQL type → DMO type parity; orphan DMO error                      |
+| `dmo create-from-dlo`         | `dmo-create-from-dlo.test.ts`         | Declared DLO type, SQL fallback, record-currency pair; orphan DMO     |
 | `dmo get`                     | `crudGet.test.ts`                     | GET path injection, response mapping                                  |
 | `dmo list`                    | `crudList.test.ts`                    | Pagination, batchSize=50, mapRecord                                   |
+| `dmo mapping-delete-fields`   | `multi-path-param.test.ts`            | DELETE of one pair; both :params resolved                             |
 | `dmo mapping-list`            | `dmo-mapping-list.test.ts`            | dloDeveloperName/dmoDeveloperName params, nested response             |
 | `dmo mapping-update-field`    | `crudUpdate.test.ts`                  | PATCH to field-mappings collection, definition-file body              |
 | `docai detect-schema`         | `docai-detect-schema.test.ts`         | Definition body, threshold query param, v67.0 default                 |
@@ -76,21 +77,21 @@ Verified against a real Data Cloud org on 2026-03-18:
 | `segment list`             | 2 segments with member counts                |
 | `segment publish`          | Publish started (name→ID resolved)           |
 
-## Smoke-Only Commands (130)
+## Smoke-Only Commands (129)
 
-These 130 commands pass smoke tests (import, flags, metadata) and are covered by their CRUD base class tests, but have no individual unit or live tests. They extend standard base classes:
+These 129 commands pass smoke tests (import, flags, metadata) and are covered by their CRUD base class tests, but have no individual unit or live tests. They extend standard base classes:
 
 - **CrudListCommand** (18): activation list, activation-target list, connection connector-list, etc.
 - **CrudGetCommand** (33): activation data, activation get, activation platforms, etc.
 - **CrudCreateCommand** (19): activation create, activation-target create, calculated-insight create, etc.
 - **CrudUpdateCommand** (18): activation update, activation-target update, calculated-insight update, etc.
-- **CrudDeleteCommand** (13): activation delete, calculated-insight delete, connection delete, etc.
+- **CrudDeleteCommand** (12): activation delete, calculated-insight delete, connection delete, etc.
 - **CrudActionCommand** (16): calculated-insight run, connection run, connection test-existing, etc.
 - **Data360Command** (12): data-stream create-from-object, dmo map-to-canonical, doctor, etc.
 - **SfCommand** (1): man
 
-These are smoke-only counts, not per-base-class totals: the 33 unit-tested commands are
-already subtracted, so the eight figures partition the 130 and no command is counted twice.
+These are smoke-only counts, not per-base-class totals: the 34 unit-tested commands are
+already subtracted, so the eight figures partition the 129 and no command is counted twice.
 
 ## Help Wanted — Testing on Your Org
 
